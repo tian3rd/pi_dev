@@ -1,0 +1,34 @@
+# Auto generated file by tn_monitor_ctrl.py
+# at 2021-11-04 23:02:10
+#
+# Using the default parameters
+[default]
+gain=1.00
+acquire=3
+dcuid=52
+ifoid=0
+datatype=4
+datarate=16
+offset=0
+slope=1.0
+units=undef
+
+#
+# Following content lines to be manually added to the edc.ini file,
+# which points to /opt/rtcds/anu/n1/chans/daq/N1FE1_EDC.ini
+#
+# Then the standalone_edc service (rts-edc.service on n1fe1) and the daqd
+# service (rts-daqd.service) on the n1fb10) will need to be restarted to
+# the changes into effect.
+
+[N1:TNE-PEM_PPS]
+[N1:TNE-PEM_MONITOR1]
+[N1:TNE-PEM_MONITOR2]
+[N1:TNE-PEM_MONITOR3]
+[N1:TNE-PEM_MONITOR4]
+[N1:TNE-PEM_MONITOR5]
+[N1:TNE-PEM_MONITOR6]
+[N1:TNE-PEM_TEMPERATURE_CRYOPUMP_C]
+[N1:TNE-PEM_COUNTER_200HZ]
+[N1:TNE-PEM_COUNTER_LOOP]
+[N1:TNE-PEM_TN_MONITOR_CTRL_VERSION]
