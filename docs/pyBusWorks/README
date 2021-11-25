@@ -1,0 +1,7 @@
+The folder contains the python package pyBusWorks, written for controlling an ACROMAG BusWorks XT1541-000 through a TCP connection. The following files are found in this folder:
+
+- The main file busworks.py contains the pyBusWorks package for controlling an ACROMAG BusWorks XT1541-000 through TCP.
+
+- The Jupyter-notebook busworks.ipynb contains examples on how to use this python package.
+
+- The Jupyter-notebook testing.ipynd contains various tests that were run while developing the code.
