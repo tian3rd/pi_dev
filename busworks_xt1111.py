@@ -118,7 +118,9 @@ class BusWorksXT1111(object):
         '''
         if gains % 3 != 0 or gains < 0 or gains > 45:
             raise BaseException('Gains must be a multiple of 3 and between 0 and 45.')
-        first_four_ios = int(bin(gains//3)[-4:][::-1], 2)
+        bins = bin(gains//3)[2:]
+        bins = '0' * (4 - len(bins)) + bins
+        first_four_ios = int(bins[::-1], 2)
         # 0 is the starting address for the first four i/o; 1 is the starting address for i/o 4 to 7; etc.
         self.XT1111.write_register(0, first_four_ios)
 
@@ -128,6 +130,6 @@ class BusWorksXT1111(object):
         '''
         if type(filters) != list or len(filters) != 3 or not all(x in [0, 1] for x in filters):
             raise BaseException('Filters must be a list of three elements (0 or 1).')
-        second_four_ios = int("".join(map(str, filters))+str(self.le), 2)
+        second_four_ios = int(("".join(map(str, filters))+str(self.le))[::-1], 2)
         self.XT1111.write_register(1, second_four_ios)
         
