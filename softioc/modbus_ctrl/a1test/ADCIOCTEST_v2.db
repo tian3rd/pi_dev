@@ -1,0 +1,68 @@
+record(ai, "A3:ACROMAG_INPUT0")
+{
+	field(SCAN, ".1 second")
+	field(FLNK, "A3:ACROMAG_INPUT0_C.PROC")
+	field(DTYP, "asynInt32")
+	field(INP, "@asynMask(ADC_Reg 0 -16)MODBUS_DATA")
+}
+record(ai, "A3:ACROMAG_INPUT1")
+{
+	field(SCAN, ".1 second")
+	field(FLNK, "A3:ACROMAG_INPUT1_C.PROC")
+	field(DTYP, "asynInt32")
+	field(INP, "@asynMask(ADC_Reg 1 -16)MODBUS_DATA")
+}
+record(ai, "A3:ACROMAG_INPUT2")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A3:ACROMAG_INPUT2_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(ADC_Reg 2 -16)MODBUS_DATA")
+}
+record(ai, "A3:ACROMAG_INPUT3")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A3:ACROMAG_INPUT3_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(ADC_Reg 3 -16)MODBUS_DATA")
+}
+record(ai, "A3:ACROMAG_INPUT4")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A3:ACROMAG_INPUT4_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(ADC_Reg 4 -16)MODBUS_DATA")
+}
+record(ai, "A3:ACROMAG_INPUT5")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A3:ACROMAG_INPUT5_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(ADC_Reg 5 -16)MODBUS_DATA")
+}
+record(ai, "A3:ACROMAG_INPUT6")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A3:ACROMAG_INPUT6_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(ADC_Reg 6 -16)MODBUS_DATA")
+}
+record(ai, "A3:ACROMAG_INPUT7")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A3:ACROMAG_INPUT7_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(ADC_Reg 7 -16)MODBUS_DATA")
+}
+
+
+
+
+#record(bi, "A3:ACROMAG_BI0")
+#{
+#	field(DTYP,"asynUInt32Digital")
+#	field(INP,"@asynMask(BIO_Reg, 0, 0x1)")
+#        field(ZNAM,"zero")
+#        field(ONAM,"one")
+#	field(SCAN, ".1 second")
+#}

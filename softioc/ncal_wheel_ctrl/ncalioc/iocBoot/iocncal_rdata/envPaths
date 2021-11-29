@@ -1,0 +1,2 @@
+epicsEnvSet("IOC","iocncal_rdata")
+epicsEnvSet("TOP","/home/controls/Documents/ncal_wheel_ctrl/ncalioc")

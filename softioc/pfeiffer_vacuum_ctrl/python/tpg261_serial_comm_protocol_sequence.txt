@@ -1,0 +1,56 @@
+>>> import serial
+>>> ser = serial.Serial('/dev/ttyUSB0')
+>>> print(ser.name)
+/dev/ttyUSB0
+
+>>> ser.write(b'PNR\r\n')       <-- sent <..CMD..><CR><LF>
+5                               <-- number of bytes written
+>>> out = ser.readline()        <-- receive <ACK><CR><LF>
+>>> print(out)
+b'\x06\r\n'                     <-- receive <ACK = HEX 06><CR><LF>
+>>> ser.write(b'\x05')          <-- sent <ENQ>
+1
+>>> out = ser.readline()        <-- receive <..data..><CR><LF>
+>>> print(out)
+b'302-510-C\r\n'                <-- receive <..data..><CR><LF>
+>>> print(out.decode('utf-8'))
+302-510-C                       <-- received data decoded
+
+>>>
+
+
+
+
+
+
+>>> ser.write(b'PNR\r\n')       <- <CMD><CR><LF>
+5
+>>> ser.write(b'\x05')      <-- <ENQ>
+1
+>>> out = ser.readline()
+>>> print(out.decode('utf-8'))
+
+
+>>> ser.write(b'PR1\r\n')
+5
+>>> ser.write(b'\x05')
+1
+>>> out = ser.readline()
+>>> print(out.decode('utf-8'))
+302-510-C
+
+>>> ser.write(b'\x05')
+1
+>>> out = ser.readline()
+>>> print(out.decode('utf-8'))
+
+
+>>> ser.write(b'PR1\r\n')
+5
+>>> ser.write(b'\x05')
+1
+>>> out = ser.readline()
+>>> print(out.decode('utf-8'))
+5, 2.0000E-02
+
+>>> 

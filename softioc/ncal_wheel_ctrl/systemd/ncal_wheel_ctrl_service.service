@@ -1,0 +1,48 @@
+# systemd unit file for the pfeiffer pvserver service
+#
+# Installation
+# sudo cp systemd/ncal_wheel_ctrl_service.service /etc/systemd/system/
+#
+# sudo mkdir /usr/local/lib/ncal_wheel_ctrl_service
+# sudo cp python/ncal_response.py /usr/local/lib/ncal_wheel_ctrl_service/ncal_wheel_ctrl.py
+#
+# location of this file
+# /etc/systemd/system/ncal_wheel_ctrl_service.service
+#
+# enable with
+# $ sudo systemctl enable ncal_wheel_ctrl_service.service
+#
+# start with
+# $ sudo systemctl start ncal_wheel_ctrl_service.service
+#
+# check status with 
+# $ sudo systemctl status ncal_wheel_ctrl_service.service
+
+[Unit]
+# Human readable name of the unit
+Description=Python Ncal Wheel CTRL RPI PV Server Service
+
+
+[Service]
+# Command to execute when the service is started
+ExecStart=/usr/bin/python3 /usr/local/lib/ncal_wheel_ctrl_service/ncal_wheel_ctrl.py
+
+# Disable Python's buffering of STDOUT and STDERR, so that output from the
+# service shows up immediately in systemd's logs
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONPATH=/opt/rtapps/linux-arm/epics-3.15.5_long/pyext/pcaspy/lib/python3.7/site-packages:/opt/rtapps/linux-arm/epics-3.15.5_long/pyext/pyepics/lib/python3.7/site-packages
+
+# Automatically restart the service if it crashes
+Restart=on-failure
+
+# Our service will notify systemd once it is up and running
+Type=notify
+
+# Use a dedicated user to run our service
+User=controls
+
+
+[Install]
+# Tell systemd to automatically start this service when the system boots
+# (assuming the service is enabled)
+WantedBy=default.target

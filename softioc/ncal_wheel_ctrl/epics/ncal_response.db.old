@@ -1,0 +1,170 @@
+#
+# ncal_response: example EPICS database for ncal_response Arduino code
+#
+# ===== ============================
+# macro meaning
+# ===== ============================
+# P     prefix for this database
+# PORT  asyn port to be used
+# ===== ============================
+
+#record(stringout, "$(P)cmd") {
+#    field(DESC, "command interface")
+#    field(DTYP, "stream")
+#    field(OUT,  "@ncal_response.proto debug $(PORT)")
+#}
+
+record(ai, "$(P)PULL_FREQUENCY_16HZ") {
+    field(DESC, "Get the Motor PULL frequency")
+    field(PREC, "2")
+    field(EGU,  "Hz")
+    field(DTYP, "stream")
+    field(INP,  "@ncal_response.proto get(pf) $(PORT)")
+    field(SCAN, ".0625 second")
+}
+
+#record(ao, "$(P)SET_PULL_FREQUENCY") {
+#    field(DESC, "Set the Motor PULL frequency")
+#    # field(VAL,  "0.5")
+#    field(PREC, "2")
+#    #field(PINI, "1")
+#    field(EGU,  "Hz")
+#    field(DTYP, "stream")
+#    field(OUT,  "@ncal_response.proto set(pf) $(PORT)")
+#    # field(AOFF, "0")
+#    # field(ASLO, "0.001")  # raw units are milliseconds
+#    field(HOPR, "1000.000")
+#    field(LOPR, "0.000")
+#    field(DRVH, "45000.000")
+#    field(DRVL, "0.000")
+#}
+
+record(ao, "$(P)PULL_FREQUENCY") {
+    field(DESC, "Linear set the Motor PULL frequency")
+    # field(VAL,  "0.5")
+    field(PREC, "2")
+    #field(PINI, "1")
+    field(EGU,  "Hz")
+    field(DTYP, "stream")
+    field(OUT,  "@ncal_response.proto set(pd) $(PORT)")
+    # field(AOFF, "0")
+    # field(ASLO, "0.001")  # raw units are milliseconds
+    field(HOPR, "45000.000")
+    field(LOPR, "0.000")
+    field(DRVH, "45000.000")
+    field(DRVL, "0.000")
+}
+
+record(ai, "$(P)RAW_FREQUENCY_1HZ") {
+    field(DESC, "Get the raw photogate pulse frequency")
+    field(PREC, "4")
+    field(EGU,  "Hz")
+    field(DTYP, "stream")
+    field(INP,  "@ncal_response.proto get(rf) $(PORT)")
+    field(SCAN, ".0625 second")
+}
+
+record(ai, "$(P)RAW_FREQUENCY_16HZ") {
+    field(DESC, "Get the raw photogate pulse frequency")
+    field(PREC, "4")
+    field(EGU,  "Hz")
+    field(DTYP, "stream")
+    field(INP,  "@ncal_response.proto get(if) $(PORT)")
+    field(SCAN, ".0625 second")
+}
+
+record(ai, "$(P)ANGULAR_FREQUENCY_16HZ") {
+    field(DESC, "Get the wheel angular frequency")
+    field(PREC, "4")
+    field(EGU,  "Hz")
+    field(DTYP, "stream")
+    field(INP,  "@ncal_response.proto get(af) $(PORT)")
+    field(SCAN, ".0625 second")
+}
+
+
+record(ao, "$(P)AVERAGING_FACTOR") {
+    field(DESC, "Set raw frequency averaging factor")
+    # field(VAL,  "0.5")
+    field(PREC, "1")
+    #field(PINI, "1")
+    # field(EGU,  "-")
+    field(DTYP, "stream")
+    field(OUT,  "@ncal_response.proto update(k) $(PORT)")
+    # field(AOFF, "0")
+    # field(ASLO, "0.001")  # raw units are milliseconds
+    field(HOPR, "1000.0")
+    field(LOPR, "1.0")
+    field(DRVH, "1000.0")
+    field(DRVL, "1.0")
+}
+
+record(ao, "$(P)ANGULAR_ACCELERATION") {
+    field(DESC, "Set raw frequency averaging factor")
+    field(PREC, "4")
+    # field(EGU,  "-")
+    field(DTYP, "stream")
+    field(OUT,  "@ncal_response.proto update(aa) $(PORT)")
+#    field(HOPR, "1.0")
+#    field(LOPR, "0.0")
+#    field(DRVH, "1.0")
+#    field(DRVL, "0.0")
+}
+#record(ai, "$(P)GET_AVERAGING_FACTOR") {
+#    field(DESC, "Get raw frequency averaging factor")
+#    # field(EGU,  "")
+#    field(DTYP, "stream")
+#    field(INP,  "@ncal_response.proto get(k) $(PORT)")
+#    field(SCAN, ".0625 second")
+#}
+
+#record(ao, "$(P)SET_NUMBER_HOLES") {
+#    field(DESC, "Set photogate number of holes")
+#    # field(VAL,  "0.5")
+#    field(PREC, "1")
+#    #field(PINI, "1")
+#    # field(EGU,  "-")
+#    field(DTYP, "stream")
+#    field(OUT,  "@ncal_response.proto set(h) $(PORT)")
+#    # field(AOFF, "0")
+#    # field(ASLO, "0.001")  # raw units are milliseconds
+#    field(HOPR, "1000.0")
+#    field(LOPR, "1.0")
+#    field(DRVH, "1000.0")
+#    field(DRVL, "1.0")
+#}
+
+record(ai, "$(P)NUMBER_HOLES_RB") {
+    field(DESC, "Get photogate number of holes")
+    # field(EGU,  "")
+    field(DTYP, "stream")
+    field(INP,  "@ncal_response.proto get(h) $(PORT)")
+    field(SCAN, "1 second")
+}
+
+record(ai, "$(P)DRIVER_STATE_RB") {
+    field(DESC, "Get motor driver state")
+    # field(EGU,  "")
+    field(DTYP, "stream")
+    field(INP,  "@ncal_response.proto get(en) $(PORT)")
+    field(SCAN, ".5 second")
+}
+
+record(ao, "$(P)DRIVER_STATE") {
+    field(DESC, "Set motor driver state")
+    # field(VAL,  "0.5")
+    #field(PREC, "1")
+    #field(PINI, "1")
+    # field(EGU,  "-")
+    field(DTYP, "stream")
+    field(OUT,  "@ncal_response.proto update(en) $(PORT)")
+    # field(AOFF, "0")
+    # field(ASLO, "0.001")  # raw units are milliseconds
+    #field(HOPR, "1")
+    #field(LOPR, "0")
+    #field(DRVH, "1")
+    #field(DRVL, "0")
+}
+
+
+

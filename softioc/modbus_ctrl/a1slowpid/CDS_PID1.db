@@ -1,0 +1,119 @@
+#Authors: Nathan A. Holland, Bram J. J. Slagmolen.
+#Date: 2018-11-19
+#Contact: bram.slagmolen@anu.edu.au
+#
+#Modified: 2018-11-19
+################################################################################
+##########################  TEMPLATE EPICS Database  ###########################
+#
+#Please replace the following, with the relevant channel name components:
+## IFO
+## optic
+## filter
+#
+#Channel list:
+## IFO:SUBSYSTEM-FILTERNAME_INMON
+## IFO:SUBSYSTEM-FILTERNAME_IN_EN
+## IFO:SUBSYSTEM-FILTERNAME_EXC
+## IFO:SUBSYSTEM-FILTERNAME_IN2
+## IFO:SUBSYSTEM-FILTERNAME_SETPOINT
+## IFO:SUBSYSTEM-FILTERNAME_KP
+## IFO:SUBSYSTEM-FILTERNAME_KI
+## IFO:SUBSYSTEM-FILTERNAME_KD
+## IFO:SUBSYSTEM-FILTERNAME_RESET
+## IFO:SUBSYSTEM-FILTERNAME_PID_PAUSE
+## IFO:SUBSYSTEM-FILTERNAME_LIM_EN
+## IFO:SUBSYSTEM-FILTERNAME_LIM_UPR
+## IFO:SUBSYSTEM-FILTERNAME_LIM_LWR
+## IFO:SUBSYSTEM-FILTERNAME_FBMON
+## IFO:SUBSYSTEM-FILTERNAME_OUT_EN
+## IFO:SUBSYSTEM-FILTERNAME_FB
+################################################################################
+##############################  Binary Channels  ###############################
+record(bi, "IFO:SUBSYSTEM-FILTERNAME_IN_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "IFO:SUBSYSTEM-FILTERNAME_RESET")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "IFO:SUBSYSTEM-FILTERNAME_PID_PAUSE")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "IFO:SUBSYSTEM-FILTERNAME_LIM_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "IFO:SUBSYSTEM-FILTERNAME_OUT_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+################################################################################
+##########################  Floating Point Channels  ###########################
+record(ai, "IFO:SUBSYSTEM-FILTERNAME_INMON")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "IFO:SUBSYSTEM-FILTERNAME_EXC")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "IFO:SUBSYSTEM-FILTERNAME_IN2")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "IFO:SUBSYSTEM-FILTERNAME_SETPOINT")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "IFO:SUBSYSTEM-FILTERNAME_KP")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "IFO:SUBSYSTEM-FILTERNAME_KI")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "IFO:SUBSYSTEM-FILTERNAME_KD")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "IFO:SUBSYSTEM-FILTERNAME_LIM_UPR")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "IFO:SUBSYSTEM-FILTERNAME_LIM_LWR")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "IFO:SUBSYSTEM-FILTERNAME_FBMON")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "IFO:SUBSYSTEM-FILTERNAME_FB")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}

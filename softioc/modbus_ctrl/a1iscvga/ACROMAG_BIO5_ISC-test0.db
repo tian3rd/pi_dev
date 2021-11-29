@@ -1,0 +1,2093 @@
+# This DataBase sets up the DIO channels for BIO6
+# ACROMAG ES2113-000 96 Channel Digital IO  module
+# 
+# # - RAW Channels
+# ----- BIO Port1 - Command
+# 0 - A3:ACROMAG_BIO6_CH0 - Write 
+# 1 - A3:ACROMAG_BIO6_CH1 - Write
+# 2 - A3:ACROMAG_BIO6_CH2 - Read (need 820Ohm resistor in series)
+# 3 - A3:ACROMAG_BIO6_CH3 - Read (need 820Ohm resistor in series)
+# 4 - A3:ACROMAG_BIO6_CH4 - Read (need 820Ohm resistor in series)
+# 5 - A3:ACROMAG_BIO6_CH5 - Read (need 820Ohm resistor in series)
+# 6 - A3:ACROMAG_BIO6_CH6 - Read (need 820Ohm resistor in series)
+# 7 - A3:ACROMAG_BIO6_CH7 - Read (need 820Ohm resistor in series)
+# 8 - A3:ACROMAG_BIO6_CH8 - Read (need 820Ohm resistor in series)
+# 9 - A3:ACROMAG_BIO6_CH9 - Read (need 820Ohm resistor in series)
+# 10 - A3:ACROMAG_BIO6_CH10 - Read (need 820Ohm resistor in series)
+# 11 - A3:ACROMAG_BIO6_CH11 - Read (need 820Ohm resistor in series)
+# 12 - A3:ACROMAG_BIO6_CH12 - Read (need 820Ohm resistor in series)
+# 13 - A3:ACROMAG_BIO6_CH13 - Read (need 820Ohm resistor in series)
+# 14 - A3:ACROMAG_BIO6_CH14 - Read (need 820Ohm resistor in series)
+# 15 - A3:ACROMAG_BIO6_CH15 - Read (need 820Ohm resistor in series)
+#
+# ----- BIO Port1 - READBACK
+# 16 - A3:ACROMAG_BIO6_CH0 - Write
+# 17 - A3:ACROMAG_BIO6_CH1 - Write
+# 18 - A3:ACROMAG_BIO6_CH2 - Read (need 820Ohm resistor in series)
+# 19 - A3:ACROMAG_BIO6_CH3 - Read (need 820Ohm resistor in series)
+# 20 - A3:ACROMAG_BIO6_CH4 - Read (need 820Ohm resistor in series)
+# 21 - A3:ACROMAG_BIO6_CH5 - Read (need 820Ohm resistor in series)
+# 22 - A3:ACROMAG_BIO6_CH6 - Read (need 820Ohm resistor in series)
+# 23 - A3:ACROMAG_BIO6_CH7 - Read (need 820Ohm resistor in series)
+# 24 - A3:ACROMAG_BIO6_CH8 - Read (need 820Ohm resistor in series)
+# 25 - A3:ACROMAG_BIO6_CH9 - Read (need 820Ohm resistor in series)
+# 26 - A3:ACROMAG_BIO6_CH10 - Read (need 820Ohm resistor in series)
+# 27 - A3:ACROMAG_BIO6_CH11 - Read (need 820Ohm resistor in series)
+# 28 - A3:ACROMAG_BIO6_CH12 - Read (need 820Ohm resistor in series)
+# 29 - A3:ACROMAG_BIO6_CH13 - Read (need 820Ohm resistor in series)
+# 30 - A3:ACROMAG_BIO6_CH14 - Read (need 820Ohm resistor in series)
+# 31 - A3:ACROMAG_BIO6_CH15 - Read (need 820Ohm resistor in series)
+#
+
+
+# Channels calculated from RAW channels
+# ----- BIO Reg1
+# 0 -> A1:ISI-IP_T240_C_WCAL_ENABLE
+# 1 -> A1:ISI-IP_T240_C_GAIN
+# 2 -> A1:ISI-IP_T240_A_SIGSEL_RB
+# 3 -> A1:ISI-IP_T240_A_AUTOZERO_RB
+# ----- BIO Reg2
+# 4 -> A1:ISI-IP_T240_A_UCAL_ENABLE_RB
+# 5 -> A1:ISI-IP_T240_A_VCAL_ENABLE_RB
+# 6 -> A1:ISI-IP_T240_A_WCAL_ENABLE_RB
+# 7 -> A1:ISI-IP_T240_B_SIGSEL_RB    
+# ----- BIO Reg3
+# 8 -> A1:ISI-IP_T240_B_AUTOZERO_RB
+# 9 -> A1:ISI-IP_T240_B_UCAL_ENABLE_RB
+# 10 -> A1:ISI-IP_T240_B_VCAL_ENABLE_RB
+# 11 -> A1:ISI-IP_T240_B_WCAL_ENABLE_RB
+# ----- BIO Reg4
+# 12 -> A1:ISI-IP_T240_C_SIGSEL_RB
+# 13 -> A1:ISI-IP_T240_C_AUTOZERO_RB
+# 14 -> A1:ISI-IP_T240_C_UCAL_ENABLE_RB
+# 15 -> A1:ISI-IP_T240_C_VCAL_ENABLE_RB
+#
+#
+# Channel assignment - Added 20200618 Min Jet Yap
+# # - RAW Channels
+# ----- BIO Port1 - Command
+# 0 - A3:ACROMAG_BIO6_CH0 - Write 
+# 1 - A3:ACROMAG_BIO6_CH1 - Write
+# 2 - A3:ACROMAG_BIO6_CH2 - Write
+# 3 - A3:ACROMAG_BIO6_CH3 - Write
+# 4 - A3:ACROMAG_BIO6_CH4 - Write
+# 5 - A3:ACROMAG_BIO6_CH5 - Write
+# 6 - A3:ACROMAG_BIO6_CH6 - Write
+# 7 - A3:ACROMAG_BIO6_CH7 - Write
+# 8 - A3:ACROMAG_BIO6_CH8 - Write
+# 9 - A3:ACROMAG_BIO6_CH9 - Write
+# 10 - A3:ACROMAG_BIO6_CH10 - Write
+# 11 - A3:ACROMAG_BIO6_CH11 - Write
+# 12 - A3:ACROMAG_BIO6_CH12 - Write
+# 13 - A3:ACROMAG_BIO6_CH13 - Write
+# 14 - A3:ACROMAG_BIO6_CH14 - Write
+# 15 - A3:ACROMAG_BIO6_CH15 - Write
+#
+# ----- BIO Port2 - Command (Not working)
+# 16 - A3:ACROMAG_BIO6_CH16 - Read 
+# 17 - A3:ACROMAG_BIO6_CH17 - Read
+# 18 - A3:ACROMAG_BIO6_CH18 - Read
+# 19 - A3:ACROMAG_BIO6_CH19 - Read
+# 20 - A3:ACROMAG_BIO6_CH20 - Read
+# 21 - A3:ACROMAG_BIO6_CH21 - Read
+# 22 - A3:ACROMAG_BIO6_CH22 - Read
+# 23 - A3:ACROMAG_BIO6_CH23 - Read
+# 24 - A3:ACROMAG_BIO6_CH24 - Read
+# 25 - A3:ACROMAG_BIO6_CH25 - Read
+# 26 - A3:ACROMAG_BIO6_CH26 - Read
+# 27 - A3:ACROMAG_BIO6_CH27 - Read
+# 28 - A3:ACROMAG_BIO6_CH28 - Read
+# 29 - A3:ACROMAG_BIO6_CH29 - Read
+# 30 - A3:ACROMAG_BIO6_CH30 - Read
+# 31 - A3:ACROMAG_BIO6_CH31 - Read
+#
+# ----- BIO Port3 - Command
+# 32 - A3:ACROMAG_BIO6_CH32 - Write 
+# 33 - A3:ACROMAG_BIO6_CH33 - Write
+# 34 - A3:ACROMAG_BIO6_CH34 - Write
+# 35 - A3:ACROMAG_BIO6_CH35 - Write
+# 36 - A3:ACROMAG_BIO6_CH36 - Write
+# 37 - A3:ACROMAG_BIO6_CH37 - Write
+# 38 - A3:ACROMAG_BIO6_CH38 - Write
+# 39 - A3:ACROMAG_BIO6_CH39 - Write
+# 40 - A3:ACROMAG_BIO6_CH40 - Write
+# 41 - A3:ACROMAG_BIO6_CH41 - Write
+# 42 - A3:ACROMAG_BIO6_CH42 - Write
+# 43 - A3:ACROMAG_BIO6_CH43 - Write
+# 44 - A3:ACROMAG_BIO6_CH44 - Write
+# 45 - A3:ACROMAG_BIO6_CH45 - Write
+# 46 - A3:ACROMAG_BIO6_CH46 - Write
+# 47 - A3:ACROMAG_BIO6_CH47 - Write
+#
+# ----- BIO Port4 - Command
+# 48 - A3:ACROMAG_BIO6_CH48 - Read 
+# 49 - A3:ACROMAG_BIO6_CH49 - Read
+# 50 - A3:ACROMAG_BIO6_CH50 - Read
+# 51 - A3:ACROMAG_BIO6_CH51 - Read
+# 52 - A3:ACROMAG_BIO6_CH52 - Read
+# 53 - A3:ACROMAG_BIO6_CH53 - Read
+# 54 - A3:ACROMAG_BIO6_CH54 - Read
+# 55 - A3:ACROMAG_BIO6_CH55 - Read
+# 56 - A3:ACROMAG_BIO6_CH56 - Read
+# 57 - A3:ACROMAG_BIO6_CH57 - Read
+# 58 - A3:ACROMAG_BIO6_CH58 - Read
+# 59 - A3:ACROMAG_BIO6_CH59 - Read
+# 60 - A3:ACROMAG_BIO6_CH60 - Read
+# 61 - A3:ACROMAG_BIO6_CH61 - Read
+# 62 - A3:ACROMAG_BIO6_CH62 - Read
+# 63 - A3:ACROMAG_BIO6_CH63 - Read
+#
+# ----- BIO Port5 - Command
+# 64 - A3:ACROMAG_BIO6_CH64 - Write 
+# 65 - A3:ACROMAG_BIO6_CH65 - Write
+# 66 - A3:ACROMAG_BIO6_CH66 - Write
+# 67 - A3:ACROMAG_BIO6_CH67 - Write
+# 68 - A3:ACROMAG_BIO6_CH68 - Write
+# 69 - A3:ACROMAG_BIO6_CH69 - Write
+# 70 - A3:ACROMAG_BIO6_CH70 - Write
+# 71 - A3:ACROMAG_BIO6_CH71 - Write
+# 72 - A3:ACROMAG_BIO6_CH72 - Write
+# 73 - A3:ACROMAG_BIO6_CH73 - Write
+# 74 - A3:ACROMAG_BIO6_CH74 - Write
+# 75 - A3:ACROMAG_BIO6_CH75 - Write
+# 76 - A3:ACROMAG_BIO6_CH76 - Write
+# 77 - A3:ACROMAG_BIO6_CH77 - Write
+# 78 - A3:ACROMAG_BIO6_CH78 - Write
+# 79 - A3:ACROMAG_BIO6_CH79 - Write
+#
+# ----- BIO Port6 - Command
+# 80 - A3:ACROMAG_BIO6_CH80 - Read 
+# 81 - A3:ACROMAG_BIO6_CH81 - Read
+# 82 - A3:ACROMAG_BIO6_CH82 - Read
+# 83 - A3:ACROMAG_BIO6_CH83 - Read
+# 84 - A3:ACROMAG_BIO6_CH84 - Read
+# 85 - A3:ACROMAG_BIO6_CH85 - Read
+# 86 - A3:ACROMAG_BIO6_CH86 - Read
+# 87 - A3:ACROMAG_BIO6_CH87 - Read
+# 88 - A3:ACROMAG_BIO6_CH88 - Read
+# 89 - A3:ACROMAG_BIO6_CH89 - Read
+# 90 - A3:ACROMAG_BIO6_CH90 - Read
+# 91 - A3:ACROMAG_BIO6_CH91 - Read
+# 92 - A3:ACROMAG_BIO6_CH92 - Read
+# 93 - A3:ACROMAG_BIO6_CH93 - Read
+# 94 - A3:ACROMAG_BIO6_CH94 - Read
+# 95 - A3:ACROMAG_BIO6_CH95 - Read
+#
+#
+#
+# Channels calculated from RAW channels
+# ----- BIO Port1
+# 0 -> A1:PUM_CD1_LP1
+# 1 -> A1:PUM_CD1_ACQ1
+# 2 -> A1:PUM_CD1_TEST1
+# 3 -> A1:PUM_CD1_LP2
+# 4 -> A1:PUM_CD1_ACQ2
+# 5 -> A1:PUM_CD1_TEST2
+# 6 -> A1:PUM_CD1_LP3
+# 7 -> A1:PUM_CD1_ACQ3
+# 8 -> A1:PUM_CD1_TEST3
+# 9 -> A1:PUM_CD1_LP4
+# 10 -> A1:PUM_CD1_ACQ4
+# 11 -> A1:PUM_CD1_TEST4
+# 12 -> A1:PUM_CD1_RESET
+# 13 -> A1:NAMEME_CH13
+# 14 -> A1:NAMEME_CH14
+# 15 -> A1:NAMEME_CH15
+#
+# ----- BIO Port2 (Not working)
+# 16 -> A1:PUM_CD1_CH16
+# 17 -> A1:PUM_CD1_CH17
+# 18 -> A1:PUM_CD1_CH18
+# 19 -> A1:PUM_CD1_CH19
+# 20 -> A1:PUM_CD1_CH20
+# 21 -> A1:PUM_CD1_CH21
+# 22 -> A1:PUM_CD1_CH22
+# 23 -> A1:PUM_CD1_CH23
+# 24 -> A1:PUM_CD1_CH24
+# 25 -> A1:PUM_CD1_CH25
+# 26 -> A1:PUM_CD1_CH26
+# 27 -> A1:PUM_CD1_CH27
+# 28 -> A1:PUM_CD1_CH28
+# 29 -> A1:PUM_CD1_CH29
+# 30 -> A1:PUM_CD1_CH30
+# 31 -> A1:PUM_CD1_CH31  
+#
+# ----- BIO Port3 (Not complete)
+# 32 -> A1:PUM_CD2_CH0
+# 33 -> A1:PUM_CD2_CH1
+# 34 -> A1:PUM_CD2_CH2
+# 35 -> A1:PUM_CD2_CH3
+# 36 -> A1:PUM_CD2_CH4
+# 37 -> A1:PUM_CD2_CH5
+# 38 -> A1:PUM_CD2_CH6
+# 39 -> A1:PUM_CD2_CH7
+# 40 -> A1:PUM_CD2_CH8
+# 41 -> A1:PUM_CD2_CH9
+# 42 -> A1:PUM_CD2_CH10
+# 43 -> A1:PUM_CD2_CH11
+# 44 -> A1:PUM_CD2_CH12
+# 45 -> A1:NAMEME_CH13
+# 46 -> A1:NAMEME_CH14
+# 47 -> A1:NAMEME_CH15
+#
+# ----- BIO Port4 (Not complete)
+# 48 -> A1:PUM_CD2_CH16
+# 49 -> A1:PUM_CD2_CH17
+# 50 -> A1:PUM_CD2_CH18
+# 51 -> A1:PUM_CD2_CH19
+# 52 -> A1:PUM_CD2_CH20
+# 53 -> A1:PUM_CD2_CH21
+# 54 -> A1:PUM_CD2_CH22
+# 55 -> A1:PUM_CD2_CH23
+# 56 -> A1:PUM_CD2_CH24
+# 57 -> A1:PUM_CD2_CH25
+# 58 -> A1:PUM_CD2_CH26
+# 59 -> A1:PUM_CD2_CH27
+# 60 -> A1:PUM_CD2_CH28
+# 61 -> A1:PUM_CD2_CH29
+# 62 -> A1:PUM_CD2_CH30
+# 63 -> A1:PUM_CD2_CH31  
+#
+# ----- BIO Port5 (Not complete)
+# 64 -> A1:PUM_CD3_CH0
+# 65 -> A1:PUM_CD3_CH1
+# 66 -> A1:PUM_CD3_CH2
+# 67 -> A1:PUM_CD3_CH3
+# 68 -> A1:PUM_CD3_CH4
+# 69 -> A1:PUM_CD3_CH5
+# 70 -> A1:PUM_CD3_CH6
+# 71 -> A1:PUM_CD3_CH7
+# 72 -> A1:PUM_CD3_CH8
+# 73 -> A1:PUM_CD3_CH9
+# 74 -> A1:PUM_CD3_CH10
+# 75 -> A1:PUM_CD3_CH11
+# 76 -> A1:PUM_CD3_CH12
+# 77 -> A1:NAMEME_CH13
+# 78 -> A1:NAMEME_CH14
+# 79 -> A1:NAMEME_CH15
+#
+# ----- BIO Port6 (Not complete)
+# 80 -> A1:PUM_CD3_CH16
+# 81 -> A1:PUM_CD3_CH17
+# 82 -> A1:PUM_CD3_CH18
+# 83 -> A1:PUM_CD3_CH19
+# 84 -> A1:PUM_CD3_CH20
+# 85 -> A1:PUM_CD3_CH21
+# 86 -> A1:PUM_CD3_CH22
+# 87 -> A1:PUM_CD3_CH23
+# 88 -> A1:PUM_CD3_CH24
+# 89 -> A1:PUM_CD3_CH25
+# 90 -> A1:PUM_CD3_CH26
+# 91 -> A1:PUM_CD3_CH27
+# 92 -> A1:PUM_CD3_CH28
+# 93 -> A1:PUM_CD3_CH29
+# 94 -> A1:PUM_CD3_CH30
+# 95 -> A1:PUM_CD3_CH31  
+#
+#
+# ANU Torpedo Experiment
+# Bram Slagmolen - 13 August 2017
+#
+####################################
+
+#################################### WRITE ##################################
+
+########## PORT1 #################
+record(bo, "A3:ACROMAG_BIO6_CH0")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_LP1.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_LP1")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH0")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH1")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_ACQ1.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_ACQ1")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH1")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH2")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_TEST1.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_TEST1")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH2")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH3")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_LP2.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_LP2")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH3")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH4")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_ACQ2.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x10)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_ACQ2")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH4")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH5")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_TEST2.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x20)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_TEST2")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH5")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH6")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_LP3.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x40)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_LP3")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH6")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH7")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_ACQ3.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x80)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_ACQ3")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH7")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH8")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_TEST4.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x100)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_TEST4")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH8")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH9")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_LP4.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x200)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_LP4")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH9")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH10")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_ACQ4.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x400)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_ACQ4")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH10")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH11")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_TEST4.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x800)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_TEST4")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH11")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH12")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PUM_CD1_RESET.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x1000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PUM_CD1_RESET")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH12")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH13")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH13.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x2000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH13")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH13")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH14")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH14.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x4000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH14")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH14")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH15")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH15.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 0, 0x8000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH15")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH15")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+############ PORT2 #################
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH16")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH16.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH16")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH16")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH17")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH17.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH17")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH17")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH18")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH18.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH18")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH18")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH19")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH19.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH19")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH19")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH20")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH20.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x10)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH20")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH20")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH21")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH21.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x20)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH21")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH21")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH22")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH22.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x40)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH22")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH22")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH23")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH23.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x80)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH23")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH23")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH24")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH24.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x100)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH24")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH24")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH25")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH25.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x200)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH25")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH25")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH26")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH26.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x400)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH26")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH26")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH27")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH27.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x800)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH27")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH27")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH28")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH28.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x1000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH28")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH28")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH29")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH29.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x2000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH29")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH29")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH30")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH30.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x4000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH30")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH30")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH31")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH31.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 1, 0x8000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH31")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH31")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+############ PORT3 #################
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH32")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH32.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH32")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH32")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH33")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH33.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH33")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH33")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH34")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH34.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH34")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH34")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH35")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH35.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH35")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH35")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH36")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH36.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x10)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH36")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH36")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH37")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH37.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x20)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH37")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH37")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH38")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH38.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x40)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH38")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH38")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH39")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH39.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x80)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH39")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH39")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH40")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH40.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x100)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH40")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH40")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH41")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH41.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x200)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH41")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH41")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH42")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH42.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x400)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH42")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH42")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH43")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH43.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x800)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH43")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH43")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH44")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH44.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x1000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH44")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH44")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH45")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH45.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x2000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH45")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH45")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH46")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH46.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x4000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH46")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH46")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH47")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH47.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 2, 0x8000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH47")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH47")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+############ PORT4 #################
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH48")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH48.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH48")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH48")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH49")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH49.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH49")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH49")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH50")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH50.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH50")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH50")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH51")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH51.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH51")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH51")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH52")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH52.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x10)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH52")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH52")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH53")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH53.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x20)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH53")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH53")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH54")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH54.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x40)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH54")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH54")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH55")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH55.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x80)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH55")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH55")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH56")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH56.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x100)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH56")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH56")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH57")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH57.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x200)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH57")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH57")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH58")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH58.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x400)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH58")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH58")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH59")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH59.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x800)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH59")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH59")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH60")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH60.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x1000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH60")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH60")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH61")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH61.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x2000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH61")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH61")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH62")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH62.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x4000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH62")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH62")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH63")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH63.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 3, 0x8000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH63")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH63")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+############ PORT5 #################
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH64")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH64.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH64")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH64")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH65")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH65.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH65")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH65")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH66")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH66.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH66")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH66")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH67")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH67.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH67")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH67")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH68")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH68.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x10)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH68")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH68")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH69")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH69.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x20)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH69")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH69")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH70")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH70.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x40)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH70")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH70")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH71")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH71.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x80)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH71")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH71")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH72")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH72.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x100)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH72")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH72")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH73")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH73.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x200)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH73")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH73")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH74")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH74.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x400)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH74")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH74")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH75")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH75.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x800)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH75")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH75")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH76")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH76.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x1000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH76")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH76")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH77")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH77.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x2000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH77")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH77")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH78")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH78.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x4000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH78")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH78")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH79")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH79.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 4, 0x8000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH79")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH79")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+############ PORT6 #################
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH80")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH80.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH80")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH80")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH81")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH81.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH81")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH81")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH82")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH82.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH82")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH82")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH83")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH83.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH83")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH83")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH84")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH84.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x10)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH84")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH84")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH85")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH85.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x20)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH85")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH85")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH86")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH86.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x40)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH86")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH86")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH87")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH87.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x80)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH87")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH87")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH88")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH88.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x100)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH88")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH88")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH89")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH89.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x200)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH89")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH89")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH90")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH90.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x400)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH90")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH90")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH91")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH91.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x800)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH91")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH91")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH92")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH92.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x1000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH92")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH92")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH93")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH93.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x2000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH93")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH93")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH94")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH94.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x4000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH94")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH94")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO6_CH95")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:NAMEME_CH95.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO6_Wrt, 5, 0x8000)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:NAMEME_CH95")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO6_CH95")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+
+
+#################################### READ ##################################
+record(bi, "A3:ACROMAG_BIO6_CH2")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PAA.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(INP,"@asynMask(BIO6_Rd, 0, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:PAA")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO6_CH2.VAL NPP MS")
+	field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+}
+
+###################################
+record(bi, "A3:ACROMAG_BIO6_CH34")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PAA34.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(INP,"@asynMask(BIO6_Rd, 2, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:PAA34")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO6_CH34.VAL NPP MS")
+	field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+}
+
+###################################
+record(bi, "A3:ACROMAG_BIO6_CH32_RD")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PAA32.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(INP,"@asynMask(BIO6_Rd, 2, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:PAA32")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO6_CH32_RD.VAL NPP MS")
+	field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+}
+

@@ -1,0 +1,182 @@
+#
+# ncal_response: example EPICS database for ncal_response Arduino code
+#
+# ===== ============================
+# macro meaning
+# ===== ============================
+# P     prefix for this database
+# PORT  asyn port to be used
+# ===== ============================
+
+#record(stringout, "$(P)cmd") {
+#    field(DESC, "command interface")
+#    field(DTYP, "stream")
+#    field(OUT,  "@ncal_response.proto debug $(PORT)")
+#}
+
+#record(ai, "$(P)PULL_FREQUENCY_16HZ") {
+#    field(DESC, "Get the Motor PULL frequency")
+#    field(PREC, "2")
+#    field(EGU,  "Hz")
+#    field(DTYP, "stream")
+#    field(INP,  "@ncal_response.proto get(pf) $(PORT)")
+#    field(SCAN, ".0625 second")
+#}
+
+#record(ai, "$(P)ANGULAR_FREQUENCY_PID") {
+#    field(DESC, "Get the PID control signal")
+#    field(PREC, "3")
+#    field(EGU,  "Hz")
+#    field(DTYP, "stream")
+#    field(INP,  "@ncal_response.proto get(pid) $(PORT)")
+#    field(SCAN, ".0625 second")
+#}
+
+record(ao, "$(P)ANGULAR_FREQUENCY_SETPOINT") {
+    field(DESC, "Set the wheel angular frequency")
+    field(PREC, "3")
+    field(EGU,  "Hz")
+    field(DTYP, "stream")
+    field(OUT,  "@ncal_response.proto update(sp) $(PORT)")
+    field(HOPR, "10.0")
+    field(LOPR, "0.0")
+}
+
+#record(ai, "$(P)RAW_FREQUENCY_16HZ") {
+#    field(DESC, "Get the raw photogate pulse frequency")
+#    field(PREC, "4")
+#    field(EGU,  "Hz")
+#    field(DTYP, "stream")
+#    field(INP,  "@ncal_response.proto get(if) $(PORT)")
+#    field(SCAN, ".0625 second")
+#}
+
+#record(ai, "$(P)ANGULAR_FREQUENCY_16HZ") {
+#    field(DESC, "Get the wheel angular frequency")
+#    field(PREC, "4")
+#    field(EGU,  "Hz")
+#    field(DTYP, "stream")
+#    field(INP,  "@ncal_response.proto get(af) $(PORT)")
+#    field(SCAN, ".0625 second")
+#}
+
+#record(ai, "$(P)ANGULAR_FREQUENCY_SETPOINT_RB") {
+#    field(DESC, "Set the wheel angular frequency")
+#    field(PREC, "4")
+#    field(EGU,  "Hz")
+#    field(DTYP, "stream")
+#    field(INP,  "@ncal_response.proto get(sp) $(PORT)")
+#    field(SCAN, ".0625 second")
+#}
+
+record(ai, "$(P)ANG_FREQ_SETP_REACHED") {
+    field(DESC, "Get motor driver state")
+    # field(EGU,  "")
+    field(DTYP, "stream")
+    field(INP,  "@ncal_response.proto get(as) $(PORT)")
+    field(SCAN, ".1 second")
+}
+
+#record(ao, "$(P)SERVO_KP") {
+#    field(DESC, "Set angular servo Kp value")
+#    field(PREC, "3")
+#    # field(EGU,  "-")
+#    field(DTYP, "stream")
+#    field(OUT,  "@ncal_response.proto update(kp) $(PORT)")
+#}
+
+#record(ao, "$(P)SERVO_KI") {
+#    field(DESC, "Set angular servo Ki value")
+#    field(PREC, "3")
+#    # field(EGU,  "-")
+#    field(DTYP, "stream")
+#    field(OUT,  "@ncal_response.proto update(ki) $(PORT)")
+#}
+
+#record(ao, "$(P)SERVO_KD") {
+#    field(DESC, "Set angular servo Kd value")
+#    field(PREC, "3")
+#    # field(EGU,  "-")
+#    field(DTYP, "stream")
+#    field(OUT,  "@ncal_response.proto update(kd) $(PORT)")
+#}
+
+record(ao, "$(P)ANGULAR_ACCELERATION") {
+    field(DESC, "Set raw frequency averaging factor")
+    field(PREC, "3")
+    # field(EGU,  "-")
+    field(DTYP, "stream")
+    field(OUT,  "@ncal_response.proto update(aa) $(PORT)")
+}
+
+record(ai, "$(P)NUMBER_HOLES_RB") {
+    field(DESC, "Get photogate number of holes")
+    # field(EGU,  "")
+    field(DTYP, "stream")
+    field(INP,  "@ncal_response.proto get(h) $(PORT)")
+    field(SCAN, "1 second")
+}
+
+record(ai, "$(P)DRIVER_STATE_RB") {
+    field(DESC, "Get motor driver state")
+    # field(EGU,  "")
+    field(DTYP, "stream")
+    field(INP,  "@ncal_response.proto get(en) $(PORT)")
+    field(SCAN, ".1 second")
+}
+
+record(ao, "$(P)DRIVER_STATE") {
+    field(DESC, "Set motor driver state")
+    field(DTYP, "stream")
+    field(OUT,  "@ncal_response.proto update(en) $(PORT)")
+}
+
+#record(ai, "$(P)SERVO_STATE_RB") {
+#    field(DESC, "Get motor driver state")
+#    # field(EGU,  "")
+#    field(DTYP, "stream")
+#    field(INP,  "@ncal_response.proto get(ep) $(PORT)")
+#    field(SCAN, ".1 second")
+#}
+
+#record(ao, "$(P)SERVO_STATE") {
+#    field(DESC, "Set motor driver state")
+#    field(DTYP, "stream")
+#    field(OUT,  "@ncal_response.proto update(ep) $(PORT)")
+#}
+
+#record(ao, "$(P)SERVO_DIRECTION") {
+#    #field(DESC, "Set feedback servo direction, 0-pos/1-neg")
+#    field(DTYP, "stream")
+#    field(OUT,  "@ncal_response.proto update(pd) $(PORT)")
+#}
+
+#record(ai, "$(P)SERVO_DIRECTION_RB") {
+#    #field(DESC, "Get feedback servo direction, 0-pos/1-neg")
+#    field(DTYP, "stream")
+#    field(INP,  "@ncal_response.proto get(pd) $(PORT)")
+#    field(SCAN, ".1 second")
+#}
+
+#record(ai, "$(P)ONE_PPS") {
+#    field(DESC, "Get 1 PPS signal")
+#    field(DTYP, "stream")
+#    field(INP,  "@ncal_response.proto get(pps) $(PORT)")
+#    field(SCAN, ".0625 second")
+#}
+
+record(stringin, "$(P)VERSION") {
+    field(DESC, "Get software version")
+    field(DTYP, "stream")
+    field(INP,  "@ncal_response.proto txt(v) $(PORT)")
+    field(SCAN, "10 second")
+    field(VAL, "VERSION")
+}
+
+record(stringin, "$(P)ID") {
+    field(DESC, "Get software id")
+    field(DTYP, "stream")
+    field(INP,  "@ncal_response.proto txt(id) $(PORT)")
+    field(SCAN, "10 second")
+    field(VAL, "ID")
+}

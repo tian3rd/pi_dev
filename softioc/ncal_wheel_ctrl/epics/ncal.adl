@@ -1,0 +1,862 @@
+
+file {
+	name="/opt/rtcds_local/anu/n1/softioc/ncal_wheel_ctrl/epics/ncal.adl"
+	version=030111
+}
+display {
+	object {
+		x=1021
+		y=348
+		width=875
+		height=686
+	}
+	clr=14
+	bclr=4
+	cmap=""
+	gridSpacing=5
+	gridOn=0
+	snapToGrid=0
+}
+"color map" {
+	ncolors=65
+	colors {
+		ffffff,
+		ececec,
+		dadada,
+		c8c8c8,
+		bbbbbb,
+		aeaeae,
+		9e9e9e,
+		919191,
+		858585,
+		787878,
+		696969,
+		5a5a5a,
+		464646,
+		2d2d2d,
+		000000,
+		00d800,
+		1ebb00,
+		339900,
+		2d7f00,
+		216c00,
+		fd0000,
+		de1309,
+		be190b,
+		a01207,
+		820400,
+		5893ff,
+		597ee1,
+		4b6ec7,
+		3a5eab,
+		27548d,
+		fbf34a,
+		f9da3c,
+		eeb62b,
+		e19015,
+		cd6100,
+		ffb0ff,
+		d67fe2,
+		ae4ebc,
+		8b1a96,
+		610a75,
+		a4aaff,
+		8793e2,
+		6a73c1,
+		4d52a4,
+		343386,
+		c7bb6d,
+		b79d5c,
+		a47e3c,
+		7d5627,
+		58340f,
+		99ffff,
+		73dfff,
+		4ea5f9,
+		2a63e4,
+		0a00b8,
+		ebf1b5,
+		d4db9d,
+		bbc187,
+		a6a462,
+		8b8239,
+		73ff6b,
+		52da3b,
+		3cb420,
+		289315,
+		1a7309,
+	}
+}
+rectangle {
+	object {
+		x=0
+		y=0
+		width=875
+		height=28
+	}
+	"basic attribute" {
+		clr=26
+	}
+	"dynamic attribute" {
+		chan="N1:NCAL-VERSION"
+	}
+}
+rectangle {
+	object {
+		x=502
+		y=487
+		width=100
+		height=80
+	}
+	"basic attribute" {
+		clr=25
+		width=2
+	}
+}
+rectangle {
+	object {
+		x=398
+		y=487
+		width=100
+		height=80
+	}
+	"basic attribute" {
+		clr=25
+		width=2
+	}
+}
+"strip chart" {
+	object {
+		x=19
+		y=57
+		width=840
+		height=350
+	}
+	plotcom {
+		title="PULL Frequency"
+		ylabel="Hz"
+		clr=14
+		bclr=4
+	}
+	period=6000.000000
+	units="milli-second"
+	pen[0] {
+		chan="N1:NCAL-PULL_FREQ"
+		clr=21
+		limits {
+			hoprSrc="default"
+			hoprDefault=25000
+		}
+	}
+	pen[1] {
+		chan="N1:NCAL-ANGULAR_FREQ_MEAS"
+		clr=25
+		limits {
+			hoprSrc="default"
+			hoprDefault=20
+		}
+	}
+	pen[2] {
+		chan="N1:NCAL-RAW_FREQ_MEAS"
+		clr=31
+		limits {
+			hoprSrc="default"
+			hoprDefault=1000
+		}
+	}
+	pen[3] {
+		chan="N1:NCAL-ANGULAR_FREQ_MEAS_OL"
+		clr=51
+		limits {
+			hoprSrc="default"
+			hoprDefault=20
+		}
+	}
+}
+"text entry" {
+	object {
+		x=405
+		y=417
+		width=90
+		height=34
+	}
+	control {
+		chan="N1:NCAL-ANGULAR_FREQUENCY_SETPOINT"
+		clr=14
+		bclr=4
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=268
+		y=426
+		width=117
+		height=26
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="SET WHEEL REVOLUTION [Hz]"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=401
+		y=612
+		width=90
+		height=26
+	}
+	monitor {
+		chan="N1:NCAL-NUMBER_HOLES_RB"
+		clr=31
+		bclr=14
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=264
+		y=614
+		width=117
+		height=26
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="HOLES NUMBERS"
+	align="horiz. right"
+}
+text {
+	object {
+		x=268
+		y=460
+		width=117
+		height=26
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="MOTOR PULL FREQUENCY"
+	align="horiz. right"
+}
+text {
+	object {
+		x=268
+		y=504
+		width=117
+		height=26
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="ANGULAR FREQUENCY"
+	align="horiz. right"
+}
+text {
+	object {
+		x=268
+		y=540
+		width=117
+		height=26
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="RAW FREQUENCY"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=404
+		y=457
+		width=91
+		height=26
+	}
+	monitor {
+		chan="N1:NCAL-PULL_FREQ"
+		clr=21
+		bclr=14
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=403
+		y=504
+		width=90
+		height=26
+	}
+	monitor {
+		chan="N1:NCAL-ANGULAR_FREQ_MEAS"
+		clr=26
+		bclr=14
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=399
+		y=646
+		width=90
+		height=34
+	}
+	control {
+		chan="N1:NCAL-ANGULAR_ACCELERATION"
+		clr=14
+		bclr=4
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=263
+		y=652
+		width=117
+		height=26
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="ANGULAR ACCELERATION [Hz/s]"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=403
+		y=538
+		width=90
+		height=26
+	}
+	monitor {
+		chan="N1:NCAL-RAW_FREQ_MEAS"
+		clr=31
+		bclr=14
+	}
+	limits {
+	}
+}
+rectangle {
+	object {
+		x=762
+		y=414
+		width=43
+		height=43
+	}
+	"basic attribute" {
+		clr=61
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="N1:NCAL-DRIVER_STATE_RB"
+	}
+}
+rectangle {
+	object {
+		x=807
+		y=414
+		width=43
+		height=43
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="if zero"
+		chan="N1:NCAL-DRIVER_STATE_RB"
+	}
+}
+"message button" {
+	object {
+		x=767
+		y=419
+		width=33
+		height=33
+	}
+	control {
+		chan="N1:NCAL-DRIVER_STATE"
+		clr=14
+		bclr=4
+	}
+	label="ON"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=812
+		y=419
+		width=33
+		height=33
+	}
+	control {
+		chan="N1:NCAL-DRIVER_STATE"
+		clr=14
+		bclr=4
+	}
+	label="OFF"
+	press_msg="0"
+}
+text {
+	object {
+		x=617
+		y=423
+		width=138
+		height=26
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Motor Driver Enable"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=760
+		y=522
+		width=90
+		height=34
+	}
+	control {
+		chan="N1:NCAL-SERVO_KP"
+		clr=14
+		bclr=4
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=703
+		y=528
+		width=50
+		height=26
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Kp"
+	align="horiz. right"
+}
+text {
+	object {
+		x=704
+		y=569
+		width=50
+		height=26
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Ki"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=761
+		y=563
+		width=90
+		height=34
+	}
+	control {
+		chan="N1:NCAL-SERVO_KI"
+		clr=14
+		bclr=4
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=705
+		y=609
+		width=50
+		height=26
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Kd"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=762
+		y=603
+		width=90
+		height=34
+	}
+	control {
+		chan="N1:NCAL-SERVO_KD"
+		clr=14
+		bclr=4
+	}
+	limits {
+	}
+}
+rectangle {
+	object {
+		x=762
+		y=462
+		width=43
+		height=43
+	}
+	"basic attribute" {
+		clr=61
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="N1:NCAL-SERVO_STATE_RB"
+	}
+}
+rectangle {
+	object {
+		x=807
+		y=462
+		width=43
+		height=43
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="if zero"
+		chan="N1:NCAL-SERVO_STATE_RB"
+	}
+}
+"message button" {
+	object {
+		x=767
+		y=467
+		width=33
+		height=33
+	}
+	control {
+		chan="N1:NCAL-SERVO_STATE"
+		clr=14
+		bclr=4
+	}
+	label="ON"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=812
+		y=467
+		width=33
+		height=33
+	}
+	control {
+		chan="N1:NCAL-SERVO_STATE"
+		clr=14
+		bclr=4
+	}
+	label="OFF"
+	press_msg="0"
+}
+text {
+	object {
+		x=617
+		y=471
+		width=138
+		height=26
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Servo Enable"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=501
+		y=422
+		width=50
+		height=26
+	}
+	monitor {
+		chan="N1:NCAL-ANGULAR_FREQUENCY_SETPOINT_RB"
+		clr=50
+		bclr=14
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=763
+		y=654
+		width=90
+		height=26
+	}
+	monitor {
+		chan="N1:NCAL-ANG_FREQ_PID"
+		clr=32
+		bclr=14
+	}
+	limits {
+	}
+}
+rectangle {
+	object {
+		x=403
+		y=412
+		width=95
+		height=43
+	}
+	"basic attribute" {
+		clr=61
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="N1:NCAL-ANG_FREQ_SETP_REACHED"
+	}
+}
+"message button" {
+	object {
+		x=690
+		y=568
+		width=33
+		height=33
+	}
+	control {
+		chan="N1:NCAL-SERVO_DIRECTION"
+		clr=14
+		bclr=4
+	}
+	label="POS"
+	press_msg="0"
+}
+"message button" {
+	object {
+		x=645
+		y=568
+		width=33
+		height=33
+	}
+	control {
+		chan="N1:NCAL-SERVO_DIRECTION"
+		clr=14
+		bclr=4
+	}
+	label="NEG"
+	press_msg="1"
+}
+rectangle {
+	object {
+		x=640
+		y=563
+		width=43
+		height=43
+	}
+	"basic attribute" {
+		clr=61
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="N1:NCAL-SERVO_DIRECTION_RB"
+	}
+}
+rectangle {
+	object {
+		x=685
+		y=563
+		width=43
+		height=43
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="if zero"
+		chan="N1:NCAL-SERVO_DIRECTION_RB"
+	}
+}
+"text update" {
+	object {
+		x=783
+		y=34
+		width=70
+		height=16
+	}
+	monitor {
+		chan="N1:NCAL-VERSION"
+		clr=14
+		bclr=4
+	}
+	align="horiz. right"
+	format="string"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=560
+		y=34
+		width=145
+		height=16
+	}
+	monitor {
+		chan="N1:NCAL-ID"
+		clr=14
+		bclr=4
+	}
+	align="horiz. right"
+	format="string"
+	limits {
+	}
+}
+text {
+	object {
+		x=729
+		y=34
+		width=50
+		height=16
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="version:"
+	align="horiz. right"
+}
+text {
+	object {
+		x=535
+		y=34
+		width=20
+		height=16
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="id:"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=508
+		y=504
+		width=90
+		height=26
+	}
+	monitor {
+		chan="N1:NCAL-ANGULAR_FREQ_MEAS_OL"
+		clr=26
+		bclr=14
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=508
+		y=538
+		width=90
+		height=26
+	}
+	monitor {
+		chan="N1:NCAL-RAW_FREQ_MEAS_OL"
+		clr=31
+		bclr=14
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=404
+		y=489
+		width=90
+		height=22
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Sensor 1"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=508
+		y=489
+		width=90
+		height=22
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Sensor 2"
+	align="horiz. centered"
+}
+rectangle {
+	object {
+		x=152
+		y=32
+		width=20
+		height=20
+	}
+	"basic attribute" {
+		clr=51
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="N1:NCAL-PULSE_PER_SEC"
+	}
+}
+text {
+	object {
+		x=26
+		y=34
+		width=50
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	"dynamic attribute" {
+		chan="N1:NCAL-PULSE_PER_SEC"
+	}
+	textix="NCal Controller PPS"
+}
+text {
+	object {
+		x=391
+		y=4
+		width=109
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="N1NCAL_OVERVIEW_CUSTOM.ADL"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=788
+		y=4
+		width=77
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="$DATE_TIME"
+	align="horiz. right"
+}
+text {
+	object {
+		x=41
+		y=3
+		width=22
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="$IFO"
+}

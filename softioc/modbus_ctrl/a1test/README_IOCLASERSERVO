@@ -1,0 +1,16 @@
+cd to /opt/rtcds/anu/a1/iocmodbus/a1test
+
+cd /opt/rtcds/anu/a1/iocmodbus/a1ptest
+${EPICS_BASE}/bin/${EPICS_HOST_ARCH}/softIoc ioclaserservo.cmd 
+
+
+To start this ioc module runthe following
+
+$ tmux
+cd /opt/rtcds/anu/a1/iocmodbus/a1test
+${EPICS_BASE}/bin/${EPICS_HOST_ARCH}/softIoc ioclaserservo.cmd 
+CRTL-b, d
+
+The key combination 'CRTL-b', followed by 'd' will exit the tmux session.
+
+

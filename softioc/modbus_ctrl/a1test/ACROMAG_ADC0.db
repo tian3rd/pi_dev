@@ -1,0 +1,199 @@
+# This DataBase sets up the ADC channels for ADC0
+# ACROMAG XT1221-000 8 Chanel Diff ADC module
+# 
+# # - Channels read
+# 0 - A3:ACROMAG_ADC0_INPUT0
+# 1 - A3:ACROMAG_ADC0_INPUT1
+# 2 - A3:ACROMAG_ADC0_INPUT2
+# 3 - A3:ACROMAG_ADC0_INPUT3
+# 4 - A3:ACROMAG_ADC0_INPUT4
+# 5 - A3:ACROMAG_ADC0_INPUT5
+# 6 - A3:ACROMAG_ADC0_INPUT6
+# 7 - A3:ACROMAG_ADC0_INPUT7
+#
+# Channels calculated from read channels
+# 0 -> A1:ISI-T240_A_MASS_POS_U
+# 1 -> A1:ISI-T240_A_MASS_POS_V
+# 2 -> A1:ISI-T240_A_MASS_POS_W
+# 3 -> A1:ISI-T240_A_POD_PRESSURE
+# 
+# 4 -> A1:ISI-T240_B_MASS_POS_U
+# 5 -> A1:ISI-T240_B_MASS_POS_V
+# 6 -> A1:ISI-T240_B_MASS_POS_W
+# 7 -> A1:ISI-T240_B_POD_PRESSURE
+#
+# ANU Torpedo Experiment
+# Bram Slagmolen - 13 August 2017
+#
+########################################################################
+record(ai, "A3:ACROMAG_ADC0_INPUT0")
+{
+		field(SCAN,".1 second")
+		field(FLNK,"A1:ISI-T240_A_MASS_POS_U.PROC")
+		field(DTYP,"asynInt32")
+		field(INP, "@asynMask(ADC0_Reg 0 -16)MODBUS_DATA")
+		field(EGUL,"-30000")
+		field(EGUF,"30000")
+		field(LINR,"LINEAR")
+}
+record(calc, "A1:ISI-T240_A_MASS_POS_U")
+{
+        field(SCAN,".1 second")
+        field(INPA,"A3:ACROMAG_ADC0_INPUT0.VAL NPP MS")
+		field(DESC,"Convert POS-U count to Volt")
+        field(CALC,"A*1.325/(0.12076*30000)")
+		field(HOPR,"10")
+		field(LOPR,"-10")
+		field(PREC, "4")
+}
+########################################################################
+record(ai, "A3:ACROMAG_ADC0_INPUT1")
+{
+		field(SCAN, ".1 second")
+		field(FLNK, "A1:ISI-T240_A_MASS_POS_V.PROC")
+		field(DTYP, "asynInt32")
+		field(INP, "@asynMask(ADC0_Reg 1 -16)MODBUS_DATA")
+        field(EGUL,"-30000")
+        field(EGUF,"30000")
+        field(LINR,"LINEAR")
+}
+record(calc, "A1:ISI-T240_A_MASS_POS_V")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_ADC0_INPUT1.VAL NPP MS")
+		field(DESC,"Convert POS-V count to Volt")
+        field(CALC, "A*1.325/(0.12076*30000)")
+        field(HOPR,"10")
+        field(LOPR,"-10")
+		field(PREC, "4")
+}
+########################################################################
+record(ai, "A3:ACROMAG_ADC0_INPUT2")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A1:ISI-T240_A_MASS_POS_W.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(ADC0_Reg 2 -16)MODBUS_DATA")
+        field(EGUL,"-30000")
+        field(EGUF,"30000")
+        field(LINR,"LINEAR")
+}
+record(calc, "A1:ISI-T240_A_MASS_POS_W")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_ADC0_INPUT2.VAL NPP MS")
+		field(DESC,"Convert POS-W count to Volt")
+        field(CALC, "A*1.325/(0.12076*30000)")
+        field(HOPR,"10")
+        field(LOPR,"-10")
+		field(PREC, "4")
+}
+########################################################################
+record(ai, "A3:ACROMAG_ADC0_INPUT3")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A1:ISI-T240_A_POD_PRESSURE.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(ADC0_Reg 3 -16)MODBUS_DATA")
+        field(EGUL,"-30000")
+        field(EGUF,"30000")
+        field(LINR,"LINEAR")
+}
+record(calc, "A1:ISI-T240_A_POD_PRESSURE")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_ADC0_INPUT3.VAL NPP MS")
+		field(DESC,"Convert Pressure count to Volt")
+        field(CALC, "A*1.325/(0.12076*30000)")
+        field(HOPR,"10")
+        field(LOPR,"-10")
+		field(PREC, "4")
+}
+######################################################################
+
+###############		T240 Unit B 				######################
+#######################################################################
+record(ai, "A3:ACROMAG_ADC0_INPUT4")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A1:ISI-T240_B_MASS_POS_U.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(ADC0_Reg 4 -16)MODBUS_DATA")
+        field(EGUL,"-30000")
+        field(EGUF,"30000")
+        field(LINR,"LINEAR")
+}
+record(calc, "A1:ISI-T240_B_MASS_POS_U")
+{
+        field(SCAN,".1 second")
+        field(INPA,"A3:ACROMAG_ADC0_INPUT4.VAL NPP MS")
+		field(DESC,"Convert POS-U count to Volt")
+        field(CALC,"A*1.325/(0.12076*30000)")
+		field(HOPR,"10")
+		field(LOPR,"-10")
+		field(PREC, "4")
+}
+########################################################################
+record(ai, "A3:ACROMAG_ADC0_INPUT5")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A1:ISI-T240_B_MASS_POS_V.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(ADC0_Reg 5 -16)MODBUS_DATA")
+        field(EGUL,"-30000")
+        field(EGUF,"30000")
+        field(LINR,"LINEAR")
+}
+record(calc, "A1:ISI-T240_B_MASS_POS_V")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_ADC0_INPUT5.VAL NPP MS")
+		field(DESC,"Convert POS-V count to Volt")
+        field(CALC, "A*1.325/(0.12076*30000)")
+        field(HOPR,"10")
+        field(LOPR,"-10")
+		field(PREC, "4")
+}
+########################################################################
+record(ai, "A3:ACROMAG_ADC0_INPUT6")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A1:ISI-T240_B_MASS_POS_W.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(ADC0_Reg 6 -16)MODBUS_DATA")
+        field(EGUL,"-30000")
+        field(EGUF,"30000")
+        field(LINR,"LINEAR")
+}
+record(calc, "A1:ISI-T240_B_MASS_POS_W")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_ADC0_INPUT6.VAL NPP MS")
+		field(DESC,"Convert POS-W count to Volt")
+        field(CALC, "A*1.325/(0.12076*30000)")
+        field(HOPR,"10")
+        field(LOPR,"-10")
+		field(PREC, "4")
+}
+########################################################################
+record(ai, "A3:ACROMAG_ADC0_INPUT7")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A1:ISI-T240_B_POD_PRESSURE.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(ADC0_Reg 7 -16)MODBUS_DATA")
+        field(EGUL,"-30000")
+        field(EGUF,"30000")
+        field(LINR,"LINEAR")
+}
+record(calc, "A1:ISI-T240_B_POD_PRESSURE")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_ADC0_INPUT7.VAL NPP MS")
+		field(DESC,"Convert Pressure count to Volt")
+        field(CALC, "A*1.325/(0.12076*30000)")
+        field(HOPR,"10")
+        field(LOPR,"-10")
+		field(PREC, "4")
+}
+######################################################################

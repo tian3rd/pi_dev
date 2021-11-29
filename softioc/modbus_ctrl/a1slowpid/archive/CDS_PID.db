@@ -1,0 +1,108 @@
+#Authors: Nathan A. Holland, Bram J. J. Slagmolen.
+#Date: 2018-11-19
+#Contact: bram.slagmolen@anu.edu.au
+#
+#Modified: 2018-11-19
+################################################################################
+##########################  TEMPLATE EPICS Database  ###########################
+#
+#Please replace the following, with the relevant channel name components:
+## ifo
+## optic
+## filter
+#
+#Channel list:
+## ifo:optic-filter_INMON
+## ifo:optic-filter_IN_EN
+## ifo:optic-filter_EXC
+## ifo:optic-filter_IN2
+## ifo:optic-filter_SETPOINT
+## ifo:optic-filter_KP
+## ifo:optic-filter_KI
+## ifo:optic-filter_KD
+## ifo:optic-filter_RESET
+## ifo:optic-filter_PID_PAUSE
+## ifo:optic-filter_LIM_EN
+## ifo:optic-filter_LIM_UPR
+## ifo:optic-filter_LIM_LWR
+## ifo:optic-filter_FBMON
+## ifo:optic-filter_OUT_EN
+## ifo:optic-filter_FB
+################################################################################
+##############################  Binary Channels  ###############################
+record(bi, "ifo:optic-filter_IN_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "ifo:optic-filter_RESET")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "ifo:optic-filter_PID_PAUSE")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "ifo:optic-filter_LIM_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "ifo:optic-filter_OUT_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+################################################################################
+##########################  Floating Point Channels  ###########################
+record(ai, "ifo:optic-filter_INMON")
+{
+	field(SCAN, ".1 second")
+}
+record(ai, "ifo:optic-filter_EXC")
+{
+	field(SCAN, ".1 second")
+}
+record(ai, "ifo:optic-filter_IN2")
+{
+	field(SCAN, ".1 second")
+}
+record(ai, "ifo:optic-filter_SETPOINT")
+{
+	field(SCAN, ".1 second")
+}
+record(ai, "ifo:optic-filter_KP")
+{
+	field(SCAN, ".1 second")
+}
+record(ai, "ifo:optic-filter_KI")
+{
+	field(SCAN, ".1 second")
+}
+record(ai, "ifo:optic-filter_KD")
+{
+	field(SCAN, ".1 second")
+}
+record(ai, "ifo:optic-filter_LIM_UPR")
+{
+	field(SCAN, ".1 second")
+}
+record(ai, "ifo:optic-filter_LIM_LWR")
+{
+	field(SCAN, ".1 second")
+}
+record(ai, "ifo:optic-filter_FBMON")
+{
+	field(SCAN, ".1 second")
+}
+record(ai, "ifo:optic-filter_FB")
+{
+	field(SCAN, ".1 second")
+}

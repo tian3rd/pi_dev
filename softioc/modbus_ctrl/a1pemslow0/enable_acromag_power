@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+
+import RPi.GPIO as GPIO
+import time
+
+# Pin on GPIO system
+switch = 17
+
+# Setup Pin configuration
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(switch, GPIO.OUT)
+
+# Logic
+GPIO.output(switch, GPIO.HIGH)
+print('Switch status = ', GPIO.input(switch))
+time.sleep(1)

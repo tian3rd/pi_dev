@@ -1,0 +1,293 @@
+# This DataBase sets up the DAC channels for DAC0
+# ACROMAG XT1541-000 8 Chanel Diff DAC module
+# 
+# # - Channels read
+# 0 - A3:ACROMAG_DAC0_OUTPUT0
+# 1 - A3:ACROMAG_DAC0_OUTPUT1
+# 2 - A3:ACROMAG_DAC0_OUTPUT2
+# 3 - A3:ACROMAG_DAC0_OUTPUT3
+# 4 - A3:ACROMAG_DAC0_OUTPUT4
+# 5 - A3:ACROMAG_DAC0_OUTPUT5
+# 6 - A3:ACROMAG_DAC0_OUTPUT6
+# 7 - A3:ACROMAG_DAC0_OUTPUT7
+# 8 - A3:ACROMAG_DAC0_CH8
+# 9 - A3:ACROMAG_DAC0_CH9
+# 10 - A3:ACROMAG_DAC0_CH10
+#
+# Channels voltage from read channels
+# 0 -> A1:ISC-FSS_LASER_A_COMM_GAIN_V
+# 1 -> A1:ISC-FSS_LASER_A_OFFSET_V
+# 2 -> A1:ISC-FSS_LASER_A_FAST_GAIN_V
+# 
+# 3 -> A1:ISC-FSS_LASER_A_SLOW_GAIN_V
+# 4 -> A1:ISC-FSS_LASER_B_COMM_GAIN_V
+# 5 -> A1:ISC-FSS_LASER_B_OFFSET_V
+#
+# 6 -> A1:ISC-FSS_LASER_B_FAST_GAIN_V
+# 7 -> A1:ISC-FSS_LASER_B_SLOW_GAIN_V
+#
+# Channels calculated from read channels
+# 0 -> A1:ISC-FSS_LASER_A_COMM_GAIN
+# 1 -> A1:ISC-FSS_LASER_A_OFFSET
+# 2 -> A1:ISC-FSS_LASER_A_FAST_GAIN
+# 
+# 3 -> A1:ISC-FSS_LASER_A_SLOW_GAIN
+# 4 -> A1:ISC-FSS_LASER_B_COMM_GAIN
+# 5 -> A1:ISC-FSS_LASER_B_OFFSET
+#
+# 6 -> A1:ISC-FSS_LASER_B_FAST_GAIN
+# 7 -> A1:ISC-FSS_LASER_B_SLOW_GAIN
+#
+# 8 -> A1:ISC-FSS_LASER_A_REMOTE_EN_RB
+# 9 -> A1:ISC-FSS_LASER_B_REMOTE_EN_RB
+# 10 -> A1:ISC-FSS_LASER_C_REMOTE_EN_RB
+#
+# ANU Torpedo Experiment
+# Joshua McCann - 13 June 2018
+#
+######################################################################
+###############		ISC-FSS LASER A		######################
+record(ai, "A1:ISC-FSS_LASER_A_COMM_GAIN_V")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-FSS_LASER_A_COMM_GAIN")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC0_OUTPUT0")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-FSS_LASER_A_COMM_GAIN_V")
+}
+record(ao, "A3:ACROMAG_DAC0_OUTPUT0")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC0_Reg 0 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+#		field(EGUL,"-30000")
+#		field(EGUF,"30000")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+record(ai, "A1:ISC-FSS_LASER_A_OFFSET_V")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-FSS_LASER_A_OFFSET")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC0_OUTPUT1")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-FSS_LASER_A_OFFSET_V")
+}
+record(ao, "A3:ACROMAG_DAC0_OUTPUT1")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC0_Reg 1 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+record(ai, "A1:ISC-FSS_LASER_A_FAST_GAIN_V")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-FSS_LASER_A_FAST_GAIN")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC0_OUTPUT2")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-FSS_LASER_A_FAST_GAIN_V")
+}
+record(ao, "A3:ACROMAG_DAC0_OUTPUT2")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC0_Reg 2 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+######################################################################
+record(ai, "A1:ISC-FSS_LASER_A_SLOW_GAIN_V")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-FSS_LASER_A_SLOW_GAIN")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC0_OUTPUT3")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-FSS_LASER_A_SLOW_GAIN_V")
+}
+record(ao, "A3:ACROMAG_DAC0_OUTPUT3")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC0_Reg 3 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+###############		ISC-FSS LASER B		########################
+record(ai, "A1:ISC-FSS_LASER_B_COMM_GAIN_V")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-FSS_LASER_B_COMM_GAIN")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC0_OUTPUT4")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-FSS_LASER_B_COMM_GAIN_V")
+}
+record(ao, "A3:ACROMAG_DAC0_OUTPUT4")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC0_Reg 4 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+record(ai, "A1:ISC-FSS_LASER_B_OFFSET_V")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-FSS_LASER_B_OFFSET")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC0_OUTPUT5")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-FSS_LASER_B_OFFSET_V")
+}
+record(ao, "A3:ACROMAG_DAC0_OUTPUT5")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC0_Reg 5 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+######################################################################
+record(ai, "A1:ISC-FSS_LASER_B_FAST_GAIN_V")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-FSS_LASER_B_FAST_GAIN")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC0_OUTPUT6")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-FSS_LASER_B_FAST_GAIN_V")
+}
+record(ao, "A3:ACROMAG_DAC0_OUTPUT6")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC0_Reg 6 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+record(ai, "A1:ISC-FSS_LASER_B_SLOW_GAIN_V")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-FSS_LASER_B_SLOW_GAIN")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC0_OUTPUT7")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-FSS_LASER_B_SLOW_GAIN_V")
+}
+record(ao, "A3:ACROMAG_DAC0_OUTPUT7")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC0_Reg 7 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+####################################
+record(bi, "A3:ACROMAG_DAC0_CH8")
+{
+		field(SCAN, ".1 second")
+		field(FLNK,"A1:ISC-FSS_LASER_A_REMOTE_EN_RB.PROC")
+		field(DTYP,"asynUInt32Digital")
+#		@asynMask(portName ,offset ,mask ,timeout)drvUser)
+#		offset = 0 for 30001 ch0-3; offset = 1 for 30002 ch4-7; 
+#		offset = 2 for 30003 ch8-11; offset = 3 for 30003 ch12-15;
+#		mask = 1 - bit/ch 0, mask = 2 - bit/ch 1, mask = 4 - bit/ch 2, mask = 8 - bit/ch 3
+		field(INP,"@asynMask(DAC0_Rd, 0, 0x1)")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+record(calc, "A1:ISC-FSS_LASER_A_REMOTE_EN_RB")
+{
+	        field(SCAN, ".1 second")
+	        field(INPA, "A3:ACROMAG_DAC0_CH8.VAL NPP MS")
+		field(DESC,"Readback - Select Laser A Remote")
+	        field(CALC, "!A")
+	        field(HOPR,"1")
+	        field(LOPR,"0")
+		field(PREC, "1")
+}
+####################################
+#record(bi, "A3:ACROMAG_DAC0_CH9")
+#{
+#		field(SCAN, ".1 second")
+#		field(FLNK,"A1:ISC-FSS_LASER_B_REMOTE_EN_RB.PROC")
+#		field(DTYP,"asynUInt32Digital")
+#		field(INP,"@asynMask(DAC0_Rd, 9, 0x2)")
+#	        field(ZNAM,"0")
+#	        field(ONAM,"1")
+#}
+#record(calc, "A1:ISC-FSS_LASER_B_REMOTE_EN_RB")
+#{
+#	        field(SCAN, ".1 second")
+#	        field(INPA, "A3:ACROMAG_DAC0_CH9.VAL NPP MS")
+#		field(DESC,"Readback - Select Laser B Remote")
+#	        field(CALC, "!A")
+#	        field(HOPR,"1")
+#	        field(LOPR,"0")
+#		field(PREC, "1")
+#}
+####################################
+#record(bi, "A3:ACROMAG_DAC0_CH10")
+#{
+#		field(SCAN, ".1 second")
+#		field(FLNK,"A1:ISC-FSS_LASER_C_REMOTE_EN_RB.PROC")
+#		field(DTYP,"asynUInt32Digital")
+#		field(INP,"@asynMask(DAC0_Rd, 10, 0x4)")
+#	        field(ZNAM,"0")
+#	        field(ONAM,"1")
+#}
+#record(calc, "A1:ISC-FSS_LASER_C_REMOTE_EN_RB")
+#{
+#	        field(SCAN, ".1 second")
+#	        field(INPA, "A3:ACROMAG_DAC0_CH10.VAL NPP MS")
+#		field(DESC,"Readback - Select Laser C Remote")
+#	        field(CALC, "!A")
+#	        field(HOPR,"1")
+#	        field(LOPR,"0")
+#		field(PREC, "1")
+#}
+####################################

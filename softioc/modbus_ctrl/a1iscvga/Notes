@@ -1,0 +1,16 @@
+Notes for ACROMAG_BIO5_ISC.db - working controls to adjust gain
+
+
+
+Input desired gain into temp using caput. temp is just a container
+
+"base3" just rounds down to the nearrest multiple of 3 so that invalid gain inputs will be rounded to the lower valid gain input closest. 
+
+"logic_CH0-3" continually take temp as an input and check to see if the gain in one in which the corresponding channel should be switched on. 
+	Checking is manual and ugly to allow easy checking (not try to be too smart)
+	The "CP MS" in the INPA is very important. Eliminates the need for the ai to have FLNK fields and continually scans the value of temp. Scan rate is uncertain
+	In theory all of the calout records should be scanning simultaneously and so should be doing things at the same time
+
+"A3:TESTING_CH0-3" turns one of the channels on or off. 
+	Note that these output to a specific output address which is fixed and cannot be modified by passing different VAL to the bo
+	Problems occur if 2 different records control the same channel since they can be telling the channel to do different things and cause floating/variation in the voltage

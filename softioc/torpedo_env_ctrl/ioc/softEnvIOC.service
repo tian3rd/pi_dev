@@ -1,0 +1,47 @@
+# systemd unit file for the torpedo_env_ioc service
+#
+# Installation
+# sudo cp torpedo_env_ioc_service.service /etc/systemd/system/
+#
+# enable with
+# $ sudo systemctl enable torpedo_env_ioc_service.service
+#
+# start with
+# $ sudo systemctl start torpedo_env_ioc_service.service
+# may need 
+# $ sudo systemctl daemon-reload
+# first to update systemctl
+#
+# check status with 
+# $ sudo systemctl status torpedo_env_ioc_service.service
+
+# copy to /etc/systemd/system/
+#
+[Unit]
+Description=advLIGO RTS - softIOC Service via procServ
+Requires=network.target
+After=syslog.target network.target
+ConditionFileIsExecutable=/usr/bin/procServ
+ConditionFileIsExecutable=/opt/rtapps/linux-arm/epics/base/bin/linux-arm/softIoc
+ConditionFileIsExecutable=/opt/rtcds/anu/n1/softioc/torpedo_env_ctrl/ioc/ioc_env.cmd
+
+[Service]
+User=controls
+Group=controls
+# make sure the directory is RW for controls user
+WorkingDirectory=/opt/rtcds/anu/n1/softioc/torpedo_env_ctrl/ioc/
+
+# Set environment variables for EPICS
+EnvironmentFile=/opt/rtcds/anu/n1/softioc/torpedo_env_ctrl/ioc/ENV_IOC.env
+
+# First line enables logging to local file for debugging. The logfile tends to grow large when there are problems. Use second line for normal operation.
+#ExecStart=/usr/bin/procServ -f -L /opt/apps/softioc/a1envioc/softEnvIOC.log -p /run/softenvioc.pid 8008 /opt/projects/epics/base/bin/linux-arm/softIoc /opt/apps/softioc/a1envioc/ioc_env.cmd
+ExecStart=/usr/bin/procServ -f -p /run/softioc.pid 8008 /opt/rtapps/linux-arm/epics/base/bin/linux-arm/softIoc /opt/rtcds/anu/n1/softioc/torpedo_env_ctrl/ioc/ioc_env.cmd
+
+Restart=always
+RestartSec=30
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+

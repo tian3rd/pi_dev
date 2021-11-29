@@ -1,0 +1,39 @@
+# Auto generated file by ncal_wheel_ctrl.py
+# at 2021-11-06 01:56:15
+#
+# Using the default parameters
+[default]
+gain=1.00
+acquire=3
+dcuid=52
+ifoid=0
+datatype=4
+datarate=16
+offset=0
+slope=1.0
+units=undef
+
+#
+# Following content lines to be manually added to the edc.ini file,
+# which points to /opt/rtcds/anu/n1/chans/daq/N1FE1_EDC.ini
+#
+# Then the standalone_edc service (rts-edc.service on n1fe1) and the daqd
+# service (rts-daqd.service) on the n1fb10) will need to be restarted to
+# the changes into effect.
+
+[N1:NCAL-RAW_FREQ_MEAS]
+[N1:NCAL-ANGULAR_FREQ_MEAS]
+[N1:NCAL-RAW_FREQ_MEAS_OL]
+[N1:NCAL-ANGULAR_FREQ_MEAS_OL]
+[N1:NCAL-PULL_FREQ]
+[N1:NCAL-PULSE_PER_SEC]
+[N1:NCAL-ANG_FREQ_PID]
+[N1:NCAL-ANGULAR_FREQUENCY_SETPOINT]
+[N1:NCAL-ANG_FREQ_SETP_REACHED]
+[N1:NCAL-ANGULAR_ACCELERATION]
+[N1:NCAL-NUMBER_HOLES_RB]
+[N1:NCAL-DRIVER_STATE_RB]
+[N1:NCAL-DRIVER_STATE]
+[N1:NCAL-VERSION]
+[N1:NCAL-ID]
+[N1:NCAL-ANGULAR_FREQUENCY_SETPOINT_RB]

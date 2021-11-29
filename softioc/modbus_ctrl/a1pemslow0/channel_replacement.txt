@@ -1,0 +1,42 @@
+
+original filename: ACROMAG_ADC0_SEI.db
+new filename: ACROMAG_ADC0_SUS.db
+
+Replace the PEM naming channels from the STS-2 seismometerrs to
+the currently naming onvention. Maybe not teh best, but this will
+save re-checking the fast channel names...
+
+sed \
+-e 's/A1:PEM-STS2_A_MASS_POS_U/A1:SUS-SEIS_STS1_MASS_POS_U/g' \
+-e 's/A1:PEM-STS2_A_MASS_POS_V/A1:SUS-SEIS_STS1_MASS_POS_V/g' \
+-e 's/A1:PEM-STS2_A_MASS_POS_W/A1:SUS-SEIS_STS1_MASS_POS_W/g' \
+-e 's/A1:PEM-STS2_B_MASS_POS_U/A1:SUS-SEIS_STS2_MASS_POS_U/g' \
+-e 's/A1:PEM-STS2_B_MASS_POS_V/A1:SUS-SEIS_STS2_MASS_POS_V/g' \
+-e 's/A1:PEM-STS2_B_MASS_POS_W/A1:SUS-SEIS_STS2_MASS_POS_W/g' \
+-e 's/A1:PEM-STS2_C_MASS_POS_U/A1:SUS-SEIS_STS3_MASS_POS_U/g' \
+-e 's/A1:PEM-STS2_C_MASS_POS_V/A1:SUS-SEIS_STS3_MASS_POS_V/g' \
+<ACROMAG_ADC0_SEI.db >ACROMAG_ADC0_SUS.db
+
+
+
+original filename: ACROMAG_ADC1_SEI.db
+new filename: ACROMAG_ADC1_SUS.db
+
+sed \
+-e 's/A1:PEM-STS2_C_MASS_POS_W/A1:SUS-SEIS_STS3_MASS_POS_W/g' \
+-e 's/A1:PEM-STS2_D_MASS_POS_U/A1:SUS-SEIS_STS4_MASS_POS_U/g' \
+-e 's/A1:PEM-STS2_D_MASS_POS_V/A1:SUS-SEIS_STS4_MASS_POS_V/g' \
+-e 's/A1:PEM-STS2_D_MASS_POS_W/A1:SUS-SEIS_STS4_MASS_POS_W/g' \
+<ACROMAG_ADC1_SEI.db >ACROMAG_ADC1_SUS.db
+
+
+original filename: ACROMAG_BIO0_SEI.db
+new filename: ACROMAG_BIO0_SUS.db
+
+sed \
+-e 's/A1:PEM-STS2_A_/A1:SUS-SEIS_STS1_/g' \
+-e 's/A1:PEM-STS2_B_/A1:SUS-SEIS_STS2_/g' \
+-e 's/A1:PEM-STS2_C_/A1:SUS-SEIS_STS3_/g' \
+-e 's/A1:PEM-STS2_D_/A1:SUS-SEIS_STS4_/g' \
+<ACROMAG_BIO0_SEI.db >ACROMAG_BIO0_SUS.db
+

@@ -1,0 +1,342 @@
+# This DataBase sets up the DIO channels for BIO0
+# ACROMAG XT1111-000 16 Channel Digital IO  module
+# 
+# # - RAW Channels
+# ----- BIO Reg1
+# 0 - A3:ACROMAG_BIO0_CH0 - Read (need 820Ohm resistor in series)
+# 1 - A3:ACROMAG_BIO0_CH1 - Write
+# 2 - A3:ACROMAG_BIO0_CH2 - Write
+# 3 - A3:ACROMAG_BIO0_CH3 - Write
+# ----- BIO Reg2
+# 4 - A3:ACROMAG_BIO0_CH4 - Read (need 820Ohm resistor in series)
+# 5 - A3:ACROMAG_BIO0_CH5 - Write
+# 6 - A3:ACROMAG_BIO0_CH6 - Write
+# 7 - A3:ACROMAG_BIO0_CH7 - Write
+# ----- BIO Reg3
+# 8 - A3:ACROMAG_BIO0_CH8 - Read (need 820Ohm resistor in series)
+# 9 - A3:ACROMAG_BIO0_CH9 - Write
+# 10 - A3:ACROMAG_BIO0_CH10 - Write
+# 11 - A3:ACROMAG_BIO0_CH11 - Write
+# ----- BIO Reg4
+# 12 - A3:ACROMAG_BIO0_CH12 - Read (need 820Ohm resistor in series)
+# 13 - A3:ACROMAG_BIO0_CH13 - Write
+# 14 - A3:ACROMAG_BIO0_CH14 - Write
+# 15 - A3:ACROMAG_BIO0_CH15 - Write
+#
+# Channels calculated from RAW channels
+# ----- BIO Reg1
+# 0 -> A1:ISI-IP_T240_C_WCAL_ENABLE_RB
+# 1 -> A1:PEM-LAB_STS2_A_SIGSEL
+# 2 -> A1:PEM-LAB_STS2_A_PERIOD
+# 3 -> A1:PEM-LAB_STS2_A_AUTOZERO
+# ----- BIO Reg2
+# 4 -> A1:ISI-IP_T240_A_GAIN_RB
+# 5 -> A1:PEM-LAB_STS2_B_SIGSEL
+# 6 -> A1:PEM-LAB_STS2_B_PERIOD
+# 7 -> A1:PEM-LAB_STS2_B_AUTOZERO
+# ----- BIO Reg3
+# 8 -> A1:ISI-IP_T240_B_GAIN_RB
+# 9 -> A1:PEM-LAB_STS2_C_SIGSEL
+# 10 -> A1:PEM-LAB_STS2_C_PERIOD
+# 11 -> A1:PEM-LAB_STS2_C_AUTOZERO
+# ----- BIO Reg4
+# 12 -> A1:ISI-IP_T240_C_GAIN_RB
+# 13 -> A1:PEM-LAB_STS2_D_SIGSEL
+# 14 -> A1:PEM-LAB_STS2_D_PERIOD
+# 15 -> A1:PEM-LAB_STS2_D_AUTOZERO
+#
+# ANU Torpedo Experiment
+# Bram Slagmolen - 13 August 2017
+#
+####################################
+record(bi, "A3:ACROMAG_BIO0_CH0")
+{
+		field(SCAN, ".1 second")
+		field(FLNK,"A1:ISI-IP_T240_C_WCAL_ENABLE_RB.PROC")
+		field(DTYP,"asynUInt32Digital")
+#		@asynMask(portName ,offset ,mask ,timeout)drvUser)
+#		offset = 0 for 30001 ch0-3; offset = 1 for 30002 ch4-7; 
+#		offset = 2 for 30003 ch8-11; offset = 3 for 30003 ch12-15;
+#		mask = 1 - bit/ch 0, mask = 2 - bit/ch 1, mask = 4 - bit/ch 2, mask = 8 - bit/ch 3
+		field(INP,"@asynMask(BIO0_Rd, 0, 0x1)")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_C_WCAL_ENABLE_RB")
+{
+	        field(SCAN, ".1 second")
+	        field(INPA, "A3:ACROMAG_BIO0_CH0.VAL NPP MS")
+		field(DESC,"Readback - Select XYZ output or UVW Cal")
+	        field(CALC, "!A")
+	        field(HOPR,"1")
+	        field(LOPR,"0")
+		field(PREC, "1")
+}
+####################################
+record(bo, "A3:ACROMAG_BIO0_CH1")
+{
+		field(SCAN, ".1 second")
+		field(FLNK,"A1:PEM-LAB_STS2_A_SIGSEL.PROC")
+		field(DTYP,"asynUInt32Digital")
+		field(OUT,"@asynMask(BIO0_Wrt, 0, 0x2)")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+record(bo, "A1:PEM-LAB_STS2_A_SIGSEL")
+{
+		field(SCAN, ".1 second")
+	    	field(OUT, "A3:ACROMAG_BIO0_CH1")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+####################################
+record(bo, "A3:ACROMAG_BIO0_CH2")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PEM-LAB_STS2_A_PERIOD.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO0_Wrt, 0, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PEM-LAB_STS2_A_PERIOD")
+{
+		field(SCAN, ".1 second")
+	    	field(OUT, "A3:ACROMAG_BIO0_CH2")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+####################################
+record(bo, "A3:ACROMAG_BIO0_CH3")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PEM-LAB_STS2_A_AUTOZERO.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO0_Wrt, 0, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PEM-LAB_STS2_A_AUTOZERO")
+{
+		field(SCAN, ".1 second")
+	    	field(OUT, "A3:ACROMAG_BIO0_CH3")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO0_CH4")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:ISI-IP_T240_A_GAIN_RB.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(INP,"@asynMask(BIO0_Rd, 1, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_A_GAIN_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO0_CH4.VAL NPP MS")
+	field(DESC,"Readback - T240 XYZ Gain Enabled")
+        field(CALC, "A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+}
+####################################
+record(bo, "A3:ACROMAG_BIO0_CH5")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PEM-LAB_STS2_B_SIGSEL.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO0_Wrt, 1, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PEM-LAB_STS2_B_SIGSEL")
+{
+		field(SCAN, ".1 second")
+	    	field(OUT, "A3:ACROMAG_BIO0_CH5")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+####################################
+record(bo, "A3:ACROMAG_BIO0_CH6")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PEM-LAB_STS2_B_PERIOD.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO0_Wrt, 1, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PEM-LAB_STS2_B_PERIOD")
+{
+		field(SCAN, ".1 second")
+	    	field(OUT, "A3:ACROMAG_BIO0_CH6")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+####################################
+record(bo, "A3:ACROMAG_BIO0_CH7")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PEM-LAB_STS2_B_AUTOZERO.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO0_Wrt, 1, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PEM-LAB_STS2_B_AUTOZERO")
+{
+		field(SCAN, ".1 second")
+	    	field(OUT, "A3:ACROMAG_BIO0_CH6")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO0_CH8")
+{
+	field(SCAN, ".1 second")
+#	field(FLNK,"A1:ISI-IP_T240_B_GAIN_RB.PROC")
+	field(FLNK,"A1:ISI-IP_T240_B_GAIN_RB.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(INP,"@asynMask(BIO0_Rd, 2, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_B_GAIN_RB")
+#record(calc, "A1:ISI-IP_T240_B_GAIN_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO0_CH8.VAL NPP MS")
+	field(DESC,"Readback - T240 XYZ Gain Enabled")
+        field(CALC, "A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+		field(PREC, "1")
+}
+####################################
+record(bo, "A3:ACROMAG_BIO0_CH9")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PEM-LAB_STS2_C_SIGSEL.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO0_Wrt, 2, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PEM-LAB_STS2_C_SIGSEL")
+{
+		field(SCAN, ".1 second")
+	    	field(OUT, "A3:ACROMAG_BIO0_CH9")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+####################################
+record(bo, "A3:ACROMAG_BIO0_CH10")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PEM-LAB_STS2_C_PERIOD.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO0_Wrt, 2, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PEM-LAB_STS2_C_PERIOD")
+{
+		field(SCAN, ".1 second")
+	    	field(OUT, "A3:ACROMAG_BIO0_CH10")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+
+####################################
+record(bo, "A3:ACROMAG_BIO0_CH11")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PEM-LAB_STS2_C_AUTOZERO.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO0_Wrt, 2, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PEM-LAB_STS2_C_AUTOZERO")
+{
+		field(SCAN, ".1 second")
+	    	field(OUT, "A3:ACROMAG_BIO0_CH11")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+
+####################################
+record(bi, "A3:ACROMAG_BIO0_CH12")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:ISI-IP_T240_C_GAIN_RB.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(INP,"@asynMask(BIO0_Rd, 3, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_C_GAIN_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO0_CH12.VAL NPP MS")
+	field(DESC,"Readback - T240 XYZ Gain Enabled")
+        field(CALC, "A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+		field(PREC, "1")
+}
+####################################
+record(bo, "A3:ACROMAG_BIO0_CH13")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PEM-LAB_STS2_D_SIGSEL.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO0_Wrt, 1, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PEM-LAB_STS2_D_SIGSEL")
+{
+		field(SCAN, ".1 second")
+	    	field(OUT, "A3:ACROMAG_BIO0_CH13")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+####################################
+record(bo, "A3:ACROMAG_BIO0_CH14")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PEM-LAB_STS2_D_PERIOD.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO0_Wrt, 1, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PEM-LAB_STS2_D_PERIOD")
+{
+		field(SCAN, ".1 second")
+	    	field(OUT, "A3:ACROMAG_BIO0_CH14")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+####################################
+record(bo, "A3:ACROMAG_BIO0_CH15")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:PEM-LAB_STS2_D_AUTOZERO.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO0_Wrt, 1, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:PEM-LAB_STS2_D_AUTOZERO")
+{
+		field(SCAN, ".1 second")
+	    	field(OUT, "A3:ACROMAG_BIO0_CH14")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+

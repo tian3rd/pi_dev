@@ -1,0 +1,138 @@
+# This DataBase sets up the TEMP readout TEMP0
+# ACROMAG 966EN-RTD 6 Channel Temp
+# 
+# # - Channels read
+# 0 - A3:ACROMAG_TEMP0_INPUT0
+# 1 - A3:ACROMAG_TEMP0_INPUT1
+# 2 - A3:ACROMAG_TEMP0_INPUT2
+# 3 - A3:ACROMAG_TEMP0_INPUT3
+# 4 - A3:ACROMAG_TEMP0_INPUT4
+# 5 - A3:ACROMAG_TEMP0_INPUT5
+#
+# Channels calculated from read channels
+# 0 -> A1:ISI-IP_T240_A_POD_TEMP_C
+# 1 -> A1:ISI-IP_T240_B_POD_TEMP_C
+#
+# 2 -> A1:ISI-IP_T240_C_POD_TEMP_C 
+# 3 -> A1:PEM-LAB_TEMP_C
+#
+# 4 -> A1:PEM-LAB_TOBA_TANK_BASE_TEMP_C
+# 5 -> A1:PEM-LAB_TOBA_TANK_LID_TEMP_C
+
+#
+# ANU Torpedo Experiment
+# Bram Slagmolen - 5 Sept 2017
+#
+############################################################
+record(ai, "A3:ACROMAG_TEMP0_INPUT0")
+{
+	field(SCAN, ".1 second")
+	field(FLNK, "A1:ISI-IP_T240_A_POD_TEMP_C.PROC")
+	field(DTYP, "asynInt32")
+	field(INP, "@asynMask(TEMP0_Reg 0 -16)MODBUS_DATA")
+}
+record(calc, "A1:ISI-IP_T240_A_POD_TEMP_C")
+{
+	field(INPA,"A3:ACROMAG_TEMP0_INPUT0.VAL NPP MS")
+	field(DESC,"Convert Frame Temp resistance to Deg C")
+#	field(CALC,"(-100*3.9083E-3+SQR(100^2*(3.9083E-3)^2-4*100*-5.775E-7*(100-A)))/(2*100*-5.775E-7)")
+#	1 / (2*100*-5.775E-7) = -8658.008
+#	field(CALC,"-8658*(-100*3.9083E-3 + SQR(100^2* (3.9083E-3)^2 - 4*100*-5.775E-7*(100-A)))")
+#	field(CALC,"-8658*(-0.39083+SQR(100^2*(3.9083E-3)^2-4*100*-5.775E-7*(100-A)))")
+	field(CALC,"A/10")
+	field(EGU,"DegC")
+	field(PREC,"3")
+	field(HOPR,"500")
+	field(LOPR,"0")
+}
+############################################################
+record(ai, "A3:ACROMAG_TEMP0_INPUT1")
+{
+	field(SCAN, ".1 second")
+	field(FLNK, "A1:ISI-IP_T240_B_POD_TEMP_C.PROC")
+	field(DTYP, "asynInt32")
+	field(INP, "@asynMask(TEMP0_Reg 1 -16)MODBUS_DATA")
+}
+record(calc, "A1:ISI-IP_T240_B_POD_TEMP_C")
+{
+        field(INPA,"A3:ACROMAG_TEMP0_INPUT1.VAL NPP MS")
+        field(DESC,"Convert Frame Temp resistance to Deg C")
+	field(CALC,"A/10")
+        field(EGU,"DegC")
+        field(PREC,"3")
+        field(HOPR,"500")
+        field(LOPR,"0")
+}
+############################################################
+record(ai, "A3:ACROMAG_TEMP0_INPUT2")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A1:ISI-IP_T240_C_POD_TEMP_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(TEMP0_Reg 2 -16)MODBUS_DATA")
+}
+record(calc, "A1:ISI-IP_T240_C_POD_TEMP_C")
+{
+        field(INPA,"A3:ACROMAG_TEMP0_INPUT2.VAL NPP MS")
+        field(DESC,"Convert Frame Temp resistance to Deg C")
+	field(CALC,"A/10")
+        field(EGU,"DegC")
+        field(PREC,"3")
+        field(HOPR,"500")
+        field(LOPR,"0")
+}
+############################################################
+record(ai, "A3:ACROMAG_TEMP0_INPUT3")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A1:PEM-LAB_TEMP_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(TEMP0_Reg 3 -16)MODBUS_DATA")
+}
+record(calc, "A1:PEM-LAB_TEMP_C")
+{
+        field(INPA,"A3:ACROMAG_TEMP0_INPUT3.VAL NPP MS")
+        field(DESC,"Convert Frame Temp resistance to Deg C")
+	field(CALC,"A/10")
+        field(EGU,"DegC")
+        field(PREC,"3")
+        field(HOPR,"500")
+        field(LOPR,"0")
+}
+############################################################
+record(ai, "A3:ACROMAG_TEMP0_INPUT4")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A1:PEM-LAB_TOBA_TANK_BASE_TEMP_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(TEMP0_Reg 4 -16)MODBUS_DATA")
+}
+record(calc, "A1:PEM-LAB_TOBA_TANK_BASE_TEMP_C")
+{
+        field(INPA,"A3:ACROMAG_TEMP0_INPUT4.VAL NPP MS")
+        field(DESC,"Rescale temp reaout to degrees C")
+	field(CALC,"A/10")
+        field(EGU,"DegC")
+        field(PREC,"3")
+        field(HOPR,"500")
+        field(LOPR,"0")
+}
+############################################################
+record(ai, "A3:ACROMAG_TEMP0_INPUT5")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A1:PEM-LAB_TOBA_TANK_LID_TEMP_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(TEMP0_Reg 5 -16)MODBUS_DATA")
+}
+record(calc, "A1:PEM-LAB_TOBA_TANK_LID_TEMP_C")
+{
+        field(INPA,"A3:ACROMAG_TEMP0_INPUT5.VAL NPP MS")
+        field(DESC,"Convert Frame Temp resistance to Deg C")
+	field(CALC,"A/10")
+        field(EGU,"DegC")
+        field(PREC,"3")
+        field(HOPR,"500")
+        field(LOPR,"0")
+}
+

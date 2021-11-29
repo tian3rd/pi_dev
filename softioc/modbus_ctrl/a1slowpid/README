@@ -1,0 +1,55 @@
+#####################
+make a new .ini file
+$ sed -e 's/IFO/A1/g' -e 's/SUBSYSTEM/ISC/g' -e 's/FILTERNAME/LASER_D_TEMP/g' <CDS_PID1.ini > CDS_PID_LASER_D_TEMP.ini
+
+####################
+make a new PID EPICS Database file
+$ sed -e 's/IFO/A1/g' -e 's/SUBSYSTEM/ISC/g' -e 's/FILTERNAME/LASER_D_TEMP/g' <CDS_PID1.db > CDS_PID_LASER_D_TEMP.db
+
+###################
+Moved the MEDM screen and the macro files to the USERAPPS, like:
+
+$(USERAPPS)/isc/common/medm/CDS_PID1_TEMP.adl
+$(USERAPPS)/isc/common/medm/cds_pid_D_macro.txt
+
+Installed DAQD .ini file
+
+/opt/rtcds/anu/a1/chans/daq/CDS_PID_LASER_D_TEMP.ini
+
+#####################
+To run the softIoc command, run
+$ cd /opt/rtcds/anu/a1/iocmodbus/a1slowpid
+$ ${EPICS_BASE}/bin/${EPICS_HOST_ARCH}/softIoc cds_pid.cmd
+
+To start this ioc module runthe following
+
+$ tmux
+$ cd /opt/rtcds/anu/a1/iocmodbus/a1slowpid
+$ ${EPICS_BASE}/bin/${EPICS_HOST_ARCH}/softIoc cds_pid.cmd
+CRTL-b, d
+
+The key combination 'CRTL-b', followed by 'd' will exit the tmux session.
+
+#####################
+Start the python servo
+$ python CDS_PID.py --PIDfilt A1:ISC-LASER_D_TEMP_ --input A1:LSC-PDH_FAST_C_LF_NORM_MON --output A1:ISC-LASER_D_TEMP_PID_VOLT
+
+
+
+#########
+To run the CDS Python PID Servo
+
+$ cd /opt/rtcds/anu/a1/iocmodbus/a1iscslow0
+$ ${EPICS_BASE}/bin/${EPICS_HOST_ARCH}/modbusApp a1iscslowconfig0.cmd
+
+$ cd /opt/rtcds/anu/a1/iocmodbus/a1slowpid
+$ ${EPICS_BASE}/bin/${EPICS_HOST_ARCH}/softIoc cds_pid.cmd
+
+$ cd /opt/rtcds/anu/a1/iocmodbus/a1slowpid
+$ python CDS_PID.py --PIDfilt A1:ISC-LASER_D_TEMP_ --input A1:LSC-PDH_FAST_C_LF_NORM_MON --output A1:ISC-LASER_D_TEMP_PID_VOLT &>/dev/null
+
+
+To check is things are running
+$ sudo ps aux | grep modbus
+$ sudo ps aux | grep softIoc
+

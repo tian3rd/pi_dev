@@ -1,0 +1,110 @@
+# > *INMON - Input monitor, at 10 Hz (optional).
+# > *FB - The feedback output from the PID controller (optional).
+#
+# 
+# > *IN_EN - Engage the PID filter input.
+# > *SETPOINT - The PID controller set point.
+# > *KP - The proportional gain.
+# > *KI - The integral gain.
+# > *KD - The derivative gain.
+# > *RESET - A boolean flag to reset the PID memory.
+# > *PID_PAUSE - Freeze, the current PID controller output.
+# > *LIM_EN - Engage limiting for the PID output.
+# > *LIM_UPR - Upper limit for PID output.
+# > *LIM_LWR - Lower limit for PID output.
+# > *FBMON - A monitor for the PID controller's feedback.
+# > *OUT_EN - A boolean flag to indicate if the ouput is engaged.
+#
+######################################################################## 
+record(bi, "A1:ISC-LASER_D_TEMP_IN_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(ai, "A1:ISC-LASER_D_TEMP_SETPOINT")
+{
+	field(SCAN, ".1 second")
+	field(PREC, "4")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_KP")
+{
+        field(SCAN,".1 second")
+	field(DESC,"Convert LASER_B_PCM_RB count to Volt")
+#	field(HOPR,"10")
+#	field(LOPR,"-10")
+	field(PREC, "7")
+}
+
+record(ai, "A1:ISC-LASER_D_TEMP_KI")
+{
+        field(SCAN,".1 second")
+#	field(HOPR,"10")
+#	field(LOPR,"-10")
+	field(PREC, "7")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_KD")
+{
+	field(SCAN, ".1 second")
+	field(PREC, "7")
+}
+record(bi, "A1:ISC-LASER_D_TEMP_RESET")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_D_TEMP_PID_PAUSE")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_D_TEMP_LIM_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(ai, "A1:ISC-LASER_D_TEMP_LIM_UPR")
+{
+	field(SCAN, ".1 second")
+#	field(HOPR,"10")
+#	field(LOPR,"0")
+	field(PREC, "4")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_LIM_LWR")
+{
+	field(SCAN, ".1 second")
+#	field(HOPR,"0")
+#	field(LOPR,"-10")
+	field(PREC, "4")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_FBMON")
+{
+	field(SCAN, ".1 second")
+#	field(HOPR,"10")
+#	field(LOPR,"-10")
+#	field(PREC, "4")
+}
+record(bi, "A1:ISC-LASER_D_TEMP_OUT_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+#record(ai, "A1:ISC-LASER_D_TEMP_FB")
+#{
+#	field(SCAN, ".1 second")
+#	field(PREC, "5")
+#	field(HOPR,"10")
+#	field(LOPR,"-10")
+#}
+record(ai, "A1:ISC-LASER_D_TEMP_OFFSET_VOLT")
+{
+	field(SCAN, ".1 second")
+	field(HOPR,"10")
+	field(LOPR,"-10")
+	field(PREC, "4")
+}
+

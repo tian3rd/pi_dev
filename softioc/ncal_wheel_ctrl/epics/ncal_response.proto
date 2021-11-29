@@ -1,0 +1,56 @@
+# ncal_response: 
+#   simple command/response access via USB to Arduino's I/O capabilities
+#
+# soft link this file to the IOC's boot directory to be found at run time
+
+InTerminator = CR LF;
+OutTerminator = LF;
+#ReplyTimeout = 10;
+#LockTimeout = 500;
+
+# silence most error messages
+ERROR_RESPONSE = "ERROR_.*";
+@mismatch { in $ERROR_RESPONSE; }
+ExtraInput = Ignore;
+
+#     turn on diagnostics with these IOC shell commands:
+#       asynSetTraceIOMask "usb0" 0 2
+#       asynSetTraceMask   "usb0" 0 9
+
+# ai
+get {
+  out "?\$1"; 
+  in "%f";
+}
+
+# ao
+set {
+  out "!\$1 %f"; 
+  in "Ok";
+
+  @init {
+    out "?sp";
+    in "%f";
+  }
+}
+
+update {
+  out "!\$1 %f";
+  in "Ok";
+
+  @init {
+    out "?\$1";
+    in "%f";
+  }
+}
+
+debug {
+    ExtraInput = Error;
+    out "%s";
+    in "%39c";
+}
+
+txt {
+  out "?\$1";
+  in "%s";
+}

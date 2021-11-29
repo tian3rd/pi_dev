@@ -1,0 +1,92 @@
+# This DataBase sets up the DIO channels for BIO3
+# ACROMAG XT1111-000 16 Channel Digital IO  module
+# 
+# # - RAW Channels
+# ----- BIO Reg1
+# 0 - A3:ACROMAG_BIO3_CH0 - Write
+# 1 - A3:ACROMAG_BIO3_CH1 - Write
+# 2 - A3:ACROMAG_BIO3_CH2 - Write
+# 3 - A3:ACROMAG_BIO3_CH3 - Write
+# ----- BIO Reg2
+# 4 - A3:ACROMAG_BIO3_CH4 - Write
+# 5 - A3:ACROMAG_BIO3_CH5 - Write
+# 6 - A3:ACROMAG_BIO3_CH6 - Write
+# 7 - A3:ACROMAG_BIO3_CH7 - Write
+# ----- BIO Reg3
+# 8 - A3:ACROMAG_BIO3_CH8 - Write
+# 9 - A3:ACROMAG_BIO3_CH9 - Write
+# 10 - A3:ACROMAG_BIO3_CH10 - Write
+# 11 - A3:ACROMAG_BIO3_CH11 - Write
+# ----- BIO Reg4
+# 12 - A3:ACROMAG_BIO3_CH12 - Write
+# 13 - A3:ACROMAG_BIO3_CH13 - Write
+# 14 - A3:ACROMAG_BIO3_CH14 - Write
+# 15 - A3:ACROMAG_BIO3_CH15 - Write
+#
+# Channels calculated from RAW channels
+# ----- BIO Reg1
+# 0 -> A1:ISC-FSS_LASER_A_SLOW_EN
+# 1 -> A1:ISC-FSS_LASER_A_TEST1_EN
+# 2 -> A1:ISC-FSS_LASER_A_RAMP_EN
+# 3 -> A1:ISC-FSS_LASER_A_TEST2_EN
+# ----- BIO Reg2
+# 4 -> A1:ISC-FSS_LASER_A_AO_EN
+# 5 -> A1:ISC-FSS_LASER_B_SLOW_EN
+# 6 -> A1:ISC-FSS_LASER_B_TEST1_EN
+# 7 -> A1:ISC-FSS_LASER_B_RAMP_EN
+# ----- BIO Reg3
+# 8 -> A1:ISC-FSS_LASER_B_TEST2_EN
+# 9 -> A1:ISC-FSS_LASER_B_AO_EN
+# 10 -> A1:ISC-FSS_LASER_C_SLOW_EN
+# 11 -> A1:ISC-FSS_LASER_C_TEST1_EN
+# ----- BIO Reg4
+# 12 -> A1:ISC-FSS_LASER_C_RAMP_EN
+# 13 -> A1:ISC-FSS_LASER_C_TEST2_EN
+# 14 -> A1:ISC-FSS_LASER_C_AO_EN
+# 15 -> SPARE
+#
+# ANU Torpedo Experiment
+# Joshua McCann - 13 June 2018
+#
+####################################
+#SOMEHOW MULTIPLE RECORDS ARE BREAKING THINGS CAUSING FLOATING/ANAOMALY
+
+
+record(bo, "A3:TESTING_COMBINED")
+{
+		field(SCAN, ".1 second")
+		field(DTYP,"asynUInt32Digital")
+#		@asynMask(portName ,offset ,mask ,timeout)drvUser)
+#		offset = 0 for 30001 ch0-3; offset = 1 for 30002 ch4-7; 
+#		offset = 2 for 30003 ch8-11; offset = 3 for 30003 ch12-15;
+#		mask = 1 - bit/ch 0, mask = 2 - bit/ch 1, mask = 4 - bit/ch 2, mask = 8 - bit/ch 3
+		field(OUT,"@asynMask(BIO5_Wrt, 0, 0x3)")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+
+record(bo, "A3:TESTING_CH0")
+{
+		field(SCAN, ".1 second")
+		field(DTYP,"asynUInt32Digital")
+#		@asynMask(portName ,offset ,mask ,timeout)drvUser)
+#		offset = 0 for 30001 ch0-3; offset = 1 for 30002 ch4-7; 
+#		offset = 2 for 30003 ch8-11; offset = 3 for 30003 ch12-15;
+#		mask = 1 - bit/ch 0, mask = 2 - bit/ch 1, mask = 4 - bit/ch 2, mask = 8 - bit/ch 3
+		field(OUT,"@asynMask(BIO5_Wrt, 0, 0x1)")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+
+record(bo, "A3:TESTING_CH1")
+{
+		field(SCAN, ".1 second")
+		field(DTYP,"asynUInt32Digital")
+#		@asynMask(portName ,offset ,mask ,timeout)drvUser)
+#		offset = 0 for 30001 ch0-3; offset = 1 for 30002 ch4-7; 
+#		offset = 2 for 30003 ch8-11; offset = 3 for 30003 ch12-15;
+#		mask = 1 - bit/ch 0, mask = 2 - bit/ch 1, mask = 4 - bit/ch 2, mask = 8 - bit/ch 3
+		field(OUT,"@asynMask(BIO5_Wrt, 0, 0x2)")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}

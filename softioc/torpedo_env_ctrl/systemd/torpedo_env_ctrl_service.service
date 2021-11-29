@@ -1,0 +1,51 @@
+# systemd unit file for the pfeiffer pvserver service
+#
+# Installation
+# sudo cp torpedo_env_ctrl_service.service /etc/systemd/system/
+#
+# sudo mkdir /usr/local/lib/torpedo_env_ctrl_service
+# sudo cp torpedo_env_ctrl_ss.py /usr/local/lib/torpedo_env_ctrl_service/torpedo_env_ctrl.py
+# or
+# sudo cp Main_Envirodata_ProcessStart_V1.py /usr/local/lib/torpedo_env_ctrl_service/torpedo_env_ctrl.py
+#
+# location of this file
+# /etc/systemd/system/torpedo_env_ctrl_service.service
+#
+# enable with
+# $ sudo systemctl enable torpedo_env_ctrl_service.service
+#
+# start with
+# $ sudo systemctl start torpedo_env_ctrl_service.service
+#
+# check status with 
+# $ sudo systemctl status torpedo_env_ctrl_service.service
+
+[Unit]
+# Human readable name of the unit
+Description=Python Torpedo Environment RPI PV Server Service
+
+
+[Service]
+# Command to execute when the service is started
+ExecStart=/usr/bin/python3 /usr/local/lib/torpedo_env_ctrl_service/torpedo_env_ctrl.py
+#ExecStart=/usr/bin/python3 /usr/local/lib/torpedo_env_ctrl_service/Main_Envirodata_ProcessStart_V1.py
+
+# Disable Python's buffering of STDOUT and STDERR, so that output from the
+# service shows up immediately in systemd's logs
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONPATH=/opt/rtapps/linux-arm/epics-3.15.5_long/pyext/pcaspy/lib/python3.7/site-packages:/opt/rtapps/linux-arm/epics-3.15.5_long/pyext/pyepics/lib/python3.7/site-packages
+
+# Automatically restart the service if it crashes
+Restart=on-failure
+
+# Our service will notify systemd once it is up and running
+Type=notify
+
+# Use a dedicated user to run our service
+User=controls
+
+
+[Install]
+# Tell systemd to automatically start this service when the system boots
+# (assuming the service is enabled)
+WantedBy=default.target

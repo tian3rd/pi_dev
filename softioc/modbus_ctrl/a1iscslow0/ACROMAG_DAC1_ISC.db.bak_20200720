@@ -1,0 +1,225 @@
+# This DataBase sets up the DAC channels for DAC1
+# ACROMAG XT1541-000 8 Chanel Diff DAC module
+# 
+# # - Channels read
+# 0 - A3:ACROMAG_DAC1_OUTPUT0
+# 1 - A3:ACROMAG_DAC1_OUTPUT1
+# 2 - A3:ACROMAG_DAC1_OUTPUT2
+# 3 - A3:ACROMAG_DAC1_OUTPUT3
+# 4 - A3:ACROMAG_DAC1_OUTPUT4
+# 5 - A3:ACROMAG_DAC1_OUTPUT5
+# 6 - A3:ACROMAG_DAC1_OUTPUT6
+# 7 - A3:ACROMAG_DAC1_OUTPUT7
+#
+# Channels voltage from read channels
+# 0 -> A1:ISC-FSS_LASER_C_COMM_GAIN_V
+# 1 -> A1:ISC-FSS_LASER_C_OFFSET_V
+# 2 -> A1:ISC-FSS_LASER_C_FAST_GAIN_V
+# 
+# 3 -> A1:ISC-FSS_LASER_C_SLOW_GAIN_V
+# 4 -> A1:ISC-LASER_A_CRYSTAL_TEMP_VOLT
+# 5 -> A1:ISC-LASER_B_CRYSTAL_TEMP_VOLT
+#
+# 6 -> A1:ISC-LASER_C_CRYSTAL_TEMP_VOLT
+# 7 -> A1:ISC-LASER_D_CRYSTAL_TEMP_VOLT
+#
+# Channels calculated from read channels
+# 0 -> A1:ISC-FSS_LASER_C_COMM_GAIN
+# 1 -> A1:ISC-FSS_LASER_C_OFFSET
+# 2 -> A1:ISC-FSS_LASER_C_FAST_GAIN
+# 
+# 3 -> A1:ISC-FSS_LASER_C_SLOW_GAIN
+# 4 -> A1:ISC-LASER_A_CRYSTAL_TEMP
+# 5 -> A1:ISC-LASER_B_CRYSTAL_TEMP
+#
+# 6 -> A1:ISC-LASER_C_CRYSTAL_TEMP
+# 7 -> A1:ISC-LASER_D_CRYSTAL_TEMP
+#
+# ANU Torpedo Experiment
+# Joshua McCann - 13 June 2018
+#
+######################################################################
+###############		ISC-FSS LASER A		######################
+record(ai, "A1:ISC-FSS_LASER_C_COMM_GAIN_V")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-FSS_LASER_C_COMM_GAIN")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC1_OUTPUT0")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-FSS_LASER_C_COMM_GAIN_V")
+}
+record(ao, "A3:ACROMAG_DAC1_OUTPUT0")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC1_Reg 0 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+record(ai, "A1:ISC-FSS_LASER_C_OFFSET_V")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-FSS_LASER_C_OFFSET")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC1_OUTPUT1")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-FSS_LASER_C_OFFSET_V")
+}
+record(ao, "A3:ACROMAG_DAC1_OUTPUT1")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC1_Reg 1 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+record(ai, "A1:ISC-FSS_LASER_C_FAST_GAIN_V")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-FSS_LASER_C_FAST_GAIN")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC1_OUTPUT2")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-FSS_LASER_C_FAST_GAIN_V")
+}
+record(ao, "A3:ACROMAG_DAC1_OUTPUT2")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC1_Reg 2 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+######################################################################
+record(ai, "A1:ISC-FSS_LASER_C_SLOW_GAIN_V")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-FSS_LASER_C_SLOW_GAIN")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC1_OUTPUT3")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-FSS_LASER_C_SLOW_GAIN_V")
+}
+record(ao, "A3:ACROMAG_DAC1_OUTPUT3")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC1_Reg 3 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+record(ai, "A1:ISC-LASER_A_CRYSTAL_TEMP_VOLT")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-LASER_A_CRYSTAL_TEMP")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC1_OUTPUT4")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-LASER_A_CRYSTAL_TEMP_VOLT")
+}
+record(ao, "A3:ACROMAG_DAC1_OUTPUT4")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC1_Reg 4 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+record(ai, "A1:ISC-LASER_B_CRYSTAL_TEMP_VOLT")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-LASER_B_CRYSTAL_TEMP")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC1_OUTPUT5")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-LASER_B_CRYSTAL_TEMP_VOLT")
+}
+record(ao, "A3:ACROMAG_DAC1_OUTPUT5")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC1_Reg 5 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+record(ai, "A1:ISC-LASER_C_CRYSTAL_TEMP_VOLT")
+{
+		field(SCAN,".1 second")
+}
+record(calcout, "A1:ISC-LASER_C_CRYSTAL_TEMP")
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC1_OUTPUT6")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-LASER_C_CRYSTAL_TEMP_VOLT")
+}
+record(ao, "A3:ACROMAG_DAC1_OUTPUT6")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC1_Reg 6 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+#record(ai, "A1:ISC-LASER_D_CRYSTAL_TEMP_VOLT")
+#{
+#		field(SCAN,".1 second")
+#}
+record(calcout, "A1:ISC-LASER_D_CRYSTAL_TEMP")
+# channel A1:ISC-LASER_D_TEMP_CRYSTAL_VOLT comes from
+# CDS_PID_LASER_D_TEMP.db, which is the sum of
+# A1:ISC-LASER_D_TEMP_PID_VOLT channel out of CDS_PID.py and 
+# A1:ISC-LASER_D_TEMP_OFFSET_VOLT, offset value
+{
+		field(SCAN,".1 second")
+		field(OUT, "A3:ACROMAG_DAC1_OUTPUT7")
+		field(CALC,"A*3003.5-20.8285")
+		field(INPA,"A1:ISC-LASER_D_TEMP_CRYSTAL_VOLT")
+#		field(INPA,"A1:ISC-LASER_D_CRYSTAL_TEMP_VOLT")
+#		field(INPB,"A1:ISC-LASER_D_TEMP_OFFSET_VOLT")
+}
+record(ao, "A3:ACROMAG_DAC1_OUTPUT7")
+{
+		field(DTYP, "asynInt32")
+		field(OUT,"@asynMask(DAC1_Reg 7 -16)MODBUS_DATA")
+		field(LINR,"NO CONVERSION")
+		field(HOPR,"30000")
+		field(LOPR,"-30000")
+		field(PREC,"0")
+		field(SCAN,".1 second")
+}
+########################################################################
+

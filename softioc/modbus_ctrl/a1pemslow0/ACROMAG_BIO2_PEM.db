@@ -1,0 +1,360 @@
+# This DataBase sets up the DIO channels for BIO2
+# ACROMAG XT1111-000 16 Channel Digital IO  module
+# 
+# # - RAW Channels
+# ----- BIO Reg1
+# 0 - A3:ACROMAG_BIO2_CH0 - Write 
+# 1 - A3:ACROMAG_BIO2_CH1 - Write
+# 2 - A3:ACROMAG_BIO2_CH2 - Read (need 820Ohm resistor in series)
+# 3 - A3:ACROMAG_BIO2_CH3 - Read (need 820Ohm resistor in series)
+# ----- BIO Reg2
+# 4 - A3:ACROMAG_BIO2_CH4 - Read (need 820Ohm resistor in series)
+# 5 - A3:ACROMAG_BIO2_CH5 - Read (need 820Ohm resistor in series)
+# 6 - A3:ACROMAG_BIO2_CH6 - Read (need 820Ohm resistor in series)
+# 7 - A3:ACROMAG_BIO2_CH7 - Read (need 820Ohm resistor in series)
+# ----- BIO Reg3
+# 8 - A3:ACROMAG_BIO2_CH8 - Read (need 820Ohm resistor in series)
+# 9 - A3:ACROMAG_BIO2_CH9 - Read (need 820Ohm resistor in series)
+# 10 - A3:ACROMAG_BIO2_CH10 - Read (need 820Ohm resistor in series)
+# 11 - A3:ACROMAG_BIO2_CH11 - Read (need 820Ohm resistor in series)
+# ----- BIO Reg4
+# 12 - A3:ACROMAG_BIO2_CH12 - Read (need 820Ohm resistor in series)
+# 13 - A3:ACROMAG_BIO2_CH13 - Read (need 820Ohm resistor in series)
+# 14 - A3:ACROMAG_BIO2_CH14 - Read (need 820Ohm resistor in series)
+# 15 - A3:ACROMAG_BIO2_CH15 - Read (need 820Ohm resistor in series)
+#
+# Channels calculated from RAW channels
+# ----- BIO Reg1
+# 0 -> A1:ISI-IP_T240_C_WCAL_ENABLE
+# 1 -> A1:ISI-IP_T240_C_GAIN
+# 2 -> A1:ISI-IP_T240_A_SIGSEL_RB
+# 3 -> A1:ISI-IP_T240_A_AUTOZERO_RB
+# ----- BIO Reg2
+# 4 -> A1:ISI-IP_T240_A_UCAL_ENABLE_RB
+# 5 -> A1:ISI-IP_T240_A_VCAL_ENABLE_RB
+# 6 -> A1:ISI-IP_T240_A_WCAL_ENABLE_RB
+# 7 -> A1:ISI-IP_T240_B_SIGSEL_RB    
+# ----- BIO Reg3
+# 8 -> A1:ISI-IP_T240_B_AUTOZERO_RB
+# 9 -> A1:ISI-IP_T240_B_UCAL_ENABLE_RB
+# 10 -> A1:ISI-IP_T240_B_VCAL_ENABLE_RB
+# 11 -> A1:ISI-IP_T240_B_WCAL_ENABLE_RB
+# ----- BIO Reg4
+# 12 -> A1:ISI-IP_T240_C_SIGSEL_RB
+# 13 -> A1:ISI-IP_T240_C_AUTOZERO_RB
+# 14 -> A1:ISI-IP_T240_C_UCAL_ENABLE_RB
+# 15 -> A1:ISI-IP_T240_C_VCAL_ENABLE_RB
+#
+# ANU Torpedo Experiment
+# Bram Slagmolen - 13 August 2017
+#
+####################################
+record(bo, "A3:ACROMAG_BIO2_CH0")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:ISI-IP_T240_C_WCAL_ENABLE.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO2_Wrt, 0, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:ISI-IP_T240_C_WCAL_ENABLE")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO2_CH0")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+####################################
+record(bo, "A3:ACROMAG_BIO2_CH1")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:ISI-IP_T240_C_GAIN.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(OUT,"@asynMask(BIO2_Wrt, 0, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(bo, "A1:ISI-IP_T240_C_GAIN")
+{
+                field(SCAN, ".1 second")
+                field(OUT, "A3:ACROMAG_BIO2_CH1")
+                field(ZNAM,"0")
+                field(ONAM,"1")
+}
+#################################### READ ##################################
+record(bi, "A3:ACROMAG_BIO2_CH2")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:ISI-IP_T240_A_SIGSEL_RB.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(INP,"@asynMask(BIO2_Rd, 0, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_A_SIGSEL_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH2.VAL NPP MS")
+	field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO2_CH3")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:ISI-IP_T240_A_AUTOZERO_RB.PROC")
+	field(DTYP,"asynUInt32Digital")
+	field(INP,"@asynMask(BIO2_Rd, 0, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_A_AUTOZERO_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH3.VAL NPP MS")
+        field(DESC,"Readback - Auto Zero request")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+}
+##################################
+record(bi, "A3:ACROMAG_BIO2_CH4")
+{
+	field(SCAN, ".1 second")
+	field(FLNK,"A1:ISI-IP_T240_A_UCAL_ENABLE_RB.PROC")
+	field(DTYP,"asynUInt32Digital")
+		field(INP,"@asynMask(BIO2_Rd, 1, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_A_UCAL_ENABLE_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH4.VAL NPP MS")
+	field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO2_CH5")
+{
+        field(SCAN, ".1 second")
+        field(FLNK,"A1:ISI-IP_T240_A_VCAL_ENABLE_RB.PROC")
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO2_Rd, 1, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_A_VCAL_ENABLE_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH5.VAL NPP MS")
+        field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO2_CH6")
+{
+        field(SCAN, ".1 second")
+        field(FLNK,"A1:ISI-IP_T240_A_WCAL_ENABLE_RB.PROC")
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO2_Rd, 1, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_A_WCAL_ENABLE_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH6.VAL NPP MS")
+        field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO2_CH7")
+{
+        field(SCAN, ".1 second")
+        field(FLNK,"A1:ISI-IP_T240_B_SIGSEL_RB.PROC")
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO2_Rd, 1, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_B_SIGSEL_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH7.VAL NPP MS")
+        field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+        field(PREC, "1")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO2_CH8")
+{
+        field(SCAN, ".1 second")
+        field(FLNK,"A1:ISI-IP_T240_B_AUTOZERO_RB.PROC")
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO2_Rd, 2, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_B_AUTOZERO_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH8.VAL NPP MS")
+        field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+        field(PREC, "1")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO2_CH9")
+{
+        field(SCAN, ".1 second")
+        field(FLNK,"A1:ISI-IP_T240_B_UCAL_ENABLE_RB.PROC")
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO2_Rd, 2, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_B_UCAL_ENABLE_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH9.VAL NPP MS")
+        field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+        field(PREC, "1")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO2_CH10")
+{
+        field(SCAN, ".1 second")
+        field(FLNK,"A1:ISI-IP_T240_B_VCAL_ENABLE_RB.PROC")
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO2_Rd, 2, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_B_VCAL_ENABLE_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH10.VAL NPP MS")
+        field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+        field(PREC, "1")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO2_CH11")
+{
+        field(SCAN, ".1 second")
+        field(FLNK,"A1:ISI-IP_T240_B_WCAL_ENABLE_RB.PROC")
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO2_Rd, 2, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_B_WCAL_ENABLE_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH11.VAL NPP MS")
+        field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+        field(PREC, "1")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO2_CH12")
+{
+        field(SCAN, ".1 second")
+        field(FLNK,"A1:ISI-IP_T240_C_SIGSEL_RB.PROC")
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO2_Rd, 3, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_C_SIGSEL_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH12.VAL NPP MS")
+        field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+        field(PREC, "1")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO2_CH13")
+{
+        field(SCAN, ".1 second")
+        field(FLNK,"A1:ISI-IP_T240_C_AUTOZERO_RB.PROC")
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO2_Rd, 3, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_C_AUTOZERO_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH13.VAL NPP MS")
+        field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+        field(PREC, "1")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO2_CH14")
+{
+        field(SCAN, ".1 second")
+        field(FLNK,"A1:ISI-IP_T240_C_UCAL_ENABLE_RB.PROC")
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO2_Rd, 3, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_C_UCAL_ENABLE_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH14.VAL NPP MS")
+        field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+        field(PREC, "1")
+}
+####################################
+record(bi, "A3:ACROMAG_BIO2_CH15")
+{
+        field(SCAN, ".1 second")
+        field(FLNK,"A1:ISI-IP_T240_C_VCAL_ENABLE_RB.PROC")
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO2_Rd, 3, 0x8)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+}
+record(calc, "A1:ISI-IP_T240_C_VCAL_ENABLE_RB")
+{
+        field(SCAN, ".1 second")
+        field(INPA, "A3:ACROMAG_BIO2_CH15.VAL NPP MS")
+        field(DESC,"Readback - Select XYZ output or UVW Cal")
+        field(CALC, "!A")
+        field(HOPR,"1")
+        field(LOPR,"0")
+        field(PREC, "1")
+}
+

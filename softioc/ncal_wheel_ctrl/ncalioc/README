@@ -1,0 +1,232 @@
+see the following links for helpfull details
+
+asynDriver: Asynchronous Driver Suppor:
+https://epics-modules.github.io/master/asyn/
+
+How to use an ASYN record to communicate with a message-based instrument:
+https://epics-modules.github.io/master/asyn/R4-40/AsynRecordControl.html
+(Or https://epics.anl.gov/modules/soft/asyn/AsynRecordControl/AsynRecordControl.html)
+
+1) Setup
+
+The following Environmental variable are set, according to the local EPICS install
+$ env | grep EPICS
+EPICS_DB_INCLUDE_PATH=/home/controls/projects/epics-3.15.5_long/base/dbd
+EPICS_EXTENSIONS=/home/controls/projects/epics-3.15.5_long/extensions
+EPICS_GW=/home/controls/projects/epics-3.15.5_long/modules/gateway
+EPICS_HOST_ARCH=linux-arm
+EPICS_SEQ=/home/controls/projects/epics-3.15.5_long/modules/seq
+EPICS_MODULES=/home/controls/projects/epics-3.15.5_long/modules
+EPICSEXTENSIONS=/home/controls/projects/epics-3.15.5_long/extensions
+PYEPICS_LOCATION=/home/controls/projects/epics-3.15.5_long/pyext/pyepics
+EPICS_BASEDIR=/home/controls/projects/epics-3.15.5_long/base
+EPICS_BASE=/home/controls/projects/epics-3.15.5_long/base
+
+
+2) Create a new application
+
+Enter then NCal wheel top directory
+$ cd /home/controls/Documents/ncal_wheel_ctrl/
+
+Make the IOC directory
+$ mkdir ncalioc
+$ cd ncalioc
+
+List the application types
+$ /home/controls/projects/epics/base/bin/linux-arm/makeBaseApp.pl -l
+
+Make the IOC APP  template
+$ /home/controls/projects/epics/base/bin/linux-arm/makeBaseApp.pl -t ioc ncal_response
+
+Make the IOC boot application. Press <enter> when asked for application name (to stay consistent)
+$ /home/controls/projects/epics/base/bin/linux-arm/makeBaseApp.pl -i -t ioc ncal_response
+
+3) Add ASYN Support
+
+Edit configure/RELEASE and add a line specifying the path to your ASYN installation
+
+# Variables and paths to dependent modules:
+#MODULES = /path/to/modules
+#MYMODULE = $(MODULES)/my-module
+ASYN=${EPICS_MODULES}/asyn
+STREAM=${EPICS_MODULES}/StreamDevice
+
+# EPICS_BASE should appear last so earlier modules can override stuff:
+#EPICS_BASE = /home/controls/projects/epics/base
+EPICS_BASE = ${EPICS_BASEDIR}
+
+Edit ncal_responseApp/src/Makefile and add the last three lines, and last two lines. It should be apparent from the template where these lines are to be placed:
+
+# Include dbd files from all support applications:
+#ncal_response_DBD += xxx.dbd
+ncal_response_DBD += drvAsynSerialPort.dbd
+ncal_response_DBD += asyn.dbd
+ncal_response_DBD += stream.dbd
+
+# Add all the support libraries needed by this IOC
+#ncal_response_LIBS += xxx
+ncal_response_LIBS += asyn
+ncal_response_LIBS += stream
+
+For a local serial port or a USB/Serial adapter, replace use drvAsynSerialPort.dbd
+For a 'telnet' style network port (instrument or LAN/Serial adapter), use drvAsynIPPort.dbd
+
+Edit ncal_responseApp/Db/Makefile and add a line:
+DB_INSTALLS += $(ASYN)/db/asynRecord.db
+
+Change directory to  iocBoot/iocncal_response, and add symlinks to the epics and ncal_response.proto files:
+
+$ cd iocBoot/iocncal_response
+$ ln -s /home/controls/Documents/ncal_wheel_ctrl/epics epics
+$ ln -s /home/controls/Documents/ncal_wheel_ctrl/epics/ncal_response.proto ncal_response.proto
+
+Create envPaths with the following content
+
+epicsEnvSet("IOC","iocncal_response")
+epicsEnvSet("TOP","/home/controls/Documents/ncal_wheel_ctrl/ncalioc")
+
+Edit iocBoot/iocncal_respponse/st.cmd, just before the iocInit call add the following lines:
+
+# Load Arduino support
+< epics/ncal_response.cmd
+
+The full content of ncal_response.cmd is
+
+# BEGIN ncal_response.cmd ------------------------------------------------------------
+
+# http://www.aps.anl.gov/epics/modules/soft/asyn/R4-18/asynDriver.html
+
+
+############ documentation for the IOC commands #################################
+#epicsEnvSet("NCAL_RESPONSE","/home/controls/Documents/gravforcecal/arduino/ncal_response/epics")
+#cd ${CMD_RESPONSE}
+
+# Set up 1 local serial port(s)
+
+# USB 0 connected to Arduino at 115200 baud
+#drvAsynSerialPortConfigure("portName","ttyName",priority,noAutoConnect, noProcessEos)
+#asynOctetSetInputEos(const char *portName, int addr, const char *eosin,const char *drvInfo)
+#asynOctetSetOutputEos(const char *portName, int addr, const char *eosin,const char *drvInfo)
+
+# Make port available from the iocsh command line
+#asynOctetConnect(const char *entry, const char *port, int addr, int timeout_ms, int buffer_len, const char *drvInfo)
+
+# define the serial port and connect it with asyn
+#dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(IOC_PREFIX)cr:,PORT=usb0,R=asyn_1,ADDR=0,OMAX=256,IMAX=256")
+
+# define specific Arduino I/O to be used
+#dbLoadRecords("ncal_response.db","P=$(IOC_PREFIX)cr:,PORT=usb0")
+########################################################33333####################
+
+epicsEnvSet("NCAL_EPICS","/home/controls/Documents/ncal_wheel_ctrl/epics")
+epicsEnvSet("ASYN","/home/controls/projects/epics/modules/asyn")
+
+drvAsynSerialPortConfigure("usb0", "/dev/ttyACM0", 0, 0, 0)
+asynSetOption(usb0, 0, baud, 115200)
+asynOctetSetInputEos("usb0", 0, "\r\n")
+asynOctetSetOutputEos("usb0", 0, "\n")
+
+asynOctetConnect("usb0", "usb0", 0, 10)
+
+# ask device to report device ID string
+asynOctetWriteRead("usb0","?id\n")
+
+# ask device to report device software version
+asynOctetWriteRead("usb0","?v\n")
+
+dbLoadRecords("${ASYN}/db/asynRecord.db","P=N1:NCAL-,PORT=usb0,R=asyn_1,ADDR=0,OMAX=256,IMAX=256")
+dbLoadRecords("${NCAL_EPICS}/ncal_response.db","P=N1:NCAL-,PORT=usb0")
+
+# turn on diagnostics:
+#   asynSetTraceIOMask "usb0" 0 2
+#   asynSetTraceMask   "usb0" 0 9
+
+# END ncal_response.cmd --------------------------------------------------------------
+
+The content fo the the ncal_response.proto is
+
+# ncal_response: 
+#   simple command/response access via USB to Arduino's I/O capabilities
+#
+# soft link this file to the IOC's boot directory to be found at run time
+
+InTerminator = CR LF;
+OutTerminator = LF;
+#ReplyTimeout = 10;
+#LockTimeout = 500;
+
+# silence most error messages
+ERROR_RESPONSE = "ERROR_.*";
+@mismatch { in $ERROR_RESPONSE; }
+ExtraInput = Ignore;
+
+#     turn on diagnostics with these IOC shell commands:
+#       asynSetTraceIOMask "usb0" 0 2
+#       asynSetTraceMask   "usb0" 0 9
+
+# ai
+get {
+  out "?\$1"; 
+  in "%f";
+}
+
+# ao
+set {
+  out "!\$1 %f"; 
+  in "Ok";
+
+  @init {
+    out "?sp";
+    in "%f";
+  }
+}
+
+update {
+  out "!\$1 %f";
+  in "Ok";
+
+  @init {
+    out "?\$1";
+    in "%f"
+  }
+}
+
+debug {
+    ExtraInput = Error;
+    out "%s";
+    in "%39c";
+}
+
+ 
+
+4) Build the application (run make from the application top directory).
+
+$ cd /home/controls/Documents/ncal_wheel_ctrl/ncalioc
+$ make
+
+5) Start the IOC
+
+$ cd iocBoot/iocncal_response
+$ ./st.cmd
+
+
+6) Start MEDM
+$ cd ncal_wheel_ctrl/epics
+$ medm -x ncal.adl
+
+
+
+
+
+
+
+####################################################################################
+Also of interest are the following links:
+
+asynDriver: EPICS Driver Support (R4-38):
+https://epics.anl.gov/modules/soft/asyn/R4-38/asynDriver.html#ExampleClient
+
+Setup StreamDevice:
+https://paulscherrerinstitute.github.io/StreamDevice/setup.html
+
+

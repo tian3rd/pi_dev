@@ -1,0 +1,265 @@
+
+file {
+	name="/opt/rtcds/anu/a1/iocmodbus/a1test/LASER_PID.adl"
+	version=030114
+}
+display {
+	object {
+		x=4352
+		y=68
+		width=854
+		height=307
+	}
+	clr=14
+	bclr=4
+	cmap=""
+	gridSpacing=5
+	gridOn=0
+	snapToGrid=0
+}
+"color map" {
+	ncolors=65
+	colors {
+		ffffff,
+		ececec,
+		dadada,
+		c8c8c8,
+		bbbbbb,
+		aeaeae,
+		9e9e9e,
+		919191,
+		858585,
+		787878,
+		696969,
+		5a5a5a,
+		464646,
+		2d2d2d,
+		000000,
+		00d800,
+		1ebb00,
+		339900,
+		2d7f00,
+		216c00,
+		fd0000,
+		de1309,
+		be190b,
+		a01207,
+		820400,
+		5893ff,
+		597ee1,
+		4b6ec7,
+		3a5eab,
+		27548d,
+		fbf34a,
+		f9da3c,
+		eeb62b,
+		e19015,
+		cd6100,
+		ffb0ff,
+		d67fe2,
+		ae4ebc,
+		8b1a96,
+		610a75,
+		a4aaff,
+		8793e2,
+		6a73c1,
+		4d52a4,
+		343386,
+		c7bb6d,
+		b79d5c,
+		a47e3c,
+		7d5627,
+		58340f,
+		99ffff,
+		73dfff,
+		4ea5f9,
+		2a63e4,
+		0a00b8,
+		ebf1b5,
+		d4db9d,
+		bbc187,
+		a6a462,
+		8b8239,
+		73ff6b,
+		52da3b,
+		3cb420,
+		289315,
+		1a7309,
+	}
+}
+"text entry" {
+	object {
+		x=325
+		y=92
+		width=100
+		height=23
+	}
+	control {
+		chan="A1:ISC-LASER_D_TEMP_KP"
+		clr=61
+		bclr=14
+	}
+	limits {
+		precSrc="default"
+		precDefault=7
+	}
+}
+"text entry" {
+	object {
+		x=325
+		y=133
+		width=100
+		height=23
+	}
+	control {
+		chan="A1:ISC-LASER_D_TEMP_KI"
+		clr=61
+		bclr=14
+	}
+	limits {
+		precSrc="default"
+		precDefault=7
+	}
+}
+"text entry" {
+	object {
+		x=325
+		y=172
+		width=100
+		height=23
+	}
+	control {
+		chan="A1:ISC-LASER_D_TEMP_KD"
+		clr=61
+		bclr=14
+	}
+	limits {
+		precSrc="default"
+		precDefault=7
+	}
+}
+"text entry" {
+	object {
+		x=214
+		y=133
+		width=69
+		height=23
+	}
+	control {
+		chan="A1:ISC-LASER_D_TEMP_SETPOINT"
+		clr=61
+		bclr=14
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=557
+		y=137
+		width=69
+		height=18
+	}
+	monitor {
+		chan="A1:ISC-LASER_D_CRYSTAL_TEMP_VOLT"
+		clr=61
+		bclr=14
+	}
+	limits {
+		precSrc="default"
+		precDefault=5
+	}
+}
+"text update" {
+	object {
+		x=83
+		y=135
+		width=80
+		height=18
+	}
+	monitor {
+		chan="A1:LSC-PDH_ERR_D_LF_NORM_MON"
+		clr=61
+		bclr=14
+	}
+	limits {
+		precSrc="default"
+		precDefault=5
+	}
+}
+valuator {
+	object {
+		x=363
+		y=217
+		width=266
+		height=60
+	}
+	control {
+		chan="A1:ISC-LASER_D_TEMP_OFFSET_VOLT"
+		clr=14
+		bclr=4
+	}
+	label="channel"
+	dPrecision=0.050000
+	limits {
+		precDefault=5
+	}
+}
+text {
+	object {
+		x=107
+		y=53
+		width=86
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="ENABLE PID"
+}
+"text update" {
+	object {
+		x=719
+		y=138
+		width=80
+		height=18
+	}
+	monitor {
+		chan="A3:ACROMAG_DAC1_OUTPUT7"
+		clr=61
+		bclr=14
+	}
+	align="horiz. centered"
+	limits {
+		precDefault=5
+	}
+}
+"choice button" {
+	object {
+		x=261
+		y=50
+		width=38
+		height=27
+	}
+	control {
+		chan="A1:ISC-LASER_D_TEMP_EN"
+		clr=14
+		bclr=4
+	}
+	stacking="column"
+}
+"text update" {
+	object {
+		x=228
+		y=53
+		width=28
+		height=20
+	}
+	monitor {
+		chan="A1:ISC-LASER_D_TEMP_EN"
+		clr=14
+		bclr=4
+	}
+	limits {
+	}
+}

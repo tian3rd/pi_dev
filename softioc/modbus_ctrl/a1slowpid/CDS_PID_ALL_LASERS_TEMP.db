@@ -1,0 +1,590 @@
+# Authors: Nathan A. Holland, Bram J. J. Slagmolen
+# Date: 2020-07-20
+# Contact: bram.slagmolen@anu.edu.au
+#
+# Modified: 2020-07-20
+#
+#
+# Description:
+# Collates, manually, channels the needed for the CDS PID controllers for
+# cavities A, B, C, and D. These files can be found in:
+#
+# /opt/rtcds/anu/a1/iocmodbus/a1slowpid/CDS_PID_LASER_A_TEMP.db
+# /opt/rtcds/anu/a1/iocmodbus/a1slowpid/CDS_PID_LASER_B_TEMP.db
+# /opt/rtcds/anu/a1/iocmodbus/a1slowpid/CDS_PID_LASER_C_TEMP.db
+# /opt/rtcds/anu/a1/iocmodbus/a1slowpid/CDS_PID_LASER_D_TEMP.db
+#
+#
+###############################################################################
+#
+# Channel List:
+#
+# A - 
+## A1:ISC-LASER_A_TEMP_INMON
+## A1:ISC-LASER_A_TEMP_IN_EN
+## A1:ISC-LASER_A_TEMP_EXC
+## A1:ISC-LASER_A_TEMP_IN2
+## A1:ISC-LASER_A_TEMP_SETPOINT
+## A1:ISC-LASER_A_TEMP_KP
+## A1:ISC-LASER_A_TEMP_KI
+## A1:ISC-LASER_A_TEMP_KD
+## A1:ISC-LASER_A_TEMP_RESET
+## A1:ISC-LASER_A_TEMP_PID_PAUSE
+## A1:ISC-LASER_A_TEMP_LIM_EN
+## A1:ISC-LASER_A_TEMP_LIM_UPR
+## A1:ISC-LASER_A_TEMP_LIM_LWR
+## A1:ISC-LASER_A_TEMP_FBMON
+## A1:ISC-LASER_A_TEMP_OUT_EN
+## A1:ISC-LASER_A_TEMP_FB
+## A1:ISC-LASER_A_TEMP_OFFSET_VOLT
+## A1:ISC-LASER_A_TEMP_TR_TRIG_LVL
+## A1:ISC-LASER_A_TEMP_CRYSTAL_VOLT
+#
+# B - 
+## A1:ISC-LASER_B_TEMP_INMON
+## A1:ISC-LASER_B_TEMP_IN_EN
+## A1:ISC-LASER_B_TEMP_EXC
+## A1:ISC-LASER_B_TEMP_IN2
+## A1:ISC-LASER_B_TEMP_SETPOINT
+## A1:ISC-LASER_B_TEMP_KP
+## A1:ISC-LASER_B_TEMP_KI
+## A1:ISC-LASER_B_TEMP_KD
+## A1:ISC-LASER_B_TEMP_RESET
+## A1:ISC-LASER_B_TEMP_PID_PAUSE
+## A1:ISC-LASER_B_TEMP_LIM_EN
+## A1:ISC-LASER_B_TEMP_LIM_UPR
+## A1:ISC-LASER_B_TEMP_LIM_LWR
+## A1:ISC-LASER_B_TEMP_FBMON
+## A1:ISC-LASER_B_TEMP_OUT_EN
+## A1:ISC-LASER_B_TEMP_FB
+## A1:ISC-LASER_B_TEMP_OFFSET_VOLT
+## A1:ISC-LASER_B_TEMP_TR_TRIG_LVL
+## A1:ISC-LASER_B_TEMP_CRYSTAL_VOLT
+#
+# C - 
+## A1:ISC-LASER_C_TEMP_INMON
+## A1:ISC-LASER_C_TEMP_IN_EN
+## A1:ISC-LASER_C_TEMP_EXC
+## A1:ISC-LASER_C_TEMP_IN2
+## A1:ISC-LASER_C_TEMP_SETPOINT
+## A1:ISC-LASER_C_TEMP_KP
+## A1:ISC-LASER_C_TEMP_KI
+## A1:ISC-LASER_C_TEMP_KD
+## A1:ISC-LASER_C_TEMP_RESET
+## A1:ISC-LASER_C_TEMP_PID_PAUSE
+## A1:ISC-LASER_C_TEMP_LIM_EN
+## A1:ISC-LASER_C_TEMP_LIM_UPR
+## A1:ISC-LASER_C_TEMP_LIM_LWR
+## A1:ISC-LASER_C_TEMP_FBMON
+## A1:ISC-LASER_C_TEMP_OUT_EN
+## A1:ISC-LASER_C_TEMP_FB
+## A1:ISC-LASER_C_TEMP_OFFSET_VOLT
+## A1:ISC-LASER_C_TEMP_TR_TRIG_LVL
+## A1:ISC-LASER_C_TEMP_CRYSTAL_VOLT
+#
+# D -
+## A1:ISC-LASER_D_TEMP_INMON
+## A1:ISC-LASER_D_TEMP_IN_EN
+## A1:ISC-LASER_D_TEMP_EXC
+## A1:ISC-LASER_D_TEMP_IN2
+## A1:ISC-LASER_D_TEMP_SETPOINT
+## A1:ISC-LASER_D_TEMP_KP
+## A1:ISC-LASER_D_TEMP_KI
+## A1:ISC-LASER_D_TEMP_KD
+## A1:ISC-LASER_D_TEMP_RESET
+## A1:ISC-LASER_D_TEMP_PID_PAUSE
+## A1:ISC-LASER_D_TEMP_LIM_EN
+## A1:ISC-LASER_D_TEMP_LIM_UPR
+## A1:ISC-LASER_D_TEMP_LIM_LWR
+## A1:ISC-LASER_D_TEMP_FBMON
+## A1:ISC-LASER_D_TEMP_OUT_EN
+## A1:ISC-LASER_D_TEMP_FB
+## A1:ISC-LASER_D_TEMP_OFFSET_VOLT
+## A1:ISC-LASER_D_TEMP_TR_TRIG_LVL
+## A1:ISC-LASER_D_TEMP_CRYSTAL_VOLT
+#
+#
+###############################################################################
+#
+# Binary Channels:
+#
+# A - 
+record(bi, "A1:ISC-LASER_A_TEMP_IN_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_A_TEMP_RESET")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_A_TEMP_PID_PAUSE")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_A_TEMP_LIM_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_A_TEMP_OUT_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+#
+# B - 
+record(bi, "A1:ISC-LASER_B_TEMP_IN_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_B_TEMP_RESET")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_B_TEMP_PID_PAUSE")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_B_TEMP_LIM_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_B_TEMP_OUT_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+#
+# C - 
+record(bi, "A1:ISC-LASER_C_TEMP_IN_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_C_TEMP_RESET")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_C_TEMP_PID_PAUSE")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_C_TEMP_LIM_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_C_TEMP_OUT_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+#
+# D -
+record(bi, "A1:ISC-LASER_D_TEMP_IN_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_D_TEMP_RESET")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_D_TEMP_PID_PAUSE")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_D_TEMP_LIM_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+record(bi, "A1:ISC-LASER_D_TEMP_OUT_EN")
+{
+	field(SCAN, ".1 second")
+        field(ZNAM,"0")
+        field(ONAM,"1")	
+}
+#
+#
+###############################################################################
+#
+# Floating Point Channels:
+#
+# A -
+record(ai, "A1:ISC-LASER_A_TEMP_INMON")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_EXC")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_IN2")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_SETPOINT")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_KP")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_KI")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_KD")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_LIM_UPR")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_LIM_LWR")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_FBMON")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_FB")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_PID_VOLT")
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_OFFSET_VOLT")
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+	field(HOPR,"10.0")
+	field(LOPR,"-10.0")
+}
+record(ai, "A1:ISC-LASER_A_TEMP_TR_TRIG_LVL")
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+}
+record(calc, "A1:ISC-LASER_A_TEMP_CRYSTAL_VOLT")
+# Channel used A1:ISC-LASER_A_CRYSTAL_TEMP to generate 
+# the output voltage A3:ACROMAG_DAC1_OUTPUT4, in
+# ACROMAG_DAC1_ISC.db
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+	field(CALC,"A+B")
+	field(INPA,"A1:ISC-LASER_A_TEMP_PID_VOLT")
+	field(INPB,"A1:ISC-LASER_A_TEMP_OFFSET_VOLT")
+        field(HOPR,"10.0")
+        field(LOPR,"-10.0")
+}
+#
+# B -
+record(ai, "A1:ISC-LASER_B_TEMP_INMON")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_EXC")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_IN2")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_SETPOINT")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_KP")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_KI")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_KD")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_LIM_UPR")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_LIM_LWR")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_FBMON")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_FB")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_PID_VOLT")
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_OFFSET_VOLT")
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+	field(HOPR,"10.0")
+	field(LOPR,"-10.0")
+}
+record(ai, "A1:ISC-LASER_B_TEMP_TR_TRIG_LVL")
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+}
+record(calc, "A1:ISC-LASER_B_TEMP_CRYSTAL_VOLT")
+# Channel used A1:ISC-LASER_B_CRYSTAL_TEMP to generate 
+# the output voltage A3:ACROMAG_DAC1_OUTPUT5, in
+# ACROMAG_DAC1_ISC.db
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+	field(CALC,"A+B")
+	field(INPA,"A1:ISC-LASER_B_TEMP_PID_VOLT")
+	field(INPB,"A1:ISC-LASER_B_TEMP_OFFSET_VOLT")
+        field(HOPR,"10.0")
+        field(LOPR,"-10.0")
+}
+#
+# C -
+record(ai, "A1:ISC-LASER_C_TEMP_INMON")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_EXC")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_IN2")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_SETPOINT")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_KP")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_KI")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_KD")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_LIM_UPR")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_LIM_LWR")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_FBMON")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_FB")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_PID_VOLT")
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_OFFSET_VOLT")
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+	field(HOPR,"10.0")
+	field(LOPR,"-10.0")
+}
+record(ai, "A1:ISC-LASER_C_TEMP_TR_TRIG_LVL")
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+}
+record(calc, "A1:ISC-LASER_C_TEMP_CRYSTAL_VOLT")
+# Channel used A1:ISC-LASER_C_CRYSTAL_TEMP to generate 
+# the output voltage A3:ACROMAG_DAC1_OUTPUT6, in
+# ACROMAG_DAC1_ISC.db
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+	field(CALC,"A+B")
+	field(INPA,"A1:ISC-LASER_C_TEMP_PID_VOLT")
+	field(INPB,"A1:ISC-LASER_C_TEMP_OFFSET_VOLT")
+        field(HOPR,"10.0")
+        field(LOPR,"-10.0")
+}
+#
+# D -
+record(ai, "A1:ISC-LASER_D_TEMP_INMON")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_EXC")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_IN2")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_SETPOINT")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_KP")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_KI")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_KD")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"7")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_LIM_UPR")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_LIM_LWR")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_FBMON")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_FB")
+{
+	field(SCAN, ".1 second")
+	field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_PID_VOLT")
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_OFFSET_VOLT")
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+	field(HOPR,"10.0")
+	field(LOPR,"-10.0")
+}
+record(ai, "A1:ISC-LASER_D_TEMP_TR_TRIG_LVL")
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+}
+record(calc, "A1:ISC-LASER_D_TEMP_CRYSTAL_VOLT")
+# Channel used A1:ISC-LASER_D_CRYSTAL_TEMP to generate 
+# the output voltage A3:ACROMAG_DAC1_OUTPUT7, in
+# ACROMAG_DAC1_ISC.db
+{
+        field(SCAN, ".1 second")
+        field(PREC,"5")
+	field(CALC,"A+B")
+	field(INPA,"A1:ISC-LASER_D_TEMP_PID_VOLT")
+	field(INPB,"A1:ISC-LASER_D_TEMP_OFFSET_VOLT")
+        field(HOPR,"10.0")
+        field(LOPR,"-10.0")
+}

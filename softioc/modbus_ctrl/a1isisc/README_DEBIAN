@@ -1,0 +1,32 @@
+This is modified for the a1scripts0 server running DEBIAN
+
+cd to /opt/rtcds/anu/a1/iocmodbus/a1pemslow0
+
+cd /opt/rtcds/anu/a1/iocmodbus/a1pemslow0
+${EPICS_BASE}/bin/${EPICS_HOST_ARCH}/modbusApp a1pemslowconfig0.cmd
+
+To start this ioc module runthe following
+
+$ tmux
+$ cd /opt/rtcds/anu/a1/iocmodbus/a1pemslow0
+$ ${EPICS_BASE}/bin/${EPICS_HOST_ARCH}/modbusApp a1pemslowconfig0.cmd
+CRTL-b, d
+
+The key combination 'CRTL-b', followed by 'd' will exit the tmux session.
+
+To see if it works you can start the 'newDisplay.adl' screen and select 'no env - A'
+to get the T240 MEDM control screen up.
+
+
+or run
+$ caget A1:ISI-T240_A_MASS_POS_U
+
+All seem to work.
+
+To stop this module run the following
+$ tmux
+$ ps aux
+...
+controls <id> ... ... ... ... ... ... ... ... /opt/rtcds/anu/a1/iocmodbus/a1pemslow0
+$ kill <id>
+CTRL-b, d

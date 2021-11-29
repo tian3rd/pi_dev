@@ -1,0 +1,84 @@
+#
+# ncal_response: example EPICS database for ncal_response Arduino code
+#
+# ===== ============================
+# macro meaning
+# ===== ============================
+# P     prefix for this database
+# PORT  asyn port to be used
+# ===== ============================
+
+#record(stringout, "$(P)cmd") {
+#    field(DESC, "command interface")
+#    field(DTYP, "stream")
+#    field(OUT,  "@ncal_response.proto debug $(PORT)")
+#}
+
+#record(ai, "$(P)PULL_FREQUENCY_16HZ") {
+#    field(DESC, "Get the Motor PULL frequency")
+#    field(PREC, "2")
+#    field(EGU,  "Hz")
+#    field(DTYP, "stream")
+#    field(INP,  "@ncal_rdata.proto get(pf) $(PORT)")
+#    field(SCAN, ".0625 second")
+#}
+
+record (waveform, "$(P)DATA_STREAM") {
+  field (DTYP, "stream")
+  field (INP, "@ncal_rdata.proto array_in $(PORT)")
+  field (FLNK, "$(P)RAW_FREQ_MEAS PP")
+  field (FTVL, "DOUBLE")
+  field (NELM, "5")
+  field (SCAN, "I/O Intr")
+}
+
+record (subArray, "$(P)RAW_FREQ_MEAS") {
+  field (INP, "$(P)DATA_STREAM")
+  field (INDX, "0")
+  field (MALM, "5")
+  field (NELM, "1")
+  field (FTVL, "DOUBLE")
+  field (PREC, "3")
+  field (FLNK, "$(P)ANGULAR_FREQ_MEAS PP")
+}
+
+record (subArray, "$(P)ANGULAR_FREQ_MEAS") {
+  field (INP, "$(P)DATA_STREAM")
+  field (INDX, "1")
+  field (MALM, "5")
+  field (NELM, "1")
+  field (FTVL, "DOUBLE")
+  field (PREC, "3")
+  field (FLNK, "$(P)PULL_FREQ PP")
+}
+
+record (subArray, "$(P)PULL_FREQ") {
+  field (INP, "$(P)DATA_STREAM")
+  field (INDX, "2")
+  field (MALM, "5")
+  field (NELM, "1")
+  field (FTVL, "DOUBLE")
+  field (PREC, "3")
+  field (FLNK, "$(P)PULSE_PER_SEC PP")
+}
+
+record (subArray, "$(P)PULSE_PER_SEC") {
+  field (INP, "$(P)DATA_STREAM")
+  field (INDX, "3")
+  field (MALM, "5")
+  field (NELM, "1")
+  field (FTVL, "DOUBLE")
+  field (PREC, "1")
+  field (FLNK, "$(P)ANG_FREQ_PID PP")
+}
+
+record (subArray, "$(P)ANG_FREQ_PID") {
+  field (INP, "$(P)DATA_STREAM")
+  field (INDX, "4")
+  field (MALM, "5")
+  field (NELM, "1")
+  field (FTVL, "DOUBLE")
+  field (PREC, "3")
+#  field (FLNK, "$(P)PULL_FREQ PP")
+}
+

@@ -1,0 +1,51 @@
+record(bo, "A3:TESTING_CH0")
+{
+		field(SCAN, ".1 second")
+		field(DTYP,"asynUInt32Digital")
+#		@asynMask(portName ,offset ,mask ,timeout)drvUser)
+#		offset = 0 for 30001 ch0-3; offset = 1 for 30002 ch4-7; 
+#		offset = 2 for 30003 ch8-11; offset = 3 for 30003 ch12-15;
+#		mask = 1 - bit/ch 0, mask = 2 - bit/ch 1, mask = 4 - bit/ch 2, mask = 8 - bit/ch 3
+		field(OUT,"@asynMask(BIO5_Wrt, 0, 0x1)")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+
+record(bo, "A3:TESTING_CH1")
+{
+		field(SCAN, ".1 second")
+		field(DTYP,"asynUInt32Digital")
+#		@asynMask(portName ,offset ,mask ,timeout)drvUser)
+#		offset = 0 for 30001 ch0-3; offset = 1 for 30002 ch4-7; 
+#		offset = 2 for 30003 ch8-11; offset = 3 for 30003 ch12-15;
+#		mask = 1 - bit/ch 0, mask = 2 - bit/ch 1, mask = 4 - bit/ch 2, mask = 8 - bit/ch 3
+		field(OUT,"@asynMask(BIO5_Wrt, 0, 0x2)")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+
+record(bo, "A3:TESTING_CH2")
+{
+		field(SCAN, ".1 second")
+		field(DTYP,"asynUInt32Digital")
+#		@asynMask(portName ,offset ,mask ,timeout)drvUser)
+#		offset = 0 for 30001 ch0-3; offset = 1 for 30002 ch4-7; 
+#		offset = 2 for 30003 ch8-11; offset = 3 for 30003 ch12-15;
+#		mask = 1 - bit/ch 0, mask = 2 - bit/ch 1, mask = 4 - bit/ch 2, mask = 8 - bit/ch 3
+		field(OUT,"@asynMask(BIO5_Wrt, 0, 0x4)")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}
+
+record(bo, "A3:TESTING_CH3")
+{
+		field(SCAN, ".1 second")
+		field(DTYP,"asynUInt32Digital")
+#		@asynMask(portName ,offset ,mask ,timeout)drvUser)
+#		offset = 0 for 30001 ch0-3; offset = 1 for 30002 ch4-7; 
+#		offset = 2 for 30003 ch8-11; offset = 3 for 30003 ch12-15;
+#		mask = 1 - bit/ch 0, mask = 2 - bit/ch 1, mask = 4 - bit/ch 2, mask = 8 - bit/ch 3
+		field(OUT,"@asynMask(BIO5_Wrt, 0, 0x8)")
+	        field(ZNAM,"0")
+	        field(ONAM,"1")
+}

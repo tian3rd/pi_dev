@@ -1,0 +1,60 @@
+# Auto generated file by torpedo_env_ctrl.py
+# at 2021-09-13 00:07:24
+#
+# Default parameters
+
+record(ai, "N1:ENV-LAB_PT1000_TEMP_C")
+{
+    field(SCAN, ".1 second")
+    field(PREC, "2")
+}
+record(ai, "N1:ENV-LAB_HUMIDITY")
+{
+    field(SCAN, ".1 second")
+    field(PREC, "2")
+}
+record(ai, "N1:ENV-LAB_PRESSURE_MBAR")
+{
+    field(SCAN, ".1 second")
+    field(PREC, "2")
+}
+record(ai, "N1:ENV-LAB_HTU210F_TEMP_C")
+{
+    field(SCAN, ".1 second")
+    field(PREC, "2")
+}
+record(ai, "N1:ENV-LAB_PURPLEAIR_TEMP_C")
+{
+    field(SCAN, ".1 second")
+    field(PREC, "2")
+}
+record(ai, "N1:ENV-LAB_PURPLEAIR_HUMIDITY")
+{
+    field(SCAN, ".1 second")
+    field(PREC, "2")
+}
+record(ai, "N1:ENV-LAB_PURPLEAIR_DEWPOINT_C")
+{
+    field(SCAN, ".1 second")
+    field(PREC, "2")
+}
+record(ai, "N1:ENV-LAB_PURPLEAIR_PRESSURE_MBAR")
+{
+    field(SCAN, ".1 second")
+    field(PREC, "2")
+}
+record(ai, "N1:ENV-LAB_PURPLEAIR_PM_1_0")
+{
+    field(SCAN, ".1 second")
+    field(PREC, "2")
+}
+record(ai, "N1:ENV-LAB_PURPLEAIR_PM_2_5")
+{
+    field(SCAN, ".1 second")
+    field(PREC, "2")
+}
+record(ai, "N1:ENV-LAB_PURPLEAIR_PM_10")
+{
+    field(SCAN, ".1 second")
+    field(PREC, "2")
+}

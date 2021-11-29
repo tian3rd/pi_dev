@@ -1,0 +1,41 @@
+record(bi, "A3:ACROMAG_BI0")
+{
+	field(DTYP,"asynUInt32Digital")
+	field(INP,"@asynMask(BIO_Reg, 0, 0x0)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+	field(SCAN, ".1 second")
+}
+record(bi, "A3:ACROMAG_BI1")
+{
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO_Reg, 0, 0x1)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+        field(SCAN, ".1 second")
+}
+record(bi, "A3:ACROMAG_BI2")
+{
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO_Reg, 0, 0x2)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+        field(SCAN, ".1 second")
+}
+record(bi, "A3:ACROMAG_BI3")
+{
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO_Reg, 0, 0x3)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+        field(SCAN, ".1 second")
+}
+record(bi, "A3:ACROMAG_BI4")
+{
+        field(DTYP,"asynUInt32Digital")
+        field(INP,"@asynMask(BIO_Reg, 0, 0x4)")
+        field(ZNAM,"0")
+        field(ONAM,"1")
+        field(SCAN, ".1 second")
+}
+

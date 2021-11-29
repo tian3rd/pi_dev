@@ -1,0 +1,38 @@
+# locateed in /lib/systemd/system/
+[Unit]
+Description=EPICS IOC Modbus Server via procserv - N1SEIMODBUS0
+Requires=network.target
+After=syslog.target network.target
+ConditionFileIsExecutable=/usr/bin/procServ
+ConditionFileIsExecutable=/home/controls/projects/epics/modules/modbus/bin/linux-arm/modbusApp
+#ConditionFileIsExecutable=/cvs/cds/caltech/target/<HOSTNAME>/<HOSTNAME>.cmd
+ConditionFileIsExecutable=/home/controls/Documents/modbus_ctrl/a1pemslow0/n1seimodbus0.cmd
+
+[Service]
+#Type=simple
+#ExecStart=/home/controls/projects/epics/modules/modbus/bin/linux-arm/modbusApp /home/controls/Documents/modbus_ctrl/a1pemslow0/n1seimodbus0.cmd
+#WorkingDirectory=/home/controls/Documents/modbus_ctrl/a1pemslow0/
+#StandardOutput=journal+console
+#Restart=always
+
+User=controls
+Group=controls
+#WorkingDirectory=/cvs/cds/caltech/target/<HOSTNAME>
+WorkingDirectory=/home/controls/Documents/modbus_ctrl/a1pemslow0/
+
+# Set environment variables for EPICS
+#EnvironmentFile=/cvs/cds/caltech/target/<HOSTNAME>/<HOSTNAME>.env
+
+# First line enables logging to local file for debugging. The logfile tends to grow large when there are problems. Use second line for normal operation.
+#ExecStart=/usr/bin/procServ -f -L /cvs/cds/caltech/target/<HOSTNAME>/modbusIOC.log -p /run/modbusioc.pid 8008 /opt/epics/modules/modbus/bin/linux-x86_64/modbusApp /cvs/cds/caltech/target/<HOSTNAME>/<HOSTNAME>.cmd
+#ExecStart=/usr/bin/procServ -f -L /home/controls/Documents/modbus_ctrl/a1pemslow0/n1seimodbus0.log -p /run/modbusioc.pid 8008 /home/controls/projects/epics/modules/modbus/bin/linux-arm/modbusApp /home/controls/Documents/modbus_ctrl/a1pemslow0/n1seimodbus0.cmd
+#ExecStart=/usr/bin/procServ -f -p /run/modbusioc.pid 8008 /opt/epics/modules/modbus/bin/linux-x86_64/modbusApp /cvs/cds/caltech/target/<HOSTNAME>/<HOSTNAME>.cmd
+ExecStart=/usr/bin/procServ -f -p /run/modbusioc.pid 8008 /home/controls/projects/epics/modules/modbus/bin/linux-arm/modbusApp /home/controls/Documents/modbus_ctrl/a1pemslow0/n1seimodbus0.cmd
+
+Restart=always
+RestartSec=30
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+

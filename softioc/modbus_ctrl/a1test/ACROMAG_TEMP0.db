@@ -1,0 +1,110 @@
+###
+record(ai, "A3:ACROMAG_TEMP0_INPUT0")
+{
+	field(SCAN, ".1 second")
+	field(FLNK, "A3:PEM-FRAME_TEMP_C.PROC")
+	field(DTYP, "asynInt32")
+	field(INP, "@asynMask(TEMP0_Reg 0 -16)MODBUS_DATA")
+}
+record(calc, "A3:PEM-FRAME_TEMP_C")
+{
+	field(INPA,"A3:ACROMAG_TEMP0_INPUT0.VAL NPP MS")
+	field(DESC,"Convert Frame Temp resistance to Deg C")
+#	field(CALC,"(-100 * 3.9083E-3 + SQR( 100^2* (3.9083E-3)^2 - 4*100*-5.775E-7*(100-A)) ) / (2*100*-5.775E-7)")
+#	1 / (2*100*-5.775E-7) = -8658.008
+	field(CALC,"-8658*(-100*3.9083E-3 + SQR(100^2* (3.9083E-3)^2 - 4*100*-5.775E-7*(100-A)))")
+	field(EGU,"DegC")
+	field(PREC,"3")
+	field(HOPR,"500")
+	field(LOPR,"0")
+}
+############################################################
+record(ai, "A3:ACROMAG_TEMP0_INPUT1")
+{
+	field(SCAN, ".1 second")
+	field(FLNK, "A3:PEM-TANK_1_TEMP_C.PROC")
+	field(DTYP, "asynInt32")
+	field(INP, "@asynMask(TEMP0_Reg 1 -16)MODBUS_DATA")
+}
+record(calc, "A3:PEM-TANK_1_TEMP_C")
+{
+        field(INPA,"A3:ACROMAG_TEMP0_INPUT1.VAL NPP MS")
+        field(DESC,"Convert Frame Temp resistance to Deg C")
+        field(CALC,"-8658*(-100*3.9083E-3 + SQR(100^2* (3.9083E-3)^2 - 4*100*-5.775E-7*(100-A)))")
+        field(EGU,"DegC")
+        field(PREC,"3")
+        field(HOPR,"500")
+        field(LOPR,"0")
+}
+############################################################
+record(ai, "A3:ACROMAG_TEMP0_INPUT2")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A3:PEM-TANK_2_TEMP_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(TEMP0_Reg 2 -16)MODBUS_DATA")
+}
+record(calc, "A3:PEM-TANK_2_TEMP_C")
+{
+        field(INPA,"A3:ACROMAG_TEMP0_INPUT2.VAL NPP MS")
+        field(DESC,"Convert Frame Temp resistance to Deg C")
+        field(CALC,"-8658*(-100*3.9083E-3 + SQR(100^2* (3.9083E-3)^2 - 4*100*-5.775E-7*(100-A)))")
+        field(EGU,"DegC")
+        field(PREC,"3")
+        field(HOPR,"500")
+        field(LOPR,"0")
+}
+############################################################
+record(ai, "A3:ACROMAG_TEMP0_INPUT3")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A3:PEM-TANK_3_TEMP_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(TEMP0_Reg 3 -16)MODBUS_DATA")
+}
+record(calc, "A3:PEM-TANK_3_TEMP_C")
+{
+        field(INPA,"A3:ACROMAG_TEMP0_INPUT3.VAL NPP MS")
+        field(DESC,"Convert Frame Temp resistance to Deg C")
+        field(CALC,"-8658*(-100*3.9083E-3 + SQR(100^2* (3.9083E-3)^2 - 4*100*-5.775E-7*(100-A)))")
+        field(EGU,"DegC")
+        field(PREC,"3")
+        field(HOPR,"500")
+        field(LOPR,"0")
+}
+############################################################
+record(ai, "A3:ACROMAG_TEMP0_INPUT4")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A3:PEM-LABORATORY_TEMP_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(TEMP0_Reg 4 -16)MODBUS_DATA")
+}
+record(calc, "A3:PEM-LABORATORY_TEMP_C")
+{
+        field(INPA,"A3:ACROMAG_TEMP0_INPUT4.VAL NPP MS")
+        field(DESC,"Convert Frame Temp resistance to Deg C")
+        field(CALC,"-8658*(-100*3.9083E-3 + SQR(100^2* (3.9083E-3)^2 - 4*100*-5.775E-7*(100-A)))")
+        field(EGU,"DegC")
+        field(PREC,"3")
+        field(HOPR,"500")
+        field(LOPR,"0")
+}
+############################################################
+record(ai, "A3:ACROMAG_TEMP0_INPUT5")
+{
+        field(SCAN, ".1 second")
+        field(FLNK, "A3:PEM-LABORATORY_2_TEMP_C.PROC")
+        field(DTYP, "asynInt32")
+        field(INP, "@asynMask(TEMP0_Reg 5 -16)MODBUS_DATA")
+}
+record(calc, "A3:PEM-LABORATORY_2_TEMP_C")
+{
+        field(INPA,"A3:ACROMAG_TEMP0_INPUT5.VAL NPP MS")
+        field(DESC,"Convert Frame Temp resistance to Deg C")
+        field(CALC,"-8658*(-100*3.9083E-3 + SQR(100^2* (3.9083E-3)^2 - 4*100*-5.775E-7*(100-A)))")
+        field(EGU,"DegC")
+        field(PREC,"3")
+        field(HOPR,"500")
+        field(LOPR,"0")
+}

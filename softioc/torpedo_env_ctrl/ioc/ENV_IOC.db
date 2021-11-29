@@ -1,0 +1,27 @@
+#Authors: Perry W. F. Forsyth
+#Date: 2021-07-70
+#Contact: Perry.Forsyth@anu.edu.au
+
+#Modified: 2021-07-07
+
+record(ai, "N1:ENV-PT1000_TEMP_INMON")
+{
+	field(SCAN, ".1 second")
+	field(PREC, "5")
+}
+record(ai, "N1:ENV-HTU210F_TEMP_INMON")
+{
+        field(SCAN, ".1 second")
+        field(PREC, "5")
+}
+record(ai, "N1:ENV-HUMIDITY_INMON")
+{
+        field(SCAN, ".1 second")
+        field(PREC, "5")
+}
+record(ai, "N1:ENV-PRESSURE_INMON")
+{
+        field(SCAN, ".1 second")
+        field(PREC, "5")
+}
+

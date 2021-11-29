@@ -1,0 +1,6 @@
+To read the purple air unit, see to connect to the 
+Laboratory WiFi network 'GW-Lab' and password 'graviteerQNLF'
+
+Then use 'curl -s http://192.168.30.231/json' to get the json data
+
+
