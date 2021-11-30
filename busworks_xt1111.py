@@ -105,12 +105,18 @@ class BusWorksXT1111(object):
         '''
         if gains is None:
             self.gains = 0
+        else:
+            self.gains = gains
         if filters is None:
             self.filters = [0, 0, 0]
+        else:
+            self.filters = filters
         if le is None:
             self.le = 1
-        self.set_gains(gains)
-        self.set_filters(filters)
+        else:
+            self.le = le
+        self.set_gains(self.gains)
+        self.set_filters(self.filters)
         
     def set_gains(self, gains):
         '''
