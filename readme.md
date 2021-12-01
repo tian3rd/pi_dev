@@ -1,17 +1,49 @@
-> Ongoing.
+> Start date: 22/11/2021
+
+## Work Records
+
+### Week 0
+
+Date: 22/11/2021 - 28/11/2021
+
+Monday
+Prep work. Got a box of accessories, including:
+
+- Breadboard (2x)
+-
+
+### Week 1
+
+Date: 29/11/2021 - 04/12/2021
+
+Monday 0. Modify the python script of XT1541-000 DAC to set up the new AcroMag XT1111-000.
+
+1. Configure I/O ports of XT1111-000 using pymodbus package.
+2. Read the documentation of XT1111-000.
+
+Tuesday
+
+1. Attend Johannes's talk on NEMO at Stromlo Lab.
+2. Debug the script to control the on/off of the i/o ports.
+3. Try to connect the i/o port to breadboard, but it has a problem: on/off can't switch once it's connected. For example, in a reverted situation (default), it's 4.5V as a default for i/o port 00, then if I connect i/o 00 to breadboard with 2 1k reistors, and wire to RTN (ground), then it's automatically turned on on the screen, and the voltage betwwen i/o 00 and RTN is 0.7V. There's no way to control it to be back at 4.5V.
+   1. Maybe there's internal resistors in XT1111?
+
+Wednesday
+
+1. Troubleshoot the problem of can't turn on/off the i/o port when it's connected to breadboard.
+
+   1. Connect one end to excitation voltage, and the other to the i/o port. So when in default inverted, the i/o port has 4.5V, and the voltage different is 0.5V which is not enough to light up the LED; when i/o 00 is turned on, then the voltage of i/o drops to 0V, so the difference is 5V where there's current flowing through the LED, so it's turned on.
+   2. ![img](https://cdn-std.droplr.net/previews/ySilCv.preview_medium.png)
+
+2. Sanity check of the vacuum gauge using the pfeiffer_tpg261_service.py script.
+
+   1. the usb to serial cable may cause the reading fo the device to be wrong.
+
+3. Read the docs of `pcaspy` package.
 
 ## Q&A
 
 0. How do I set up the environment?
 1. How do I talk to BusWorks?
-2. How
-
-### Progress
-
-#### Week 0
-
-22/11/2021
-Prep work. Got a box of accessories, including:
-
-- Breadboard (2x)
--
+2. How to connect the raspberry pi with the XT1111-000?
+3. How to read signal and write signals to the device?
