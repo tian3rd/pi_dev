@@ -47,6 +47,10 @@ Thursday
 
 2. Debug the simple read operations with `pcaspy` package. Add three simple read attributes: GAINS, FILTERS, and READBACKS.
 
+Friday
+
+0. Update interval? If we toggle the i/o port too fast, then we may not be able to update the i/o status in time.
+
 ## Q&A
 
 0. How do I set up the environment?
