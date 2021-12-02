@@ -74,16 +74,32 @@ class BusWorksXT1111(object):
             self.XT1111.write_registers(3, 0)   
         self.XT1111.close()
         
-    def read_registers(self, start_ch=1, num_channels=4):
+    def read_registers(self, start=0, num_channels=4):
         '''
-        Reads what integers that are written to the channels.
+        Reads what on/off signals that are written to the channels.
+        row 0 corresponds to i/o 00 to 03; row 1: i/o 04 to 07; row 2: i/o 08 to 11; row 3: i/o 12 to 15 ; the last channel is heartbeat channel (xt1111 manual page 33-34)
         Inputs:
         -------
-        start_ch      - Lowest channel to read from
-        num_channels  - Number of channels to read. 
+        start      - first row of channels to read from
+        num_channels  - last row of channels to read from.
         '''
-        out = self.XT1111.read_holding_registers(start_ch, num_channels)
+        if type(start) is not int or type(num_channels) is not int:
+            raise BaseException("Start row should be within [0, 1, 2, 3], end: [1, 2, 3, 4]")
+        # use read_input_registers intead of read_holding_registers to keep track of the i/o change
+        out = self.XT1111.read_input_registers(start, num_channels)
         return out.registers
+
+    def print_register_states(self):
+        '''
+        '''
+        states = self.read_registers()
+        # states = self.XT1111.read_input_registers(0, 4).registers
+        row = 0
+        for state in states:
+            state = bin(state)[2:]
+            signals = '0' * (4 - len(state)) + state
+            print('Row {0} (i/o {1: <2} - {2: <2}): {3} | {4} | {5} | {6}'.format(row+1, row * 4, row * 4 + 3, signals[3], signals[2], signals[1], signals[0]))
+            row += 1
 
     def turnon_channels(self, channels: list):
         '''
