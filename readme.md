@@ -41,6 +41,12 @@ Wednesday
 
 3. Read the docs of `pcaspy` package.
 
+Thursday
+
+1. Check the readback voltages from i/o ports using the voltage from i/o ports 00 - 07 (gains and filter): e.g., connecting the output wire from port 00 to port 08, so if we turn 00 on, then the voltage on 08 will be set as low, so 08 will also be turned on; if we turn 00 off, then the voltage on 08 will be set as high, so 08 will also be turned off. We can get the readbacks to make sure that we set the gains and filters as we want.
+
+2. Debug the simple read operations with `pcaspy` package. Add three simple read attributes: GAINS, FILTERS, and READBACKS.
+
 ## Q&A
 
 0. How do I set up the environment?
