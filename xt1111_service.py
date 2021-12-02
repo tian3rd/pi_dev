@@ -21,15 +21,26 @@ class MyDriver(Driver):
 
     def read(self, reason):
         if reason == 'GAINS':
-            return self.bus.get_gains()
+            value = self.bus.get_gains()
+            self.setParam('GAINS', value)
+            return value
         if reason == 'FILTERS':
             value = self.bus.get_filters()
-            print("filters: {}".format(value))
+            # print("filters: {}".format(value))
             self.setParam('FILTERS', value)
             return value
         if reason == 'READBACKS':
-            return self.bus.get_readbacks()
-        # self.updatePVs()
+            value = self.bus.get_readbacks()
+            self.setParam('READBACKS', value)
+            return value
+
+    def write(self, reason, value):
+        if reason == 'GAINS':
+            self.bus.set_gains(value)
+            self.setParam('GAINS', value)
+        if reason == 'FILTERS':
+            self.bus.set_filters(value)
+            self.setParam('FILTERS', value)
 
 if __name__ == '__main__':
     server = SimpleServer()
