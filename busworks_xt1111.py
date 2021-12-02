@@ -20,6 +20,8 @@ class BusWorksXT1111(object):
         self.port = port
         # Number of channels of the device
         self.num_chns = num_chns
+
+        # self.port_status = [0 for _ in range(4)]
             
     @property
     def address(self):
@@ -87,6 +89,7 @@ class BusWorksXT1111(object):
             raise BaseException("Start row should be within [0, 1, 2, 3], end: [1, 2, 3, 4]")
         # use read_input_registers intead of read_holding_registers to keep track of the i/o change
         out = self.XT1111.read_input_registers(start, num_channels)
+        # self.port_status = out.registers
         return out.registers
 
     def print_register_states(self):
@@ -146,6 +149,10 @@ class BusWorksXT1111(object):
         # 0 is the starting address for the first four i/o; 1 is the starting address for i/o 4 to 7; etc.
         self.XT1111.write_register(0, first_four_ios)
 
+    def get_gains(self):
+        self.gains = self.read_registers()[0]
+        return self.gains
+
     def set_filters(self, filters):
         '''
         i/o 04 controls zero pole filter 1: pz1; i/o 05 controls zero pole filter 2: pz2; i/o 06 controls zero pole filter 3: pz3
@@ -154,4 +161,13 @@ class BusWorksXT1111(object):
             raise BaseException('Filters must be a list of three elements (0 or 1).')
         second_four_ios = int(("".join(map(str, filters))+str(self.le))[::-1], 2)
         self.XT1111.write_register(1, second_four_ios)
+
+    def get_filters(self):
+        self.filters = self.read_registers()[1]
+        return self.filters
+        # return int(''.join(map(str, self.filters)), 2)
+
+    def get_readbacks(self):
+        readbacks = self.read_registers()[2:]
+        return '-'.join(map(str, readbacks))
         
