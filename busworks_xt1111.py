@@ -175,7 +175,7 @@ class BusWorksXT1111(object):
         return self.filters
         # return int(''.join(map(str, self.filters)), 2)
 
-    def get_readbacks(self):
+    def get_readbacks(self) -> str:
         readbacks = self.read_registers()[2:]
         return '-'.join(map(str, readbacks))
         
