@@ -153,8 +153,9 @@ class BusWorksXT1111(object):
         self.XT1111.write_register(0, first_four_ios)
         sleep(self.dt)
 
-    def get_gains(self):
-        self.gains = self.read_registers()[0]
+    def get_gains(self) -> int:
+        gains_bin_value = bin(self.read_registers()[0])[2:][::-1]
+        self.gains = int(gains_bin_value + '0' * (4 - len(gains_bin_value)), 2) * 3
         return self.gains
 
     def set_filters(self, filters, le=1):
