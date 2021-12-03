@@ -38,6 +38,7 @@ class MyDriver(Driver):
         if reason == 'GAINS':
             self.bus.set_gains(value)
             self.setParam('GAINS', value)
+            driver.updatePVs()
         if reason == 'FILTERS':
             self.bus.set_filters(str(value))
             self.setParam('FILTERS', str(value))
