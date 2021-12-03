@@ -117,3 +117,18 @@ display {
 	limits {
 	}
 }
+"text update" {
+	object {
+		x=276
+		y=50
+		width=69
+		height=36
+	}
+	monitor {
+		chan="XT1111_FILTERS"
+		clr=14
+		bclr=4
+	}
+	limits {
+	}
+}
