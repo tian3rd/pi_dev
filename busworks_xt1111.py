@@ -1,4 +1,5 @@
 from pymodbus.client.sync import ModbusTcpClient
+from time import sleep
 
 class BaseException(Exception):
     def __init__(self, msg):
@@ -20,6 +21,8 @@ class BusWorksXT1111(object):
         self.port = port
         # Number of channels of the device
         self.num_chns = num_chns
+        # Time between updating the registers of device, set default as 0.05s. E.g., set gains/filters
+        self.dt = 0.05
 
         # self.port_status = [0 for _ in range(4)]
             
@@ -148,6 +151,7 @@ class BusWorksXT1111(object):
         first_four_ios = int(bins[::-1], 2)
         # 0 is the starting address for the first four i/o; 1 is the starting address for i/o 4 to 7; etc.
         self.XT1111.write_register(0, first_four_ios)
+        sleep(self.dt)
 
     def get_gains(self):
         self.gains = self.read_registers()[0]
@@ -161,6 +165,7 @@ class BusWorksXT1111(object):
             raise BaseException('Filters must be a list of three elements (0 or 1).')
         second_four_ios = int(("".join(map(str, filters))+str(self.le))[::-1], 2)
         self.XT1111.write_register(1, second_four_ios)
+        sleep(self.dt)
 
     def get_filters(self):
         self.filters = self.read_registers()[1]
