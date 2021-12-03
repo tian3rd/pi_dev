@@ -10,6 +10,7 @@ busDB = {
     'GAINS': {'type': 'int'},
     'FILTERS': {'type': 'str'},
     'READBACKS': {'type': 'str'},
+    'ERRORS': {'type': 'str'},
 }
 
 class MyDriver(Driver):
@@ -18,6 +19,7 @@ class MyDriver(Driver):
         # connect to busworks XT1111 in initialization
         self.bus = busworks_xt1111.BusWorksXT1111()
         self.bus.start()
+        self.error = False
 
     def read(self, reason):
         if reason == 'GAINS':
@@ -33,16 +35,31 @@ class MyDriver(Driver):
             value = self.bus.get_readbacks()
             self.setParam('READBACKS', value)
             return value
+        if reason == 'ERRORS':
+            if self.error:
+                value = 'Error!'
+            else:
+                value = 'No error'
+            self.setParam('ERRORS', value)
 
     def write(self, reason, value):
         if reason == 'GAINS':
-            self.bus.set_gains(value)
-            self.setParam('GAINS', value)
-            driver.updatePVs()
+            try:
+                self.bus.set_gains(value)
+                self.error = False
+                self.setParam('GAINS', value)
+                driver.updatePVs()
+            except Exception:
+                self.error = True
+
         if reason == 'FILTERS':
-            self.bus.set_filters(str(value))
-            self.setParam('FILTERS', str(value))
-            driver.updatePVs()
+            try:
+                self.bus.set_filters(str(value))
+                self.error = False
+                self.setParam('FILTERS', str(value))
+                driver.updatePVs()
+            except Exception:
+                self.error = True
 
 if __name__ == '__main__':
     server = SimpleServer()
@@ -59,3 +76,4 @@ if __name__ == '__main__':
         driver.read('READBACKS')
         driver.read('GAINS')
         driver.read('FILTERS')
+        driver.read('ERRORS')
