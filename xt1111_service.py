@@ -41,6 +41,7 @@ class MyDriver(Driver):
             else:
                 value = 'No error'
             self.setParam('ERRORS', value)
+            return value
 
     def write(self, reason, value):
         if reason == 'GAINS':

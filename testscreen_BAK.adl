@@ -5,7 +5,7 @@ file {
 }
 display {
 	object {
-		x=2
+		x=510
 		y=66
 		width=400
 		height=400
@@ -110,7 +110,7 @@ display {
 		height=38
 	}
 	control {
-		chan="XT1111_GAINS_PUT"
+		chan="XT1111_GAINS"
 		clr=14
 		bclr=4
 	}
@@ -125,6 +125,21 @@ display {
 		height=36
 	}
 	monitor {
+		chan="XT1111_FILTERS"
+		clr=14
+		bclr=4
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=273
+		y=134
+		width=73
+		height=38
+	}
+	control {
 		chan="XT1111_FILTERS"
 		clr=14
 		bclr=4
