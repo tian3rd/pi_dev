@@ -54,3 +54,8 @@ if __name__ == '__main__':
 
         # update pvs so that GUI can update as well
         driver.updatePVs()
+
+        # keep the readings uptodate
+        driver.read('READBACKS')
+        driver.read('GAINS')
+        driver.read('FILTERS')
