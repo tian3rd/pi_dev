@@ -130,7 +130,7 @@ class BusWorksXT1111(object):
         else:
             self.gains = gains
         if filters is None:
-            self.filters = [0, 0, 0]
+            self.filters = '000'
         else:
             self.filters = filters
         if le is None:
@@ -138,7 +138,7 @@ class BusWorksXT1111(object):
         else:
             self.le = le
         self.set_gains(self.gains)
-        self.set_filters(self.filters)
+        self.set_filters(self.filters, self.le)
         
     def set_gains(self, gains):
         '''
@@ -157,18 +157,20 @@ class BusWorksXT1111(object):
         self.gains = self.read_registers()[0]
         return self.gains
 
-    def set_filters(self, filters):
+    def set_filters(self, filters, le=1):
         '''
         i/o 04 controls zero pole filter 1: pz1; i/o 05 controls zero pole filter 2: pz2; i/o 06 controls zero pole filter 3: pz3
         '''
-        if type(filters) != list or len(filters) != 3 or not all(x in [0, 1] for x in filters):
-            raise BaseException('Filters must be a list of three elements (0 or 1).')
-        second_four_ios = int(("".join(map(str, filters))+str(self.le))[::-1], 2)
+        if type(filters) != str or len(filters) != 3 or not all(x in '01' for x in filters):
+            raise BaseException('Filters must be a string of three elements (0 or 1). e.g, "001", "000", etc.')
+        second_four_ios = int((filters+str(le))[::-1], 2)
         self.XT1111.write_register(1, second_four_ios)
         sleep(self.dt)
 
-    def get_filters(self):
-        self.filters = self.read_registers()[1]
+    def get_filters(self) -> str:
+        filters_le_bin_value = bin(self.read_registers()[1])[2:]
+        # in case le is 0: off, add '0's in front
+        self.filters = ('0' * (4 - len(filters_le_bin_value)) + filters_le_bin_value)[::-1][:3]
         return self.filters
         # return int(''.join(map(str, self.filters)), 2)
 
