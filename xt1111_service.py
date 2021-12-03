@@ -8,7 +8,7 @@ busPrefix = "XT1111_"
 # , 'scan': 1 --- how to use scan?
 busDB = {
     'GAINS': {'type': 'int'},
-    'FILTERS': {'type': 'int'},
+    'FILTERS': {'type': 'str'},
     'READBACKS': {'type': 'str'},
 }
 
@@ -39,8 +39,9 @@ class MyDriver(Driver):
             self.bus.set_gains(value)
             self.setParam('GAINS', value)
         if reason == 'FILTERS':
-            self.bus.set_filters(value)
-            self.setParam('FILTERS', value)
+            self.bus.set_filters(str(value))
+            self.setParam('FILTERS', str(value))
+            driver.updatePVs()
 
 if __name__ == '__main__':
     server = SimpleServer()
