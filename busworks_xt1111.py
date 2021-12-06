@@ -161,6 +161,14 @@ class BusWorksXT1111(object):
         self.gains = int(gains_bin_value + '0' * (4 - len(gains_bin_value)), 2) * 3
         return self.gains
 
+    def get_gains_in_binary(self, channel) -> int:
+        '''
+        channel 00: 24dB; channel 01: 12dB; channel 02: 6dB; chennel 03: 3dB
+        '''
+        gains_bin_value = bin(self.read_registers()[0])[2:][::-1]
+        gains_in_binary = gains_bin_value + '0' * (4 - len(gains_bin_value))
+        return int(gains_in_binary[channel])
+
     def set_filters(self, filters, le=1):
         '''
         i/o 04 controls zero pole filter 1: pz1; i/o 05 controls zero pole filter 2: pz2; i/o 06 controls zero pole filter 3: pz3
