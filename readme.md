@@ -51,6 +51,13 @@ Friday
 
 0. Update interval? If we toggle the i/o port too fast, then we may not be able to update the i/o status in time.
 
+   - Solution: add a delay between each toggle using time.sleep(). The interval is not tested, and for now it's set to 0.05s.
+
+1. Modify the MEDM interface for read and write operations.
+
+2. Add slider bar for easier adjustment of gains.
+   - Problem: it has a bug of not setting the value when the slider is exactly divisible by 3.
+
 ## Q&A
 
 0. How do I set up the environment?
