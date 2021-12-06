@@ -18,7 +18,8 @@ busDB = {
     'FILTER_CH06': {'type': 'int'},
     'LE_CH07': {'type': 'int'},
     'READBACKS': {'type': 'str'},
-    'ERRORS': {'type': 'str'},
+    # use char for error str longer than 40 chars
+    'ERRORS': {'type': 'char', 'count': 300},
 }
 
 class MyDriver(Driver):
@@ -28,6 +29,7 @@ class MyDriver(Driver):
         self.bus = busworks_xt1111.BusWorksXT1111()
         self.bus.start()
         self.error = False
+        self.errorMsg = ''
 
     def read(self, reason):
         if reason == 'GAINS':
@@ -59,7 +61,8 @@ class MyDriver(Driver):
             return value
         if reason == 'ERRORS':
             if self.error:
-                value = 'Error!'
+                # value = 'Error!'
+                value = self.errorMsg
             else:
                 value = 'No error'
             self.setParam('ERRORS', value)
@@ -72,8 +75,9 @@ class MyDriver(Driver):
                 self.error = False
                 self.setParam('GAINS', value)
                 driver.updatePVs()
-            except Exception:
+            except Exception as e:
                 self.error = True
+                self.errorMsg = str(e)
 
         if reason == 'FILTERS':
             try:
@@ -81,8 +85,9 @@ class MyDriver(Driver):
                 self.error = False
                 self.setParam('FILTERS', str(value))
                 driver.updatePVs()
-            except Exception:
+            except Exception as e:
                 self.error = True
+                self.errorMsg = str(e)
     
     def read_database(self):
         self.read('READBACKS')
