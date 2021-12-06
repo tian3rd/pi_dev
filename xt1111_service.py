@@ -13,6 +13,10 @@ busDB = {
     'GAIN_CH02': {'type': 'int'},
     'GAIN_CH03': {'type': 'int'},
     'FILTERS': {'type': 'str'},
+    'FILTER_CH04': {'type': 'int'},
+    'FILTER_CH05': {'type': 'int'},
+    'FILTER_CH06': {'type': 'int'},
+    'LE_CH07': {'type': 'int'},
     'READBACKS': {'type': 'str'},
     'ERRORS': {'type': 'str'},
 }
@@ -39,6 +43,15 @@ class MyDriver(Driver):
             value = self.bus.get_filters()
             # print("filters: {}".format(value))
             self.setParam('FILTERS', value)
+            return value
+        if reason in ['FILTER_CH0' + str(_) for _ in range(4, 7)]:
+            channel = int(reason[-1])
+            value = int(self.bus.get_filters()[channel - 4])
+            self.setParam(reason, value)
+            return value
+        if reason == 'LE_CH07':
+            value = self.bus.get_le()
+            self.setParam('LE_CH07', value)
             return value
         if reason == 'READBACKS':
             value = self.bus.get_readbacks()
