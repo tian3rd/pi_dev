@@ -58,6 +58,18 @@ Friday
 2. Add slider bar for easier adjustment of gains.
    - Problem: it has a bug of not setting the value when the slider is exactly divisible by 3.
 
+### Week 2
+
+Monday
+
+1. Add 8 indicators and corresponding data channels to show status of the i/o ports 00 to 07. (Just like the window client red/grey port indicators.)
+
+   - GAIN_CH00 to GAIN_CH03
+   - FILTER_CH04 to FILTER_CH06
+   - LE_CH07
+
+2. Refactor the read operations inside the driver.
+
 ## Q&A
 
 0. How do I set up the environment?
