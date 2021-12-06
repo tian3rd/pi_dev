@@ -83,6 +83,21 @@ class MyDriver(Driver):
                 driver.updatePVs()
             except Exception:
                 self.error = True
+    
+    def read_database(self):
+        self.read('READBACKS')
+        self.read('GAINS')
+        self.read('FILTERS')
+        self.read('ERRORS')
+        self.read('GAIN_CH00')
+        self.read('GAIN_CH01')
+        self.read('GAIN_CH02')
+        self.read('GAIN_CH03')
+        self.read('FILTER_CH04')
+        self.read('FILTER_CH05')
+        self.read('FILTER_CH06')
+        self.read('LE_CH07')
+
 
 if __name__ == '__main__':
     server = SimpleServer()
@@ -96,7 +111,16 @@ if __name__ == '__main__':
         driver.updatePVs()
 
         # keep the readings uptodate
-        driver.read('READBACKS')
-        driver.read('GAINS')
-        driver.read('FILTERS')
-        driver.read('ERRORS')
+        driver.read_database()
+        # driver.read('READBACKS')
+        # driver.read('GAINS')
+        # driver.read('FILTERS')
+        # driver.read('ERRORS')
+        # driver.read('GAIN_CH00')
+        # driver.read('GAIN_CH01')
+        # driver.read('GAIN_CH02')
+        # driver.read('GAIN_CH03')
+        # driver.read('FILTER_CH04')
+        # driver.read('FILTER_CH05')
+        # driver.read('FILTER_CH06')
+        # driver.read('LE_CH07')
