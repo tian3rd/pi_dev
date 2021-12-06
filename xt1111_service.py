@@ -8,6 +8,10 @@ busPrefix = "XT1111_"
 # , 'scan': 1 --- how to use scan?
 busDB = {
     'GAINS': {'type': 'int'},
+    'GAIN_CH00': {'type': 'int'},
+    'GAIN_CH01': {'type': 'int'},
+    'GAIN_CH02': {'type': 'int'},
+    'GAIN_CH03': {'type': 'int'},
     'FILTERS': {'type': 'str'},
     'READBACKS': {'type': 'str'},
     'ERRORS': {'type': 'str'},
@@ -25,6 +29,11 @@ class MyDriver(Driver):
         if reason == 'GAINS':
             value = self.bus.get_gains()
             self.setParam('GAINS', value)
+            return value
+        if reason in ['GAIN_CH0' + str(_) for _ in range(4)]:
+            channel = int(reason[-1])
+            value = self.bus.get_gains_in_binary(channel)
+            self.setParam(reason, value)
             return value
         if reason == 'FILTERS':
             value = self.bus.get_filters()
