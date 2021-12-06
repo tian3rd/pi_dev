@@ -61,6 +61,32 @@ Friday
 ## Q&A
 
 0. How do I set up the environment?
+
+   - Physical devices:
+   - Python env:
+
 1. How do I talk to BusWorks?
+
+   - BusWorks model manual:
+   - Initialization and configuration:
+
 2. How to connect the raspberry pi with the XT1111-000?
+
+   - Modbus TCP
+
 3. How to read signal and write signals to the device?
+
+   - Using the pymodbus interface:
+
+4. What is an _EPICS_?
+
+   - https://epics.anl.gov/index.php
+
+5. How to read the vacuum gauge?
+
+   - https://www.pfeiffer-pms.com/en/products/tpg261/
+
+6. What is `pcaspy` and how to use it?
+
+   - Docs: https://pcaspy.readthedocs.io/en/latest/
+   - https://github.com/paulscherrerinstitute/pcaspy
