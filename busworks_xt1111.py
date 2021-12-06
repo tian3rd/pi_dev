@@ -189,6 +189,12 @@ class BusWorksXT1111(object):
         return self.filters
         # return int(''.join(map(str, self.filters)), 2)
 
+    def get_le(self) -> int:
+        '''
+        return the state of LE: 0 is off, 1 is on. Since LE is channel 07, so if it's on, the second register is greater of equal to 2**3.
+        '''
+        return 1 if self.read_registers()[1] >= 8 else 0
+
     def get_readbacks(self) -> str:
         readbacks = self.read_registers()[2:]
         return '-'.join(map(str, readbacks))
