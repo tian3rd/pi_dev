@@ -154,6 +154,9 @@ class BusWorksXT1111(object):
         sleep(self.dt)
 
     def get_gains(self) -> int:
+        '''
+        return gains in decimal number
+        '''
         gains_bin_value = bin(self.read_registers()[0])[2:][::-1]
         self.gains = int(gains_bin_value + '0' * (4 - len(gains_bin_value)), 2) * 3
         return self.gains
@@ -169,6 +172,9 @@ class BusWorksXT1111(object):
         sleep(self.dt)
 
     def get_filters(self) -> str:
+        '''
+        return a str of length 3 to indicate status for filter 1 to 3, e.g., "001" means filter 1, 2 are off, and filter 3 is on.
+        '''
         filters_le_bin_value = bin(self.read_registers()[1])[2:]
         # in case le is 0: off, add '0's in front
         self.filters = ('0' * (4 - len(filters_le_bin_value)) + filters_le_bin_value)[::-1][:3]
