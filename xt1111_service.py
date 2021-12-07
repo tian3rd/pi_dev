@@ -89,7 +89,8 @@ class MyDriver(Driver):
                 original_value += 1
             elif original_value %2 == 1 and int(value) == 0:
                 original_value -= 1
-            self.bus.XT1111.write_register(0, original_value)
+            # self.bus.XT1111.write_register(0, original_value)
+            self.bus.set_gain_channels(original_value)
             self.setParam(reason, value)
             driver.updatePVs()
 
