@@ -97,7 +97,7 @@ class BusWorksXT1111(object):
         start      - first row of channels to read from
         num_channels  - last row of channels to read from.
         '''
-        if type(start) is not int or type(num_channels) is not int:
+        if not isinstance(start, int) or not isinstance(num_channels, int):
             raise BaseException(
                 "Start row should be within [0, 1, 2, 3], end: [1, 2, 3, 4]")
         # use read_input_registers intead of read_holding_registers to keep track of the i/o change
@@ -163,7 +163,7 @@ class BusWorksXT1111(object):
         -------
         gains: 0 to 45 in decimal number with a step of 3dB (Gains: i/o 00: 24dB; i/o 01: 12dB; i/o 02: 6dB; i/o 03: 3dB.)
         '''
-        if gains % 3 != 0 or gains < 0 or gains > 45:
+        if not isinstance(gains, int) or gains % 3 != 0 or gains < 0 or gains > 45:
             raise BaseException(
                 'Gains must be a multiple of 3 and between 0 and 45.')
         bins = bin(gains//3)[2:]
@@ -180,7 +180,7 @@ class BusWorksXT1111(object):
         -------
         row0_value: value of the first row (row0) ranging from 0 to 15
         '''
-        if type(row0_value) is not int or row0_value < 0 or row0_value > 15:
+        if not isinstance(row0_value, int) or row0_value < 0 or row0_value > 15:
             raise BaseException(
                 'row 0 should have a value between 0 and 15 inclusive')
         self.XT1111.write_register(0, row0_value)
@@ -203,7 +203,7 @@ class BusWorksXT1111(object):
         Input:
         channel: the channel index on row 0 ranging from 00 to 03
         '''
-        if type(channel) is not int or channel < 0 or channel > 3:
+        if not isinstance(channel, int) or channel < 0 or channel > 3:
             raise BaseException('channel should be an integer between 0 and 3')
         gains_bin_value = bin(self.read_registers()[0])[2:][::-1]
         gains_in_binary = gains_bin_value + '0' * (4 - len(gains_bin_value))
@@ -213,7 +213,7 @@ class BusWorksXT1111(object):
         '''
         i/o 04 controls zero pole filter 1: pz1; i/o 05 controls zero pole filter 2: pz2; i/o 06 controls zero pole filter 3: pz3
         '''
-        if type(filters) is not str or len(filters) != 3 or not all(x in '01' for x in filters):
+        if not isinstance(filters, str) or len(filters) != 3 or not all(x in '01' for x in filters):
             raise BaseException(
                 'Filters must be a string of three elements (0 or 1). e.g, "001", "000", etc.')
         second_four_ios = int((filters+str(le))[::-1], 2)
