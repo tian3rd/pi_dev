@@ -70,6 +70,18 @@ Monday
 
 2. Refactor the read operations inside the driver.
 
+Tuesday
+
+1. Try to use click event to toggle the red/black indicator ovals for channel 00 to 07.
+
+   - `Oval` doesn't work: not associated functionalities
+   - `Slider bar` as a compromise: only has two values of 0 and 1 for toggling between red and black.
+   - `Choice button` seems more appropriate for binary choices.
+
+2. Refactor code in `busworks_xt1111.py` and `xt1111_service.py`
+
+3. Discuss with Sheon on how to improve the interface.
+
 ## Q&A
 
 0. How do I set up the environment?
