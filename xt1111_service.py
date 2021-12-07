@@ -8,10 +8,13 @@ busPrefix = "XT1111_"
 busDB = {
     'GAINS': {'type': 'int'},
     'GAIN_CH00': {'type': 'int'},
-    'GAIN00': {'type': 'enum', 'enums': ['0', '1']},
     'GAIN_CH01': {'type': 'int'},
     'GAIN_CH02': {'type': 'int'},
     'GAIN_CH03': {'type': 'int'},
+    'GAIN00': {'type': 'enum', 'enums': ['0', '1']},
+    'GAIN01': {'type': 'enum', 'enums': ['0', '1']},
+    'GAIN02': {'type': 'enum', 'enums': ['0', '1']},
+    'GAIN03': {'type': 'enum', 'enums': ['0', '1']},
     'FILTERS': {'type': 'str'},
     'FILTER_CH04': {'type': 'int'},
     'FILTER_CH05': {'type': 'int'},
@@ -42,8 +45,13 @@ class MyDriver(Driver):
             value = self.bus.get_gains_in_binary(channel)
             self.setParam(reason, value)
             return value
-        if reason == 'GAIN00':
-            value = self.bus.get_gains_in_binary(0)
+        # if reason == 'GAIN00':
+        #     value = self.bus.get_gains_in_binary(0)
+        #     self.setParam(reason, value)
+        #     return value
+        if reason in ['GAIN0' + str(_) for _ in range(4)]:
+            channel = int(reason[-1])
+            value = self.bus.get_gains_in_binary(channel)
             self.setParam(reason, value)
             return value
         if reason == 'FILTERS':
@@ -84,14 +92,30 @@ class MyDriver(Driver):
                 self.error = True
                 self.errorMsg = str(e)
 
-        if reason == 'GAIN00':
-            original_value = self.bus.read_registers()[0]
-            if original_value % 2 == 0 and int(value) == 1:
-                original_value += 1
-            elif original_value % 2 == 1 and int(value) == 0:
-                original_value -= 1
-            # self.bus.XT1111.write_register(0, original_value)
-            self.bus.set_gain_channels(original_value)
+        # if reason == 'GAIN00':
+        #     original_value = self.bus.read_registers()[0]
+        #     if original_value % 2 == 0 and int(value) == 1:
+        #         original_value += 1
+        #     elif original_value % 2 == 1 and int(value) == 0:
+        #         original_value -= 1
+        #     # self.bus.XT1111.write_register(0, original_value)
+        #     self.bus.set_gain_channels(original_value)
+        #     self.setParam(reason, value)
+        #     driver.updatePVs()
+
+        if reason in ['GAIN0' + str(_) for _ in range(4)]:
+            gain = bin(self.bus.read_registers()[0])[2:]
+            gain = '0' * (4 - len(gain)) + gain
+            channel = int(reason[-1])
+            if str(value) != gain[3 - channel]:
+                if channel != 0:
+                    gain = gain[: (3 - channel)] + str(value) + \
+                        gain[(4 - channel):]
+                else:
+                    gain = gain[: (3 - channel)] + str(value)
+            # conver binary to decimal
+            gain_updated = int(gain, 2)
+            self.bus.set_gain_channels(gain_updated)
             self.setParam(reason, value)
             driver.updatePVs()
 
