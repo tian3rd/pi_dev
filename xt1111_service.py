@@ -22,6 +22,7 @@ busDB = {
     'ERRORS': {'type': 'char', 'count': 300},
 }
 
+
 class MyDriver(Driver):
     def __init__(self):
         super().__init__()
@@ -82,12 +83,12 @@ class MyDriver(Driver):
             except Exception as e:
                 self.error = True
                 self.errorMsg = str(e)
-        
+
         if reason == 'GAIN00':
             original_value = self.bus.read_registers()[0]
             if original_value % 2 == 0 and int(value) == 1:
                 original_value += 1
-            elif original_value %2 == 1 and int(value) == 0:
+            elif original_value % 2 == 1 and int(value) == 0:
                 original_value -= 1
             # self.bus.XT1111.write_register(0, original_value)
             self.bus.set_gain_channels(original_value)
@@ -111,7 +112,7 @@ class MyDriver(Driver):
         #     self.bus.XT1111.write_register(0, reverse_0th_bit)
         #     self.setParam('GAIN_CH00', value)
         #     driver.updatePVs()
-        
+
         if reason in ['GAIN_CH0' + str(_) for _ in range(4)]:
             try:
                 original_value = self.bus.read_registers()[0]
@@ -124,7 +125,7 @@ class MyDriver(Driver):
             except Exception as e:
                 self.error = True
                 self.errorMsg = str(e)
-    
+
     def read_database(self):
         self.read('READBACKS')
         self.read('GAINS')

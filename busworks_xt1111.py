@@ -1,12 +1,14 @@
 from pymodbus.client.sync import ModbusTcpClient
 from time import sleep
 
+
 class BaseException(Exception):
     def __init__(self, msg):
         self.msg = msg
+
     def __str__(self):
         return self.msg
-    
+
 
 class BusWorksXT1111(object):
     """
@@ -14,6 +16,7 @@ class BusWorksXT1111(object):
     XT1111-000 has a default static address of 192.168.1.100 with 16 i/o channels.
     Port 502 is the default port used for modbus communication.
     """
+
     def __init__(self, address='192.168.1.100', port=502, num_chns=16):
         # IP-number of the device
         self.address = address
@@ -25,29 +28,33 @@ class BusWorksXT1111(object):
         self.dt = 0.05
 
         # self.port_status = [0 for _ in range(4)]
-            
+
     @property
     def address(self):
         '''
         The IP-address of the device. Must be a string.
         '''
         return self._address
+
     @address.setter
     def address(self, value):
         if not isinstance(value, str):
-            raise BaseException(('Address must be a string. Input is of type {}').format(type(value)))
+            raise BaseException(
+                ('Address must be a string. Input is of type {}').format(type(value)))
         self._address = value
-        
+
     @property
     def port(self):
         '''
         Port to use.
         '''
         return self._port
+
     @port.setter
     def port(self, value):
         if not isinstance(value, int):
-            raise BaseException('Port must be an int. Input is of type {}'.format(type(value)))
+            raise BaseException(
+                'Port must be an int. Input is of type {}'.format(type(value)))
         self._port = value
 
     @property
@@ -56,18 +63,20 @@ class BusWorksXT1111(object):
         Number of output channels of the device.
         '''
         return self._num_chns
+
     @num_chns.setter
     def num_chns(self, value):
         if not isinstance(value, int):
-            raise BaseException('num_chns must be an integer, not {}'.format(type(value)))
+            raise BaseException(
+                'num_chns must be an integer, not {}'.format(type(value)))
         self._num_chns = value
-        
+
     def start(self):
         '''
         Establishes the TCP connection between the computer and the device.
         '''
         self.XT1111 = ModbusTcpClient(self.address, port=self.port)
-        
+
     def stop(self, reset=True):
         '''
         Stops the TCP connection between the computer and the device. If reset is True, the registers of all channels are set to 0.
@@ -76,9 +85,9 @@ class BusWorksXT1111(object):
             self.XT1111.write_registers(0, 0)
             self.XT1111.write_registers(1, 0)
             self.XT1111.write_registers(2, 0)
-            self.XT1111.write_registers(3, 0)   
+            self.XT1111.write_registers(3, 0)
         self.XT1111.close()
-        
+
     def read_registers(self, start=0, num_channels=4):
         '''
         Reads what on/off signals that are written to the channels.
@@ -89,7 +98,8 @@ class BusWorksXT1111(object):
         num_channels  - last row of channels to read from.
         '''
         if type(start) is not int or type(num_channels) is not int:
-            raise BaseException("Start row should be within [0, 1, 2, 3], end: [1, 2, 3, 4]")
+            raise BaseException(
+                "Start row should be within [0, 1, 2, 3], end: [1, 2, 3, 4]")
         # use read_input_registers intead of read_holding_registers to keep track of the i/o change
         out = self.XT1111.read_input_registers(start, num_channels)
         # self.port_status = out.registers
@@ -109,7 +119,8 @@ class BusWorksXT1111(object):
         for state in states:
             state = bin(state)[2:]
             signals = '0' * (4 - len(state)) + state
-            print('Row {0} (i/o {1: <2} - {2: <2}): {3} | {4} | {5} | {6}'.format(row+1, row * 4, row * 4 + 3, signals[3], signals[2], signals[1], signals[0]))
+            print('Row {0} (i/o {1: <2} - {2: <2}): {3} | {4} | {5} | {6}'.format(row+1,
+                  row * 4, row * 4 + 3, signals[3], signals[2], signals[1], signals[0]))
             row += 1
 
     def turnon_channels(self, channels: list):
@@ -144,7 +155,7 @@ class BusWorksXT1111(object):
             self.le = le
         self.set_gains(self.gains)
         self.set_filters(self.filters, self.le)
-        
+
     def set_gains(self, gains):
         '''
         Sets the gains for channel 00 to 03
@@ -153,7 +164,8 @@ class BusWorksXT1111(object):
         gains: 0 to 45 in decimal number with a step of 3dB (Gains: i/o 00: 24dB; i/o 01: 12dB; i/o 02: 6dB; i/o 03: 3dB.)
         '''
         if gains % 3 != 0 or gains < 0 or gains > 45:
-            raise BaseException('Gains must be a multiple of 3 and between 0 and 45.')
+            raise BaseException(
+                'Gains must be a multiple of 3 and between 0 and 45.')
         bins = bin(gains//3)[2:]
         bins = '0' * (4 - len(bins)) + bins
         first_four_ios = int(bins[::-1], 2)
@@ -169,7 +181,8 @@ class BusWorksXT1111(object):
         row0_value: value of the first row (row0) ranging from 0 to 15
         '''
         if type(row0_value) is not int or row0_value < 0 or row0_value > 15:
-            raise BaseException('row 0 should have a value between 0 and 15 inclusive')
+            raise BaseException(
+                'row 0 should have a value between 0 and 15 inclusive')
         self.XT1111.write_register(0, row0_value)
 
     def get_gains(self) -> int:
@@ -178,7 +191,8 @@ class BusWorksXT1111(object):
         e.g. bus.get_gains() returns 42, 3, ...
         '''
         gains_bin_value = bin(self.read_registers()[0])[2:][::-1]
-        self.gains = int(gains_bin_value + '0' * (4 - len(gains_bin_value)), 2) * 3
+        self.gains = int(gains_bin_value + '0' *
+                         (4 - len(gains_bin_value)), 2) * 3
         return self.gains
 
     def get_gains_in_binary(self, channel) -> int:
@@ -200,7 +214,8 @@ class BusWorksXT1111(object):
         i/o 04 controls zero pole filter 1: pz1; i/o 05 controls zero pole filter 2: pz2; i/o 06 controls zero pole filter 3: pz3
         '''
         if type(filters) is not str or len(filters) != 3 or not all(x in '01' for x in filters):
-            raise BaseException('Filters must be a string of three elements (0 or 1). e.g, "001", "000", etc.')
+            raise BaseException(
+                'Filters must be a string of three elements (0 or 1). e.g, "001", "000", etc.')
         second_four_ios = int((filters+str(le))[::-1], 2)
         self.XT1111.write_register(1, second_four_ios)
         sleep(self.dt)
@@ -211,7 +226,8 @@ class BusWorksXT1111(object):
         '''
         filters_le_bin_value = bin(self.read_registers()[1])[2:]
         # in case le is 0: off, add '0's in front
-        self.filters = ('0' * (4 - len(filters_le_bin_value)) + filters_le_bin_value)[::-1][:3]
+        self.filters = ('0' * (4 - len(filters_le_bin_value)) +
+                        filters_le_bin_value)[::-1][:3]
         return self.filters
         # return int(''.join(map(str, self.filters)), 2)
 
@@ -228,4 +244,3 @@ class BusWorksXT1111(object):
         '''
         readbacks = self.read_registers()[2:]
         return '-'.join(map(str, readbacks))
-        
