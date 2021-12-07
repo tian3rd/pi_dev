@@ -189,6 +189,8 @@ class BusWorksXT1111(object):
         Input:
         channel: the channel index on row 0 ranging from 00 to 03
         '''
+        if type(channel) is not int or channel < 0 or channel > 3:
+            raise BaseException('channel should be an integer between 0 and 3')
         gains_bin_value = bin(self.read_registers()[0])[2:][::-1]
         gains_in_binary = gains_bin_value + '0' * (4 - len(gains_bin_value))
         return int(gains_in_binary[channel])
@@ -197,7 +199,7 @@ class BusWorksXT1111(object):
         '''
         i/o 04 controls zero pole filter 1: pz1; i/o 05 controls zero pole filter 2: pz2; i/o 06 controls zero pole filter 3: pz3
         '''
-        if type(filters) != str or len(filters) != 3 or not all(x in '01' for x in filters):
+        if type(filters) is not str or len(filters) != 3 or not all(x in '01' for x in filters):
             raise BaseException('Filters must be a string of three elements (0 or 1). e.g, "001", "000", etc.')
         second_four_ios = int((filters+str(le))[::-1], 2)
         self.XT1111.write_register(1, second_four_ios)
