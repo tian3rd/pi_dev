@@ -97,6 +97,11 @@ class BusWorksXT1111(object):
 
     def print_register_states(self):
         '''
+        print channel 00 to 15 in the same layout as in the windows client for XT1111:
+        ch00 | ch01 | ch02 | ch03 
+        ch04 | ch05 | ch06 | ch07
+        ch08 | ch09 | ch10 | ch11
+        ch12 | ch13 | ch14 | ch15
         '''
         states = self.read_registers()
         # states = self.XT1111.read_input_registers(0, 4).registers
@@ -142,7 +147,10 @@ class BusWorksXT1111(object):
         
     def set_gains(self, gains):
         '''
-        Gains: i/o 00: 24dB; i/o 01: 12dB; i/o 02: 6dB; i/o 03: 3dB.
+        Sets the gains for channel 00 to 03
+        Inputs:
+        -------
+        gains: 0 to 45 in decimal number with a step of 3dB (Gains: i/o 00: 24dB; i/o 01: 12dB; i/o 02: 6dB; i/o 03: 3dB.)
         '''
         if gains % 3 != 0 or gains < 0 or gains > 45:
             raise BaseException('Gains must be a multiple of 3 and between 0 and 45.')
@@ -156,6 +164,7 @@ class BusWorksXT1111(object):
     def get_gains(self) -> int:
         '''
         return gains in decimal number
+        e.g. bus.get_gains() returns 42, 3, ...
         '''
         gains_bin_value = bin(self.read_registers()[0])[2:][::-1]
         self.gains = int(gains_bin_value + '0' * (4 - len(gains_bin_value)), 2) * 3
@@ -163,7 +172,11 @@ class BusWorksXT1111(object):
 
     def get_gains_in_binary(self, channel) -> int:
         '''
+        return the set signal of 1 or 0 corresponding to the channel:
         channel 00: 24dB; channel 01: 12dB; channel 02: 6dB; chennel 03: 3dB
+        e.g. if the gain is 15dB (bus.get_gains() == 10/'0|1|0|1' ch00 to ch03), so bus.get_gains_in_binary(0) == 0, bus.get_gains_in_binary(1) == 1
+        Input:
+        channel: the channel index on row 0 ranging from 00 to 03
         '''
         gains_bin_value = bin(self.read_registers()[0])[2:][::-1]
         gains_in_binary = gains_bin_value + '0' * (4 - len(gains_bin_value))
@@ -196,6 +209,10 @@ class BusWorksXT1111(object):
         return 1 if self.read_registers()[1] >= 8 else 0
 
     def get_readbacks(self) -> str:
+        '''
+        return a string representing the decimal values for row 2 and row 3 joined by -
+        e.g., 4-0 means channel 09 is on, others are off
+        '''
         readbacks = self.read_registers()[2:]
         return '-'.join(map(str, readbacks))
         
