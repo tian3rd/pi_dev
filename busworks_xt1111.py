@@ -161,6 +161,17 @@ class BusWorksXT1111(object):
         self.XT1111.write_register(0, first_four_ios)
         sleep(self.dt)
 
+    def set_gain_channels(self, row0_value):
+        '''
+        Sets channels from 00 to 03 using the decimal value
+        Inputs:
+        -------
+        row0_value: value of the first row (row0) ranging from 0 to 15
+        '''
+        if type(row0_value) is not int or row0_value < 0 or row0_value > 15:
+            raise BaseException('row 0 should have a value between 0 and 15 inclusive')
+        self.XT1111.write_register(0, row0_value)
+
     def get_gains(self) -> int:
         '''
         return gains in decimal number
