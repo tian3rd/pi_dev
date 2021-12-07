@@ -9,6 +9,7 @@ busPrefix = "XT1111_"
 busDB = {
     'GAINS': {'type': 'int'},
     'GAIN_CH00': {'type': 'int'},
+    'GAIN00': {'type': 'enum', 'enums': ['0', '1']},
     'GAIN_CH01': {'type': 'int'},
     'GAIN_CH02': {'type': 'int'},
     'GAIN_CH03': {'type': 'int'},
@@ -39,6 +40,10 @@ class MyDriver(Driver):
         if reason in ['GAIN_CH0' + str(_) for _ in range(4)]:
             channel = int(reason[-1])
             value = self.bus.get_gains_in_binary(channel)
+            self.setParam(reason, value)
+            return value
+        if reason == 'GAIN00':
+            value = self.bus.get_gains_in_binary(0)
             self.setParam(reason, value)
             return value
         if reason == 'FILTERS':
@@ -78,6 +83,16 @@ class MyDriver(Driver):
             except Exception as e:
                 self.error = True
                 self.errorMsg = str(e)
+        
+        if reason == 'GAIN00':
+            original_value = self.bus.read_registers()[0]
+            if original_value % 2 == 0 and int(value) == 1:
+                original_value += 1
+            elif original_value %2 == 1 and int(value) == 0:
+                original_value -= 1
+            self.bus.XT1111.write_register(0, original_value)
+            self.setParam(reason, value)
+            driver.updatePVs()
 
         if reason == 'FILTERS':
             try:
