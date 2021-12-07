@@ -207,8 +207,8 @@ text {
 "text update" {
 	object {
 		x=8
-		y=142
-		width=100
+		y=550
+		width=500
 		height=24
 	}
 	monitor {
@@ -216,14 +216,16 @@ text {
 		clr=14
 		bclr=4
 	}
-	align="horiz. centered"
+	clrmod="discrete"
+	format="string"
 	limits {
+		hoprSrc="default"
 	}
 }
 text {
 	object {
-		x=222
-		y=137
+		x=130
+		y=520
 		width=100
 		height=25
 	}
