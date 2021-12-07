@@ -103,6 +103,23 @@ class MyDriver(Driver):
             except Exception as e:
                 self.error = True
                 self.errorMsg = str(e)
+
+        # if reason == 'GAIN_CH00':
+        #     original_value = self.bus.read_registers()[0]
+        #     temp = 1
+        #     reverse_0th_bit = temp ^ original_value
+        #     self.bus.XT1111.write_register(0, reverse_0th_bit)
+        #     self.setParam('GAIN_CH00', value)
+        #     driver.updatePVs()
+        
+        if reason in ['GAIN_CH0' + str(_) for _ in range(4)]:
+            original_value = self.bus.read_registers()[0]
+            channel = int(reason[-1])
+            temp = 1 << (channel)
+            reverse_channel_bit = temp ^ original_value
+            self.bus.XT1111.write_register(0, reverse_channel_bit)
+            self.setParam(reason, value)
+            driver.updatePVs()
     
     def read_database(self):
         self.read('READBACKS')
