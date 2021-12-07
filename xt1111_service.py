@@ -5,7 +5,6 @@ import busworks_xt1111
 
 busPrefix = "XT1111_"
 
-# , 'scan': 1 --- how to use scan?
 busDB = {
     'GAINS': {'type': 'int'},
     'GAIN_CH00': {'type': 'int'},
@@ -149,15 +148,3 @@ if __name__ == '__main__':
 
         # keep the readings uptodate
         driver.read_database()
-        # driver.read('READBACKS')
-        # driver.read('GAINS')
-        # driver.read('FILTERS')
-        # driver.read('ERRORS')
-        # driver.read('GAIN_CH00')
-        # driver.read('GAIN_CH01')
-        # driver.read('GAIN_CH02')
-        # driver.read('GAIN_CH03')
-        # driver.read('FILTER_CH04')
-        # driver.read('FILTER_CH05')
-        # driver.read('FILTER_CH06')
-        # driver.read('LE_CH07')
