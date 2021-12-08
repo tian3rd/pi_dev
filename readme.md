@@ -29,6 +29,8 @@
      - Use three choice buttons to toggle the status for each filter channel from filter 1 to 3. Or just type in the value to set it (1 for on and 0 for off, can raise error if it's not valid)
    - Indicators: show a visulization of all 16 ports which is very similar to the Windows client interface
 
----
+### Current interface
+
+08/12/2021: ![interface](screenshots/2021-12-08-151759_455x398_scrot.png)
 
 ---
