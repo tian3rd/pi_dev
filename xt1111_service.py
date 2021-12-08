@@ -174,6 +174,9 @@ class MyDriver(Driver):
             self.read('FILTER_CH0' + str(i))
         # read on/off channel
         self.read('LE_CH07')
+        # read the signals from readback channels
+        for ch in ['08', '09', '10', '11', '12', '13', '14', '15']:
+            self.read('READBACK' + ch)
 
 
 if __name__ == '__main__':
