@@ -19,6 +19,9 @@ busDB = {
     'FILTER_CH04': {'type': 'int'},
     'FILTER_CH05': {'type': 'int'},
     'FILTER_CH06': {'type': 'int'},
+    'FILTER04': {'type': 'enum', 'enums': ['0', '1']},
+    'FILTER05': {'type': 'enum', 'enums': ['0', '1']},
+    'FILTER06': {'type': 'enum', 'enums': ['0', '1']},
     'LE_CH07': {'type': 'int'},
     'READBACKS': {'type': 'str'},
     # use char for error str longer than 40 chars
@@ -62,6 +65,11 @@ class MyDriver(Driver):
         if reason in ['FILTER_CH0' + str(_) for _ in range(4, 7)]:
             channel = int(reason[-1])
             value = int(self.bus.get_filters()[channel - 4])
+            self.setParam(reason, value)
+            return value
+        if reason in ['FILTER0' + str(_) for _ in range(4, 7)]:
+            channel = int(reason[-1])
+            value = self.bus.get_filters_in_binary(channel)
             self.setParam(reason, value)
             return value
         if reason == 'LE_CH07':
@@ -129,13 +137,18 @@ class MyDriver(Driver):
                 self.error = True
                 self.errorMsg = str(e)
 
-        # if reason == 'GAIN_CH00':
-        #     original_value = self.bus.read_registers()[0]
-        #     temp = 1
-        #     reverse_0th_bit = temp ^ original_value
-        #     self.bus.XT1111.write_register(0, reverse_0th_bit)
-        #     self.setParam('GAIN_CH00', value)
-        #     driver.updatePVs()
+        if reason in ['FILTER0' + str(_) for _ in range(4, 7)]:
+            try:
+                origianl_value = self.bus.read_registers()[1]
+                channel = int(reason[-1])
+                temp = 1 << (channel - 4)
+                reverse_channel_bit = temp ^ origianl_value
+                self.bus.set_filter_channels(reverse_channel_bit)
+                self.setParam(reason, value)
+                self.updatePVs()
+            except Exception as e:
+                self.error = True
+                self.errorMsg = str(e)
 
         if reason in ['GAIN_CH0' + str(_) for _ in range(4)]:
             try:
