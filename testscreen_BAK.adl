@@ -512,54 +512,6 @@ oval {
 		chan="XT1111_LE_CH07"
 	}
 }
-"related display" {
-	object {
-		x=361
-		y=289
-		width=50
-		height=45
-	}
-	clr=20
-	bclr=4
-	visual="invisible"
-}
-oval {
-	object {
-		x=352
-		y=310
-		width=69
-		height=52
-	}
-	"basic attribute" {
-		clr=20
-		fill="outline"
-	}
-	"dynamic attribute" {
-		clr="alarm"
-		vis="if not zero"
-		chan="XT1111_GAIN_CH00"
-	}
-}
-"text entry" {
-	object {
-		x=569
-		y=318
-		width=64
-		height=75
-	}
-	control {
-		chan="XT1111_GAIN_CH00"
-		clr=14
-		bclr=4
-	}
-	clrmod="alarm"
-	format="string"
-	limits {
-		loprSrc="default"
-		hoprSrc="default"
-		hoprDefault=45
-	}
-}
 valuator {
 	object {
 		x=58
@@ -638,13 +590,102 @@ valuator {
 }
 "choice button" {
 	object {
-		x=533
-		y=80
-		width=129
-		height=102
+		x=330
+		y=250
+		width=60
+		height=30
 	}
 	control {
 		chan="XT1111_GAIN00"
+		clr=14
+		bclr=4
+	}
+	clrmod="discrete"
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=417
+		y=250
+		width=60
+		height=30
+	}
+	control {
+		chan="XT1111_GAIN01"
+		clr=14
+		bclr=4
+	}
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=503
+		y=250
+		width=60
+		height=30
+	}
+	control {
+		chan="XT1111_GAIN02"
+		clr=14
+		bclr=4
+	}
+	clrmod="discrete"
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=593
+		y=250
+		width=60
+		height=30
+	}
+	control {
+		chan="XT1111_GAIN03"
+		clr=14
+		bclr=4
+	}
+	clrmod="discrete"
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=329
+		y=311
+		width=60
+		height=30
+	}
+	control {
+		chan="XT1111_FILTER04"
+		clr=14
+		bclr=4
+	}
+	clrmod="discrete"
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=416
+		y=312
+		width=60
+		height=30
+	}
+	control {
+		chan="XT1111_FILTER05"
+		clr=14
+		bclr=4
+	}
+	clrmod="discrete"
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=503
+		y=313
+		width=60
+		height=30
+	}
+	control {
+		chan="XT1111_FILTER06"
 		clr=14
 		bclr=4
 	}
