@@ -220,6 +220,18 @@ class BusWorksXT1111(object):
         self.XT1111.write_register(1, second_four_ios)
         sleep(self.dt)
 
+    def set_filter_channels(self, row1_value):
+        '''
+        Sets channels from 04 to 07 (including on/off for ch07) using the decimal value
+        Inputs:
+        -------
+        row1_value: value of the second row (row1) ranging from 0 to 15
+        '''
+        if not isinstance(row1_value, int) or row1_value < 0 or row1_value > 15:
+            raise BaseException(
+                'row 1 should have a value between 0 and 15 inclusive')
+        self.XT1111.write_register(1, row1_value)
+
     def get_filters(self) -> str:
         '''
         return a str of length 3 to indicate status for filter 1 to 3, e.g., "001" means filter 1, 2 are off, and filter 3 is on.
