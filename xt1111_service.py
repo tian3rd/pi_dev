@@ -24,6 +24,14 @@ busDB = {
     'FILTER06': {'type': 'enum', 'enums': ['0', '1']},
     'LE_CH07': {'type': 'int'},
     'READBACKS': {'type': 'str'},
+    'READBACK08': {'type': 'int'},
+    'READBACK09': {'type': 'int'},
+    'READBACK10': {'type': 'int'},
+    'READBACK11': {'type': 'int'},
+    'READBACK12': {'type': 'int'},
+    'READBACK13': {'type': 'int'},
+    'READBACK14': {'type': 'int'},
+    'READBACK15': {'type': 'int'},
     # use char for error str longer than 40 chars
     'ERRORS': {'type': 'char', 'count': 300},
 }
@@ -76,6 +84,10 @@ class MyDriver(Driver):
             value = self.bus.get_readbacks()
             self.setParam('READBACKS', value)
             return value
+        if reason in ['READBACK' + _ for _ in ['08', '09', '10', '11', '12', '13', '14', '15']]:
+            channel = int(reason[-2:])
+            value = self.bus.get_readback(channel)
+            self.setParam(reason, value)
         if reason == 'ERRORS':
             if self.error:
                 # value = 'Error!'
