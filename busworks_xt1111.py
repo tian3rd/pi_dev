@@ -243,6 +243,21 @@ class BusWorksXT1111(object):
         return self.filters
         # return int(''.join(map(str, self.filters)), 2)
 
+    def get_filters_in_binary(self, channel) -> int:
+        '''
+        return the signal of 1 or 0 corresponding to channel:
+        channel 04: filter 1; channel 05: filter 2; channel 06: filter3
+        Input:
+        -------
+        channel: the channel index on row 1 from 04 to 06
+        '''
+        if not isinstance(channel, int) or channel < 4 or channel > 6:
+            raise BaseException('filter channel should be 4, 5, or 6')
+        filters_bin_value = bin(self.read_registers()[1])[2:][::-1]
+        filters_in_binary = '0' * \
+            (4 - len(filters_bin_value)) + filters_bin_value
+        return int(filters_in_binary[channel - 4])
+
     def get_le(self) -> int:
         '''
         return the state of LE: 0 is off, 1 is on. Since LE is channel 07, so if it's on, the second register is greater of equal to 2**3.
