@@ -91,7 +91,7 @@ class MyDriver(Driver):
                 self.bus.set_gains(value)
                 self.error = False
                 self.setParam('GAINS', value)
-                driver.updatePVs()
+                self.updatePVs()
             except Exception as e:
                 self.error = True
                 self.errorMsg = str(e)
@@ -110,14 +110,14 @@ class MyDriver(Driver):
             gain_updated = int(gain, 2)
             self.bus.set_gain_channels(gain_updated)
             self.setParam(reason, value)
-            driver.updatePVs()
+            self.updatePVs()
 
         if reason == 'FILTERS':
             try:
                 self.bus.set_filters(str(value))
                 self.error = False
                 self.setParam('FILTERS', str(value))
-                driver.updatePVs()
+                self.updatePVs()
             except Exception as e:
                 self.error = True
                 self.errorMsg = str(e)
@@ -143,7 +143,7 @@ class MyDriver(Driver):
                 reverse_channel_bit = temp ^ original_value
                 self.bus.set_gain_channels(reverse_channel_bit)
                 self.setParam(reason, value)
-                driver.updatePVs()
+                self.updatePVs()
             except Exception as e:
                 self.error = True
                 self.errorMsg = str(e)
