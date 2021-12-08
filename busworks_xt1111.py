@@ -271,3 +271,22 @@ class BusWorksXT1111(object):
         '''
         readbacks = self.read_registers()[2:]
         return '-'.join(map(str, readbacks))
+
+    def get_readback(self, channel) -> int:
+        '''
+        return an on/off for channel 08 to 15
+        Input:
+        -------
+        channel: the channel index, ranging from 08 to 15
+        '''
+        if not isinstance(channel, int) or channel < 8 or channel > 15:
+            raise BaseException(
+                'readback channel should be within 8 to 15 inclusive')
+        row2_bin_value = bin(self.read_registers()[2])[2:][::-1]
+        row3_bin_value = bin(self.read_registers()[3])[2:][::-1]
+        row2_in_binary = '0' * (4 - len(row2_bin_value)) + row2_bin_value
+        row3_in_binary = '0' * (4 - len(row3_bin_value)) + row3_bin_value
+        if channel < 12:
+            return int(row2_in_binary[channel - 8])
+        else:
+            return int(row3_in_binary[channel - 12])
