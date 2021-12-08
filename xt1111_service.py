@@ -155,13 +155,14 @@ class MyDriver(Driver):
         self.read('GAINS')
         self.read('FILTERS')
         self.read('ERRORS')
-        self.read('GAIN_CH00')
-        self.read('GAIN_CH01')
-        self.read('GAIN_CH02')
-        self.read('GAIN_CH03')
-        self.read('FILTER_CH04')
-        self.read('FILTER_CH05')
-        self.read('FILTER_CH06')
+        # read four gain channels
+        for i in range(4):
+            self.read('GAIN_CH0' + str(i))
+            self.read('GAIN0' + str(i))
+        # read three filter channels
+        for i in range(4, 7):
+            self.read('FILTER_CH0' + str(i))
+        # read on/off channel
         self.read('LE_CH07')
 
 
