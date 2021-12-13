@@ -76,6 +76,8 @@ class BusWorksXT1111(object):
         Establishes the TCP connection between the computer and the device.
         '''
         self.XT1111 = ModbusTcpClient(self.address, port=self.port)
+        # use i/o channel 07 as device on/off status indicator
+        self.set_device_on()
 
     def stop(self, reset=True):
         '''
@@ -231,6 +233,15 @@ class BusWorksXT1111(object):
             raise BaseException(
                 'row 1 should have a value between 0 and 15 inclusive')
         self.XT1111.write_register(1, row1_value)
+
+    def set_device_on(self):
+        '''
+        Set channel 07 (on/off status channel) on whenever there's change on gains or filters
+        '''
+        row1_value = self.read_registers()[1]
+        if row1_value < 8:
+            row1_value += 8
+        self.set_filter_channels(row1_value)
 
     def get_filters(self) -> str:
         '''
