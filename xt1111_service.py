@@ -24,6 +24,7 @@ busDB = {
     'FILTER06': {'type': 'enum', 'enums': ['0', '1']},
     'LE_CH07': {'type': 'int'},
     'READBACKS': {'type': 'str'},
+    'READBACK_GAINS': {'type': 'int'},
     'READBACK08': {'type': 'int'},
     'READBACK09': {'type': 'int'},
     'READBACK10': {'type': 'int'},
@@ -88,6 +89,10 @@ class MyDriver(Driver):
             channel = int(reason[-2:])
             value = self.bus.get_readback(channel)
             self.setParam(reason, value)
+        if reason == 'READBACK_GAINS':
+            value = self.bus.get_readback_gains()
+            self.setParam('READBACK_GAINS', value)
+            return value
         if reason == 'ERRORS':
             if self.error:
                 # value = 'Error!'
@@ -177,6 +182,8 @@ class MyDriver(Driver):
         # read the signals from readback channels
         for ch in ['08', '09', '10', '11', '12', '13', '14', '15']:
             self.read('READBACK' + ch)
+        # read readback gains
+        self.read('READBACK_GAINS')
 
 
 if __name__ == '__main__':
