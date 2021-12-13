@@ -42,6 +42,7 @@
 1. For the slider bar, you need hold on to the mouse and release it only after you see the change in the indicators, to avoid it jump down: e.g., if you slide from 33 to 36, it often jumps back to 33 after you release the mouse, so if you slide a little further until you see the red/black indicators changes, then it would be OK. But if you slide from 36 to 33 there's no problem.
 2. `ch07` on/off is not set correctly if we change anything other than the input textbox for filters. Other channels are not affected.
 3. Readbacks are not updated correctly as shown in the Windown client interface.
+4. New bug: clicking on the same filter choice button option twice would toggle the status again. Normally, if you click '0' (one or more times), it would turn or stay off, but in our case, if you keep again, it would toggle on.
 
 ### Bugs Fixing Progress
 
