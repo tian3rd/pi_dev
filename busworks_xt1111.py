@@ -295,8 +295,8 @@ class BusWorksXT1111(object):
                 'readback channel should be within 8 to 15 inclusive')
         row2_bin_value = bin(self.read_registers()[2])[2:][::-1]
         row3_bin_value = bin(self.read_registers()[3])[2:][::-1]
-        row2_in_binary = '0' * (4 - len(row2_bin_value)) + row2_bin_value
-        row3_in_binary = '0' * (4 - len(row3_bin_value)) + row3_bin_value
+        row2_in_binary = row2_bin_value + '0' * (4 - len(row2_bin_value))
+        row3_in_binary = row3_bin_value + '0' * (4 - len(row3_bin_value))
         if channel < 12:
             return int(row2_in_binary[channel - 8])
         else:
