@@ -89,6 +89,16 @@ Wednesday
 3. Add indicators for readback channels; add choice buttons for filter channels
 4. Add start up instructions
 
+### Week 3
+
+Monday
+
+1. Fix bugs of `enable` indicator
+2. Discuss with Sheon on how the interface components are arranged.
+3. Create new interface for xt1111 in file `xt1111.adl`.
+4. Look up the documentation for how to set static ip addresses for the acromag devices. (Currently it requires manual configuration using the windows client. Once it is set, it won't change back to the default.)
+5. Update readme bugs and progesses.
+
 ## Q&A
 
 0. How do I set up the environment?
