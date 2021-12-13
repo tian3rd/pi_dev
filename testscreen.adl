@@ -1,6 +1,6 @@
 
 file {
-	name="testscreen.adl"
+	name="/home/controls/pythoncode/pitestcode/testscreen.adl"
 	version=030111
 }
 display {
@@ -485,6 +485,58 @@ valuator {
 		hoprSrc="default"
 	}
 }
+text {
+	object {
+		x=21
+		y=300
+		width=50
+		height=20
+	}
+	"basic attribute" {
+		clr=54
+	}
+	textix="Indicators"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=90
+		y=315
+		width=50
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="GAINS"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=90
+		y=340
+		width=50
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="FILTERS"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=90
+		y=375
+		width=50
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="READBACKS"
+	align="horiz. centered"
+}
 composite {
 	object {
 		x=155
@@ -496,209 +548,17 @@ composite {
 	children {
 		oval {
 			object {
-				x=155
-				y=315
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=14
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if zero"
-				chan="XT1111_GAIN_CH00"
-			}
-		}
-		oval {
-			object {
-				x=180
-				y=315
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=14
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if zero"
-				chan="XT1111_GAIN_CH01"
-			}
-		}
-		oval {
-			object {
-				x=205
-				y=315
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=14
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if zero"
-				chan="XT1111_GAIN_CH02"
-			}
-		}
-		oval {
-			object {
-				x=230
-				y=315
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=14
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if zero"
-				chan="XT1111_GAIN_CH03"
-			}
-		}
-		oval {
-			object {
-				x=230
-				y=340
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=14
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if zero"
-				chan="XT1111_LE_CH07"
-			}
-		}
-		oval {
-			object {
-				x=205
-				y=340
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=14
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if zero"
-				chan="XT1111_FILTER_CH06"
-			}
-		}
-		oval {
-			object {
-				x=180
-				y=340
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=14
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if zero"
-				chan="XT1111_FILTER_CH05"
-			}
-		}
-		oval {
-			object {
-				x=155
-				y=340
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=14
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if zero"
-				chan="XT1111_FILTER_CH04"
-			}
-		}
-		oval {
-			object {
-				x=155
-				y=365
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=14
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if zero"
-				chan="XT1111_READBACK08"
-			}
-		}
-		oval {
-			object {
-				x=180
-				y=365
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=14
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if zero"
-				chan="XT1111_READBACK09"
-			}
-		}
-		oval {
-			object {
-				x=205
-				y=365
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=14
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if zero"
-				chan="XT1111_READBACK10"
-			}
-		}
-		oval {
-			object {
-				x=230
-				y=365
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=14
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if zero"
-				chan="XT1111_READBACK11"
-			}
-		}
-		oval {
-			object {
 				x=230
 				y=390
 				width=10
 				height=10
 			}
 			"basic attribute" {
-				clr=14
+				clr=20
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if zero"
+				vis="if not zero"
 				chan="XT1111_READBACK15"
 			}
 		}
@@ -710,11 +570,11 @@ composite {
 				height=10
 			}
 			"basic attribute" {
-				clr=14
+				clr=20
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if zero"
+				vis="if not zero"
 				chan="XT1111_READBACK14"
 			}
 		}
@@ -726,11 +586,11 @@ composite {
 				height=10
 			}
 			"basic attribute" {
-				clr=14
+				clr=20
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if zero"
+				vis="if not zero"
 				chan="XT1111_READBACK13"
 			}
 		}
@@ -742,25 +602,142 @@ composite {
 				height=10
 			}
 			"basic attribute" {
-				clr=14
+				clr=20
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if zero"
+				vis="if not zero"
 				chan="XT1111_READBACK12"
 			}
 		}
-	}
-}
-composite {
-	object {
-		x=155
-		y=315
-		width=85
-		height=85
-	}
-	"composite name"=""
-	children {
+		oval {
+			object {
+				x=155
+				y=365
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=20
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if not zero"
+				chan="XT1111_READBACK08"
+			}
+		}
+		oval {
+			object {
+				x=180
+				y=365
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=20
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if not zero"
+				chan="XT1111_READBACK09"
+			}
+		}
+		oval {
+			object {
+				x=205
+				y=365
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=20
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if not zero"
+				chan="XT1111_READBACK10"
+			}
+		}
+		oval {
+			object {
+				x=230
+				y=365
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=20
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if not zero"
+				chan="XT1111_READBACK11"
+			}
+		}
+		oval {
+			object {
+				x=230
+				y=340
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=20
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if not zero"
+				chan="XT1111_LE_CH07"
+			}
+		}
+		oval {
+			object {
+				x=205
+				y=340
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=20
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if not zero"
+				chan="XT1111_FILTER_CH06"
+			}
+		}
+		oval {
+			object {
+				x=180
+				y=340
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=20
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if not zero"
+				chan="XT1111_FILTER_CH05"
+			}
+		}
+		oval {
+			object {
+				x=155
+				y=340
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=20
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if not zero"
+				chan="XT1111_FILTER_CH04"
+			}
+		}
 		oval {
 			object {
 				x=155
@@ -826,36 +803,95 @@ composite {
 				chan="XT1111_GAIN_CH03"
 			}
 		}
+	}
+}
+composite {
+	object {
+		x=155
+		y=315
+		width=85
+		height=85
+	}
+	"composite name"=""
+	children {
 		oval {
 			object {
-				x=230
-				y=340
+				x=155
+				y=315
 				width=10
 				height=10
 			}
 			"basic attribute" {
-				clr=20
+				clr=14
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if not zero"
-				chan="XT1111_LE_CH07"
+				vis="if zero"
+				chan="XT1111_GAIN_CH00"
+			}
+		}
+		oval {
+			object {
+				x=180
+				y=315
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=14
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if zero"
+				chan="XT1111_GAIN_CH01"
 			}
 		}
 		oval {
 			object {
 				x=205
+				y=315
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=14
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if zero"
+				chan="XT1111_GAIN_CH02"
+			}
+		}
+		oval {
+			object {
+				x=230
+				y=315
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=14
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if zero"
+				chan="XT1111_GAIN_CH03"
+			}
+		}
+		oval {
+			object {
+				x=155
 				y=340
 				width=10
 				height=10
 			}
 			"basic attribute" {
-				clr=20
+				clr=14
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if not zero"
-				chan="XT1111_FILTER_CH06"
+				vis="if zero"
+				chan="XT1111_FILTER_CH04"
 			}
 		}
 		oval {
@@ -866,28 +902,44 @@ composite {
 				height=10
 			}
 			"basic attribute" {
-				clr=20
+				clr=14
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if not zero"
+				vis="if zero"
 				chan="XT1111_FILTER_CH05"
 			}
 		}
 		oval {
 			object {
-				x=155
+				x=205
 				y=340
 				width=10
 				height=10
 			}
 			"basic attribute" {
-				clr=20
+				clr=14
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if not zero"
-				chan="XT1111_FILTER_CH04"
+				vis="if zero"
+				chan="XT1111_FILTER_CH06"
+			}
+		}
+		oval {
+			object {
+				x=230
+				y=340
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=14
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if zero"
+				chan="XT1111_LE_CH07"
 			}
 		}
 		oval {
@@ -898,11 +950,11 @@ composite {
 				height=10
 			}
 			"basic attribute" {
-				clr=20
+				clr=14
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if not zero"
+				vis="if zero"
 				chan="XT1111_READBACK08"
 			}
 		}
@@ -914,11 +966,11 @@ composite {
 				height=10
 			}
 			"basic attribute" {
-				clr=20
+				clr=14
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if not zero"
+				vis="if zero"
 				chan="XT1111_READBACK09"
 			}
 		}
@@ -930,11 +982,11 @@ composite {
 				height=10
 			}
 			"basic attribute" {
-				clr=20
+				clr=14
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if not zero"
+				vis="if zero"
 				chan="XT1111_READBACK10"
 			}
 		}
@@ -946,60 +998,12 @@ composite {
 				height=10
 			}
 			"basic attribute" {
-				clr=20
+				clr=14
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if not zero"
+				vis="if zero"
 				chan="XT1111_READBACK11"
-			}
-		}
-		oval {
-			object {
-				x=230
-				y=390
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=20
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if not zero"
-				chan="XT1111_READBACK15"
-			}
-		}
-		oval {
-			object {
-				x=205
-				y=390
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=20
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if not zero"
-				chan="XT1111_READBACK14"
-			}
-		}
-		oval {
-			object {
-				x=180
-				y=390
-				width=10
-				height=10
-			}
-			"basic attribute" {
-				clr=20
-			}
-			"dynamic attribute" {
-				clr="discrete"
-				vis="if not zero"
-				chan="XT1111_READBACK13"
 			}
 		}
 		oval {
@@ -1010,65 +1014,61 @@ composite {
 				height=10
 			}
 			"basic attribute" {
-				clr=20
+				clr=14
 			}
 			"dynamic attribute" {
 				clr="discrete"
-				vis="if not zero"
+				vis="if zero"
 				chan="XT1111_READBACK12"
 			}
 		}
+		oval {
+			object {
+				x=180
+				y=390
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=14
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if zero"
+				chan="XT1111_READBACK13"
+			}
+		}
+		oval {
+			object {
+				x=205
+				y=390
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=14
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if zero"
+				chan="XT1111_READBACK14"
+			}
+		}
+		oval {
+			object {
+				x=230
+				y=390
+				width=10
+				height=10
+			}
+			"basic attribute" {
+				clr=14
+			}
+			"dynamic attribute" {
+				clr="discrete"
+				vis="if zero"
+				chan="XT1111_READBACK15"
+			}
+		}
 	}
-}
-text {
-	object {
-		x=21
-		y=300
-		width=50
-		height=20
-	}
-	"basic attribute" {
-		clr=54
-	}
-	textix="Indicators"
-	align="horiz. centered"
-}
-text {
-	object {
-		x=90
-		y=315
-		width=50
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="GAINS"
-	align="horiz. centered"
-}
-text {
-	object {
-		x=90
-		y=340
-		width=50
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="FILTERS"
-	align="horiz. centered"
-}
-text {
-	object {
-		x=90
-		y=375
-		width=50
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="READBACKS"
-	align="horiz. centered"
 }
