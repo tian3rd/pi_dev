@@ -301,3 +301,13 @@ class BusWorksXT1111(object):
             return int(row2_in_binary[channel - 8])
         else:
             return int(row3_in_binary[channel - 12])
+
+    def get_readback_gains(self) -> int:
+        '''
+        return the decimal value * 3 for actual gains read from i/o ports 08 - 11
+        '''
+        gains_ratio = [24, 12, 6, 3]
+        gains = 0
+        for channel in range(8, 12):
+            gains += self.get_readback(channel) * gains_ratio[channel - 8]
+        return gains
