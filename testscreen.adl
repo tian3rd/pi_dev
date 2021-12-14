@@ -7,7 +7,7 @@ display {
 	object {
 		x=696
 		y=66
-		width=800
+		width=872
 		height=600
 	}
 	clr=14
@@ -411,9 +411,9 @@ text {
 }
 valuator {
 	object {
-		x=285
+		x=266
 		y=486
-		width=100
+		width=94
 		height=48
 	}
 	control {

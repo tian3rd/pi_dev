@@ -5,9 +5,9 @@ file {
 }
 display {
 	object {
-		x=609
+		x=696
 		y=66
-		width=800
+		width=748
 		height=600
 	}
 	clr=14
@@ -411,9 +411,9 @@ text {
 }
 valuator {
 	object {
-		x=285
+		x=266
 		y=486
-		width=100
+		width=94
 		height=48
 	}
 	control {
@@ -1071,19 +1071,4 @@ composite {
 			}
 		}
 	}
-}
-"choice button" {
-	object {
-		x=572
-		y=383
-		width=54
-		height=24
-	}
-	control {
-		chan="XT1111_FILTER04"
-		clr=14
-		bclr=4
-	}
-	clrmod="discrete"
-	stacking="column"
 }
