@@ -37,6 +37,10 @@
 
 ![interface](screenshots/2021-12-08-151759_455x398_scrot.png)
 
+14/12/2021:
+
+![xt1111_interface](screenshots/2021-12-14-122513_591x539_scrot.png)
+
 ### Current Problems
 
 1. For the slider bar, you need hold on to the mouse and release it only after you see the change in the indicators, to avoid it jump down: e.g., if you slide from 33 to 36, it often jumps back to 33 after you release the mouse, so if you slide a little further until you see the red/black indicators changes, then it would be OK. But if you slide from 36 to 33 there's no problem.
@@ -49,5 +53,6 @@
 1. Slider bar is a little clumsy to use.
 2. [Fixed] Add the `enable` when starting xt1111 service.
 3. [Fixed] Fix the read_registers string concatenation error.
+4. [Fixed] Fix the filter buttons toggling back and forth problem.
 
 ---
