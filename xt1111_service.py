@@ -89,6 +89,7 @@ class MyDriver(Driver):
             channel = int(reason[-2:])
             value = self.bus.get_readback(channel)
             self.setParam(reason, value)
+            return value
         if reason == 'READBACK_GAINS':
             value = self.bus.get_readback_gains()
             self.setParam('READBACK_GAINS', value)
