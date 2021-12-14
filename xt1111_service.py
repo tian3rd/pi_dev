@@ -140,17 +140,17 @@ class MyDriver(Driver):
                 self.errorMsg = str(e)
 
         if reason in ['FILTER0' + str(_) for _ in range(4, 7)]:
-            try:
-                origianl_value = self.bus.read_registers()[1]
-                channel = int(reason[-1])
-                temp = 1 << (channel - 4)
-                reverse_channel_bit = temp ^ origianl_value
-                self.bus.set_filter_channels(reverse_channel_bit)
-                self.setParam(reason, value)
-                self.updatePVs()
-            except Exception as e:
-                self.error = True
-                self.errorMsg = str(e)
+            assert self.bus.read_registers()[1] >= 8
+            filter_str = bin(self.bus.read_registers()[1])[2:][::-1]
+            channel = int(reason[-1])
+            if str(value) != filter_str[channel - 4]:
+                filter_str = filter_str[:(channel - 4)] + \
+                    str(value) + filter_str[(channel - 3):]
+            # convert it back to decimal
+            filter_updated = int(filter_str[::-1], 2)
+            self.bus.set_filter_channels(filter_updated)
+            self.setParam(reason, value)
+            self.updatePVs()
 
         if reason in ['GAIN_CH0' + str(_) for _ in range(4)]:
             try:
