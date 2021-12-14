@@ -5,8 +5,8 @@ file {
 }
 display {
 	object {
-		x=93
-		y=69
+		x=723
+		y=103
 		width=600
 		height=600
 	}
@@ -87,6 +87,74 @@ display {
 		1a7309,
 	}
 }
+rectangle {
+	object {
+		x=27
+		y=509
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="calc"
+		calc="A!=B"
+		chan="XT1111_GAINS"
+		chanB="XT1111_READBACK_GAINS"
+	}
+}
+rectangle {
+	object {
+		x=27
+		y=346
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="calc"
+		calc="A!=B"
+		chan="XT1111_GAINS"
+		chanB="XT1111_READBACK_GAINS"
+	}
+}
+rectangle {
+	object {
+		x=28
+		y=207
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="calc"
+		calc="A!=B"
+		chan="XT1111_GAINS"
+		chanB="XT1111_READBACK_GAINS"
+	}
+}
+rectangle {
+	object {
+		x=26
+		y=75
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="calc"
+		calc="A!=B"
+		chan="XT1111_GAINS"
+		chanB="XT1111_READBACK_GAINS"
+	}
+}
 text {
 	object {
 		x=4
@@ -119,18 +187,6 @@ valuator {
 		hoprSrc="default"
 		hoprDefault=45
 	}
-}
-text {
-	object {
-		x=30
-		y=80
-		width=82
-		height=25
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Readback gains"
 }
 "text update" {
 	object {
@@ -1054,4 +1110,30 @@ oval {
 		vis="if not zero"
 		chan="XT1111_FILTER_CH04"
 	}
+}
+"related display" {
+	object {
+		x=428
+		y=553
+		width=140
+		height=28
+	}
+	display[0] {
+		name="testscreen.adl"
+	}
+	clr=14
+	bclr=4
+	label="Test Interface"
+}
+text {
+	object {
+		x=30
+		y=80
+		width=82
+		height=25
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Readback gains"
 }
