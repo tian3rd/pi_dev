@@ -129,6 +129,19 @@ class MyDriver(Driver):
             self.setParam(reason, value)
             self.updatePVs()
 
+        if reason in ['GAIN_CH0' + str(_) for _ in range(4)]:
+            try:
+                original_value = self.bus.read_registers()[0]
+                channel = int(reason[-1])
+                temp = 1 << (channel)
+                reverse_channel_bit = temp ^ original_value
+                self.bus.set_gain_channels(reverse_channel_bit)
+                self.setParam(reason, value)
+                self.updatePVs()
+            except Exception as e:
+                self.error = True
+                self.errorMsg = str(e)
+
         if reason == 'FILTERS':
             try:
                 self.bus.set_filters(str(value))
@@ -151,19 +164,6 @@ class MyDriver(Driver):
             self.bus.set_filter_channels(filter_updated)
             self.setParam(reason, value)
             self.updatePVs()
-
-        if reason in ['GAIN_CH0' + str(_) for _ in range(4)]:
-            try:
-                original_value = self.bus.read_registers()[0]
-                channel = int(reason[-1])
-                temp = 1 << (channel)
-                reverse_channel_bit = temp ^ original_value
-                self.bus.set_gain_channels(reverse_channel_bit)
-                self.setParam(reason, value)
-                self.updatePVs()
-            except Exception as e:
-                self.error = True
-                self.errorMsg = str(e)
 
     def read_database(self):
         self.read('READBACKS')
