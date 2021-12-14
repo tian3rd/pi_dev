@@ -5,10 +5,10 @@ file {
 }
 display {
 	object {
-		x=0
-		y=0
-		width=400
-		height=400
+		x=93
+		y=69
+		width=600
+		height=600
 	}
 	clr=14
 	bclr=4
@@ -86,4 +86,246 @@ display {
 		289315,
 		1a7309,
 	}
+}
+valuator {
+	object {
+		x=30
+		y=20
+		width=250
+		height=50
+	}
+	control {
+		chan="XT1111_GAINS"
+		clr=14
+		bclr=4
+	}
+	label="channel"
+	dPrecision=3.000000
+	limits {
+		loprSrc="default"
+		hoprSrc="default"
+		hoprDefault=45
+	}
+}
+text {
+	object {
+		x=30
+		y=80
+		width=82
+		height=25
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Readback gains"
+}
+"text update" {
+	object {
+		x=150
+		y=80
+		width=125
+		height=20
+	}
+	monitor {
+		chan="XT1111_READBACK_GAINS"
+		clr=14
+		bclr=4
+	}
+	format="string"
+	limits {
+		hoprSrc="default"
+	}
+}
+"choice button" {
+	object {
+		x=340
+		y=51
+		width=60
+		height=20
+	}
+	control {
+		chan="XT1111_FILTER04"
+		clr=14
+		bclr=4
+	}
+	clrmod="discrete"
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=432
+		y=50
+		width=60
+		height=20
+	}
+	control {
+		chan="XT1111_FILTER05"
+		clr=14
+		bclr=4
+	}
+	clrmod="discrete"
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=522
+		y=50
+		width=60
+		height=20
+	}
+	control {
+		chan="XT1111_FILTER06"
+		clr=14
+		bclr=4
+	}
+	clrmod="discrete"
+	stacking="column"
+}
+oval {
+	object {
+		x=361
+		y=85
+		width=10
+		height=10
+	}
+	"basic attribute" {
+		clr=14
+	}
+	"dynamic attribute" {
+		clr="discrete"
+		vis="if zero"
+		chan="XT1111_FILTER_CH04"
+	}
+}
+oval {
+	object {
+		x=455
+		y=83
+		width=10
+		height=10
+	}
+	"basic attribute" {
+		clr=14
+	}
+	"dynamic attribute" {
+		clr="discrete"
+		vis="if zero"
+		chan="XT1111_FILTER_CH05"
+	}
+}
+oval {
+	object {
+		x=546
+		y=84
+		width=10
+		height=10
+	}
+	"basic attribute" {
+		clr=14
+	}
+	"dynamic attribute" {
+		clr="discrete"
+		vis="if zero"
+		chan="XT1111_FILTER_CH06"
+	}
+}
+oval {
+	object {
+		x=360
+		y=85
+		width=10
+		height=10
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		clr="discrete"
+		vis="if not zero"
+		chan="XT1111_FILTER_CH04"
+	}
+}
+oval {
+	object {
+		x=455
+		y=81
+		width=10
+		height=10
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		clr="discrete"
+		vis="if not zero"
+		chan="XT1111_FILTER_CH05"
+	}
+}
+oval {
+	object {
+		x=546
+		y=82
+		width=10
+		height=10
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		clr="discrete"
+		vis="if not zero"
+		chan="XT1111_FILTER_CH06"
+	}
+}
+text {
+	object {
+		x=4
+		y=46
+		width=17
+		height=27
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="1."
+	align="horiz. centered"
+}
+text {
+	object {
+		x=343
+		y=20
+		width=50
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Filter1"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=431
+		y=17
+		width=50
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Filter2"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=521
+		y=19
+		width=50
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Filter3"
+	align="horiz. centered"
 }
