@@ -99,6 +99,14 @@ Monday
 4. Look up the documentation for how to set static ip addresses for the acromag devices. (Currently it requires manual configuration using the windows client. Once it is set, it won't change back to the default.)
 5. Update readme bugs and progesses.
 
+Tuesday
+
+1. Fix bugs: a. filter btn toggling back; b. error message starting up medm.
+2. Update interfaces with reference display btn, warning for readbacks.
+3. Discuss with Bram about the interface.
+4. Use the new Samsung UR55 4K monitor for Raspberry Pi.
+5. Add comments in `xt1111_service.py` script.
+
 ## Q&A
 
 0. How do I set up the environment?
