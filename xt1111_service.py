@@ -52,26 +52,32 @@ class MyDriver(Driver):
             value = self.bus.get_gains()
             self.setParam('GAINS', value)
             return value
+        # GAIN_CH00-04 are readings for black/red indicators
         if reason in ['GAIN_CH0' + str(_) for _ in range(4)]:
             channel = int(reason[-1])
             value = self.bus.get_gains_in_binary(channel)
             self.setParam(reason, value)
             return value
+        # GAIN00-04 are for choice buttons
         if reason in ['GAIN0' + str(_) for _ in range(4)]:
             channel = int(reason[-1])
             value = self.bus.get_gains_in_binary(channel)
             self.setParam(reason, value)
             return value
+        # A temporary string value of filter states: e.g., "000", "101"
         if reason == 'FILTERS':
             value = self.bus.get_filters()
             # print("filters: {}".format(value))
             self.setParam('FILTERS', value)
             return value
+
+        # FILTER_CH04-07 are readings for black/red indicators
         if reason in ['FILTER_CH0' + str(_) for _ in range(4, 7)]:
             channel = int(reason[-1])
             value = int(self.bus.get_filters()[channel - 4])
             self.setParam(reason, value)
             return value
+        # FILTER04-07 are for choice buttons
         if reason in ['FILTER0' + str(_) for _ in range(4, 7)]:
             channel = int(reason[-1])
             value = self.bus.get_filters_in_binary(channel)
@@ -81,15 +87,18 @@ class MyDriver(Driver):
             value = self.bus.get_le()
             self.setParam('LE_CH07', value)
             return value
+        # A temporary string of row2 (i/o 08-11) and row3 (i/o 12-15)
         if reason == 'READBACKS':
             value = self.bus.get_readbacks()
             self.setParam('READBACKS', value)
             return value
+        # READBACK08-15 are indivisual readings for black/red indicators
         if reason in ['READBACK' + _ for _ in ['08', '09', '10', '11', '12', '13', '14', '15']]:
             channel = int(reason[-2:])
             value = self.bus.get_readback(channel)
             self.setParam(reason, value)
             return value
+        # Display of decimal readback gains from i/o 08-11
         if reason == 'READBACK_GAINS':
             value = self.bus.get_readback_gains()
             self.setParam('READBACK_GAINS', value)
