@@ -123,36 +123,39 @@ class MyDriver(Driver):
                 self.error = True
                 self.errorMsg = str(e)
 
-        if reason in ['GAIN0' + str(_) for _ in range(4)]:
-            gain = bin(self.bus.read_registers()[0])[2:]
-            gain = '0' * (4 - len(gain)) + gain
-            channel = int(reason[-1])
-            if str(value) != gain[3 - channel]:
-                if channel != 0:
-                    gain = gain[: (3 - channel)] + str(value) + \
-                        gain[(4 - channel):]
-                else:
-                    gain = gain[: (3 - channel)] + str(value)
-            # conver binary to decimal
-            gain_updated = int(gain, 2)
-            self.bus.set_gain_channels(gain_updated)
-            self.setParam(reason, value)
-            self.updatePVs()
+        # # this is for choice button of gains (enum type), uncomment this if you want to test it in testscreen.adl
+        # if reason in ['GAIN0' + str(_) for _ in range(4)]:
+        #     gain = bin(self.bus.read_registers()[0])[2:]
+        #     gain = '0' * (4 - len(gain)) + gain
+        #     channel = int(reason[-1])
+        #     if str(value) != gain[3 - channel]:
+        #         if channel != 0:
+        #             gain = gain[: (3 - channel)] + str(value) + \
+        #                 gain[(4 - channel):]
+        #         else:
+        #             gain = gain[: (3 - channel)] + str(value)
+        #     # conver binary to decimal
+        #     gain_updated = int(gain, 2)
+        #     self.bus.set_gain_channels(gain_updated)
+        #     self.setParam(reason, value)
+        #     self.updatePVs()
 
-        if reason in ['GAIN_CH0' + str(_) for _ in range(4)]:
-            try:
-                original_value = self.bus.read_registers()[0]
-                channel = int(reason[-1])
-                temp = 1 << (channel)
-                reverse_channel_bit = temp ^ original_value
-                self.bus.set_gain_channels(reverse_channel_bit)
-                self.setParam(reason, value)
-                self.updatePVs()
-            except Exception as e:
-                self.error = True
-                self.errorMsg = str(e)
+        # # uncomment this if you want to use choice buttons / slider for setting gains in testscreen.adl
+        # if reason in ['GAIN_CH0' + str(_) for _ in range(4)]:
+        #     try:
+        #         original_value = self.bus.read_registers()[0]
+        #         channel = int(reason[-1])
+        #         temp = 1 << (channel)
+        #         reverse_channel_bit = temp ^ original_value
+        #         self.bus.set_gain_channels(reverse_channel_bit)
+        #         self.setParam(reason, value)
+        #         self.updatePVs()
+        #     except Exception as e:
+        #         self.error = True
+        #         self.errorMsg = str(e)
 
         if reason == 'FILTERS':
+            # A tempory setting using string to set filters, e.g., "001"
             try:
                 self.bus.set_filters(str(value))
                 self.error = False
