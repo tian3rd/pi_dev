@@ -254,6 +254,15 @@ class BusWorksXT1111(object):
         return self.filters
         # return int(''.join(map(str, self.filters)), 2)
 
+    def get_filters(self) -> int:
+        '''
+        Returns the decimal value of filters
+        e.g., "010" -> 2
+        '''
+        filter_row_value = self.read_registers()[1]
+        assert filter_row_value >= 8, 'ENABLE should be on!'
+        return filter_row_value - 8
+
     def get_filters_in_binary(self, channel) -> int:
         '''
         return the signal of 1 or 0 corresponding to channel:
