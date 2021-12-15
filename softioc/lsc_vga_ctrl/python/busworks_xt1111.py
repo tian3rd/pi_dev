@@ -243,7 +243,7 @@ class BusWorksXT1111(object):
             row1_value += 8
         self.set_filter_channels(row1_value)
 
-    def get_filters(self) -> str:
+    def get_filters_str(self) -> str:
         '''
         return a str of length 3 to indicate status for filter 1 to 3, e.g., "001" means filter 1, 2 are off, and filter 3 is on.
         '''
