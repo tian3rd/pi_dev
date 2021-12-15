@@ -107,6 +107,14 @@ Tuesday
 4. Use the new Samsung UR55 4K monitor for Raspberry Pi.
 5. Add comments in `xt1111_service.py` script.
 
+Wednesday
+
+1. Work on implementing the bus service in folder `softioc/lsc_vga_ctrl` based on the discussion with Bram yesterday.
+2. Write the draft `lsc_vga_ctrl_ss.py` for testing tomorrow.
+   - Generate ini file
+   - Start server and keep reading the busDB
+   - (Haven't got a chance to test it yet due to power outage of the desk power supply.)
+
 ## Q&A
 
 0. How do I set up the environment?
