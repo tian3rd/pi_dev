@@ -320,3 +320,12 @@ class BusWorksXT1111(object):
         for channel in range(8, 12):
             gains += self.get_readback(channel) * gains_ratio[channel - 8]
         return gains
+
+    def get_readback_filters(self) -> int:
+        '''
+        return the decimal value of the filters read from i/o ports 04 - 06
+        e.g. "001" -> 1, "110" -> 6
+        '''
+        # assert self.read_registers()[1] >= 8, 'LE should be on'
+        filter_readback_row = self.read_registers()[3]
+        return filter_readback_row - 8
