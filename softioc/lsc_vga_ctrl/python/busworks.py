@@ -260,7 +260,7 @@ class BusWorksXT1111(object):
         e.g., "010" -> 2
         '''
         filter_row_value = self.read_registers()[1]
-        assert filter_row_value >= 8, 'ENABLE should be on!'
+        # assert filter_row_value >= 8, 'ENABLE should be on!'
         return filter_row_value - 8
 
     def get_filters_in_binary(self, channel) -> int:
@@ -326,6 +326,6 @@ class BusWorksXT1111(object):
         return the decimal value of the filters read from i/o ports 04 - 06
         e.g. "001" -> 1, "110" -> 6
         '''
-        # assert self.read_registers()[1] >= 8, 'LE should be on'
+        assert self.read_registers()[1] >= 8, 'LE should be on'
         filter_readback_row = self.read_registers()[3]
         return filter_readback_row - 8
