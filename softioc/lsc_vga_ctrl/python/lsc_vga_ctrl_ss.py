@@ -23,6 +23,8 @@ IFO = 'N1'
 SYSTEM = 'LSC'
 SUBSYS = 'VGA'
 
+# 'N1:LSC-VGA_'
+
 busPrefix = IFO + ':' + SYSTEM + '-' + SUBSYS + '_'
 
 db_type_int = {'type': 'int'}
@@ -112,12 +114,12 @@ def generate_ini_file(ini_file_dirpath, busDB):
     ini_file.close()
 
 
-print('--- Writing EPICS database to ' + ini_file_dirpath_local_write + ' ---')
-print('--- Writing EPICS database to ' + ini_file_dirpath_rpi + ' ---')
+# print('--- Writing EPICS database to ' + ini_file_dirpath_local_write + ' ---')
+# print('--- Writing EPICS database to ' + ini_file_dirpath_rpi + ' ---')
 
 generate_ini_file(ini_file_dirpath_local_write, busDB)
 
-print(busDB.keys())
+# print(busDB.keys())
 
 
 class MyDriver(Driver):
