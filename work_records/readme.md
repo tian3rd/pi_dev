@@ -115,6 +115,14 @@ Wednesday
    - Start server and keep reading the busDB
    - (Haven't got a chance to test it yet due to power outage of the desk power supply.)
 
+Thursday
+
+1. Relocate to another desk with power supply
+2. Install debian on the beast: it won't go into the GUI after installation :(
+3. Debug the script and fix bugs, now it's working as expected for one xt1111 unit. Got another one and a switch to test for tomorrow.
+   - Fix displaying issues of `devices.adl` (use full channel names!)
+   - Fix typos and bugs of `lsc_vga_ctrl_ss.py`
+
 ## Q&A
 
 0. How do I set up the environment?
