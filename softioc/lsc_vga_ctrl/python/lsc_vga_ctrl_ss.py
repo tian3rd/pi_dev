@@ -26,7 +26,7 @@ SUBSYS = 'VGA'
 busPrefix = IFO + ':' + SYSTEM + '-' + SUBSYS + '_'
 
 db_type_int = {'type': 'int'}
-db_type_enum = {'type': 'enum'}
+db_type_enum = {'type': 'enum', 'enums': ['0', '1']}
 
 num_devices = 4
 devices = ['CHAN_' + str(_) + '_' for _ in range(num_devices)]
@@ -121,11 +121,11 @@ print(busDB.keys())
 
 
 class MyDriver(Driver):
-    def __init__(self, *device_addresses):
+    def __init__(self, device_addresses):
         super().__init__()
         # connect to busworks XT1111 in initialization
-        self.buses = [busworks_xt1111.BusWorksXT1111(
-            address=address) for address in device_addresses]
+        self.buses = [busworks.BusWorksXT1111(
+            address=address, port=502, num_chns=16) for address in device_addresses]
         # (self.buses[_].start() for _ in range(len(self.buses)))
         for bus in self.buses:
             bus.start()
@@ -145,10 +145,12 @@ class MyDriver(Driver):
             device_index = int(reason.split('_')[1])
             value = self.buses[device_index].get_filters()
             self.setParam(reason, value)
+            return value
         if reason in ['CHAN_' + str(_) + '_FILTERS_RB' for _ in range(4)]:
             device_index = int(reason.split('_')[1])
             value = self.buses[device_index].get_readback_filters()
             self.setParam(reason, value)
+            return value
         # FILTER04-07 are for choice buttons
         if reason in ['CHAN_' + str(i) + '_FILTER0' + str(j) for i in range(4) for j in range(4, 7)]:
             device_index = int(reason.split('_')[1])
@@ -188,7 +190,7 @@ class MyDriver(Driver):
         # self.updatePVs()
         self.read('CHAN_0_GAINS')
         self.read('CHAN_0_GAINS_RB')
-        self.read('CHAN_)_FILTERS')
+        self.read('CHAN_0_FILTERS')
         self.read('CHAN_0_FILTERS_RB')
         (self.read('CHAN_0_FILTER0' + str(_)) for _ in range(4, 7))
 
