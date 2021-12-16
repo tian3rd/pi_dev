@@ -3,7 +3,9 @@ import datetime
 from pcaspy import Driver, SimpleServer
 
 # local script
-import busworks_xt1111
+import busworks
+import importlib
+importlib.reload(busworks)
 
 # Version
 major = '0'
