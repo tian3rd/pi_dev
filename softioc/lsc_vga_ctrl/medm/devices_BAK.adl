@@ -5,9 +5,9 @@ file {
 }
 display {
 	object {
-		x=1924
-		y=856
-		width=594
+		x=1903
+		y=585
+		width=591
 		height=559
 	}
 	clr=14
@@ -122,7 +122,7 @@ text {
 }
 "choice button" {
 	object {
-		x=336
+		x=334
 		y=48
 		width=60
 		height=20
@@ -241,7 +241,7 @@ oval {
 }
 oval {
 	object {
-		x=356
+		x=366
 		y=86
 		width=10
 		height=10
@@ -257,7 +257,7 @@ oval {
 }
 oval {
 	object {
-		x=446
+		x=436
 		y=83
 		width=10
 		height=10
@@ -273,7 +273,7 @@ oval {
 }
 oval {
 	object {
-		x=539
+		x=529
 		y=83
 		width=10
 		height=10
@@ -302,6 +302,60 @@ valuator {
 	label="channel"
 	clrmod="discrete"
 	dPrecision=3.000000
+	limits {
+		loprSrc="default"
+		hoprSrc="default"
+		hoprDefault=45
+	}
+}
+"text update" {
+	object {
+		x=43
+		y=88
+		width=143
+		height=41
+	}
+	monitor {
+		chan="CHAN_0_GAINS_RB"
+		clr=14
+		bclr=4
+	}
+	limits {
+		loprSrc="default"
+		hoprSrc="default"
+		hoprDefault=45
+	}
+}
+"text update" {
+	object {
+		x=324
+		y=138
+		width=136
+		height=49
+	}
+	monitor {
+		chan="CHAN_0_FILTERS_RB"
+		clr=14
+		bclr=4
+	}
+	limits {
+		loprSrc="default"
+		hoprSrc="default"
+		hoprDefault=45
+	}
+}
+"text update" {
+	object {
+		x=307
+		y=197
+		width=162
+		height=50
+	}
+	monitor {
+		chan="CHAN_0_FILTERS"
+		clr=14
+		bclr=4
+	}
 	limits {
 		loprSrc="default"
 		hoprSrc="default"
