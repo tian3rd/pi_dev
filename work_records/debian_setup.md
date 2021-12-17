@@ -45,3 +45,8 @@ deb-src http://deb.debian.org/debian bullseye-updates main contrib non-free
 ### Trouble shooting
 
 1. When installing debian, pull out the network cable out and _don't_ select any network mirror such as deb.debian.org. We'll add it later when we finish our debian minimal base system. The reason for doing this is that the adding the mirror will install the full version and when we reboot, the newly installed debian system will go into black screen after the flash screen. (Don't know why it acts like this, but as a compromise, we'll add the mirror later when we finish our debian minimal base system which only has the termial interface and can be successfully booted after installation.)
+
+### Useful resources
+
+1. Linux Fundamentals: https://linux-training.be/linuxfun.pdf
+2. Source list in Debian: https://wiki.debian.org/SourcesList
