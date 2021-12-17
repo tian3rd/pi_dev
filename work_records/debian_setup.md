@@ -11,7 +11,6 @@
 4. For most part, select the default options using 'Graphical install' option. Refer to this link for more details: https://tecadmin.net/how-to-install-debian-11/
    - Hostname: `n1fe0`
    - Domain name: leave empty
-   - Password: `$4cgp$` (without ``)
    - Full name for the new user: bram
    - Partition method: 'Guided - use entire disk'
    - Select the attached Samsung SSD 500G
