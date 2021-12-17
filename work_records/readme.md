@@ -123,6 +123,11 @@ Thursday
    - Fix displaying issues of `devices.adl` (use full channel names!)
    - Fix typos and bugs of `lsc_vga_ctrl_ss.py`
 
+Friday
+
+1. Install debian 11.1.0 on the new beast
+2. Draft a documentation for installing and setting up the debian.
+
 ## Q&A
 
 0. How do I set up the environment?
