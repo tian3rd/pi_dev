@@ -190,11 +190,19 @@ class MyDriver(Driver):
         # for key in busDB.keys():
         #     self.read(key)
         # self.updatePVs()
-        self.read('CHAN_0_GAINS')
-        self.read('CHAN_0_GAINS_RB')
-        self.read('CHAN_0_FILTERS')
-        self.read('CHAN_0_FILTERS_RB')
-        (self.read('CHAN_0_FILTER0' + str(_)) for _ in range(4, 7))
+        # self.read('CHAN_0_GAINS')
+        # self.read('CHAN_0_GAINS_RB')
+        # self.read('CHAN_0_FILTERS')
+        # self.read('CHAN_0_FILTERS_RB')
+        # (self.read('CHAN_0_FILTER0' + str(_)) for _ in range(4, 7))
+        num_devices = len(self.buses)
+        for i in range(num_devices):
+            self.read('CHAN_' + str(i) + '_GAINS')
+            self.read('CHAN_' + str(i) + '_GAINS_RB')
+            self.read('CHAN_' + str(i) + '_FILTERS')
+            self.read('CHAN_' + str(i) + '_FILTERS_RB')
+            (self.read('CHAN_' + str(i) + '_FILTER0' + str(_))
+             for _ in range(4, 7))
 
 
 if __name__ == '__main__':
@@ -205,8 +213,12 @@ if __name__ == '__main__':
 
     server = SimpleServer()
     server.createPV(busPrefix, busDB)
-    # test 1 device for now
-    device_addresses = ['192.168.1.100']
+
+    # # test 1 device for now
+    # device_addresses = ['192.168.1.100']
+
+    # test 2 devices for now
+    device_addresses = ['192.168.1.100', '192.168.1.101']
     driver = MyDriver(device_addresses)
 
     while True:
