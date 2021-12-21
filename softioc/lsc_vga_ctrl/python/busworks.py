@@ -12,7 +12,7 @@ class BaseException(Exception):
 
 class BusWorksXT1111(object):
     """
-    An object written to facilitate the control of an ACROMAG BusWorks XT1111-000 through a TCP connection. 
+    An object written to facilitate the control of an ACROMAG BusWorks XT1111-000 through a TCP connection.
     XT1111-000 has a default static address of 192.168.1.100 with 16 i/o channels.
     Port 502 is the default port used for modbus communication.
     """
@@ -78,6 +78,7 @@ class BusWorksXT1111(object):
         self.XT1111 = ModbusTcpClient(self.address, port=self.port)
         # use i/o channel 07 as device on/off status indicator
         self.set_device_on()
+        print("Now device {} is on".format(self.address))
 
     def stop(self, reset=True):
         '''
@@ -110,7 +111,7 @@ class BusWorksXT1111(object):
     def print_register_states(self):
         '''
         print channel 00 to 15 in the same layout as in the windows client for XT1111:
-        ch00 | ch01 | ch02 | ch03 
+        ch00 | ch01 | ch02 | ch03
         ch04 | ch05 | ch06 | ch07
         ch08 | ch09 | ch10 | ch11
         ch12 | ch13 | ch14 | ch15
@@ -130,7 +131,7 @@ class BusWorksXT1111(object):
         Turns on the channels specified in the list.
         Inputs:
         -------
-        channels - List of channels to turn on. E.g., [0, 1, 9] turns on i/o 00, 01, 09 on XT1111 
+        channels - List of channels to turn on. E.g., [0, 1, 9] turns on i/o 00, 01, 09 on XT1111
         '''
         pass
 
