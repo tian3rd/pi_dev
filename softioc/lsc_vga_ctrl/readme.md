@@ -2,6 +2,10 @@
 
 It uses up to 4 Acromag XT1111 devices to control the gains and filters, and read back the values.
 
+For local testing purposes, refer to this [readme file](../../readme.md) for more details in prepartion and setting up environment, etc. Right now we are testing two of the units at the same time using this interface:
+
+![xt1111_interface](../../screenshots/2021-12-22-130928_589x330_scrot.png)
+
 ### Installation
 
 (Assume now you're in the directory of `softioc`)
