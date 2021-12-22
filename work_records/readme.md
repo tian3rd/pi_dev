@@ -128,6 +128,24 @@ Friday
 1. Install debian 11.1.0 on the new beast
 2. Draft a documentation for installing and setting up the debian.
 
+### Week 4
+
+Monday
+
+1. Adjust the medm interface to show readback warning dashed box.
+2. Start testing the 2nd acromag device connecting to a switch (Linksys SD205): each device connects to the switch port instead of using a daisy chain setup.
+3. Set up debian 11 on `op6anu` together with Avanish. Refer to [Installing LIGO RT Front.pdf](./Installing%20LIGO%20RT%20Front.pdf) for configuration details.
+
+Tuesday
+
+1. Test an acromag DAC device for differential voltage signal with Sheon, Deon, and Avanish. The problem is that the DAC device is not showing -10 to 10V range signal if we have -6.6V to 6.6V input. The manual says that the unused ports should not be floating, so we connenct all negative ports to ground together with RTN.
+2. Continue setting up the debian on `op6anu` with Avanish.
+
+Wednesday
+
+1. Wrap up documentation for the first few weeks work on acromag XT1111.
+2. Write `lsc_vga_ctrl_service.service` for systemd (use `torpedo_env_ctrl_service.service` as a template).
+
 ## Q&A
 
 0. How do I set up the environment?
