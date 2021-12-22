@@ -5,6 +5,8 @@
 0. Connect the power supply to XT1111
 1. Connect XT1111 with Raspberry Pi via cat-5e cable
 2. Connect XT1111 with the PC using USB cables if you want to check the readings from the client software in Windows at the same time (connect and select device, and start polling)
+   - Check/Set the static IP address of the XT1111 (no direct linux setting solution yet): connect the device to Windown client, and use the ethernet setup screen to get and set the static IP address if you have multiple devices.
+   - Note that the default address is `192.168.1.100`, to prevent conflictions, set other devices to be `192.168.1.x` (x != 0, 255, 100). After setting it up, the device infomation can show on the webpage if you type in the address. It's a one-time setup.
 3. The i/o ports on xt1111 have four main sections:
    ```
    ch00 | ch01 | ch02 | ch03 ==> gains: 24dB | 12dB | 6dB | 3dB
