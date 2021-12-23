@@ -145,6 +145,7 @@ Wednesday
 
 1. Wrap up documentation for the first few weeks work on acromag XT1111.
 2. Write `lsc_vga_ctrl_service.service` for systemd (use `torpedo_env_ctrl_service.service` as a template).
+3. Add a simple readme file for `lsc_vga_ctrl` services.
 
 ## Q&A
 
