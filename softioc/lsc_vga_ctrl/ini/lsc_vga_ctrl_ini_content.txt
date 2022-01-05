@@ -1,4 +1,4 @@
-# Auto generated file by lsc_vga_ctrl_ss.py
+# Auto generated file by lsc_vga_ctrl.py
 # at 2021-12-21 16:25:46
 #
 # Using the default parameters

@@ -32,7 +32,7 @@ sudo cp lsc_vga_ctrl/systemd/lsc_vga_ctrl_service.service /etc/systemd/system/
 sudo chmod 664 /etc/systemd/system/torpedo_env_ctrl_service.service
 #
 sudo mkdir /usr/local/lib/lsc_vga_ctrl_service
-sudo cp lsc_vga_ctrl/python/lsc_vga_ctrl_ss.py /usr/local/lib/lsc_vga_ctrl_service/lsc_vga_ctrl_ss.py
+sudo cp lsc_vga_ctrl/python/lsc_vga_ctrl.py /usr/local/lib/lsc_vga_ctrl_service/lsc_vga_ctrl.py
 #
 # location of this file
 # /etc/systemd/system/lsc_vga_ctrl_service.service
@@ -54,7 +54,7 @@ The EPICS channels need to be obtained by the `standalone_edc` service on one of
 In the **ini** directory there is a file `lsc_vga_ctrl_ini_content.txt`. the content of the file needs to be copied into the `edc.ini` file for the `standalone_edc` service.
 
 ```
-# Auto generated file by lsc_vga_ctrl_ss.py
+# Auto generated file by lsc_vga_ctrl.py
 # at 2021-12-21 16:25:46
 #
 # Using the default parameters

@@ -4,7 +4,7 @@
 # sudo cp lsc_vga_ctrl_service.service /etc/systemd/system/
 #
 # sudo mkdir /usr/local/lib/lsc_vga_ctrl_service
-# sudo cp lsc_vga_ctrl_ss.py /usr/local/lib/lsc_vga_ctrl_service/lsc_vga_ctrl_ss.py
+# sudo cp lsc_vga_ctrl.py /usr/local/lib/lsc_vga_ctrl_service/lsc_vga_ctrl.py
 #
 # location of this file
 # /etc/systemd/system/lsc_vga_ctrl_service.service
@@ -25,7 +25,7 @@ Description=Python LSC VGA PV Server Service
 
 [Service]
 # Command to execute when the service is started
-ExecStart=/usr/bin/python3 /usr/local/lib/lsc_vga_ctrl_service/lsc_vga_ctrl_ss.py
+ExecStart=/usr/bin/python3 /usr/local/lib/lsc_vga_ctrl_service/lsc_vga_ctrl.py
 
 # Disable Python's buffering of STDOUT and STDERR, so that output from the
 # service shows up immediately in systemd's logs

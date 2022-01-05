@@ -110,7 +110,7 @@ Tuesday
 Wednesday
 
 1. Work on implementing the bus service in folder `softioc/lsc_vga_ctrl` based on the discussion with Bram yesterday.
-2. Write the draft `lsc_vga_ctrl_ss.py` for testing tomorrow.
+2. Write the draft `lsc_vga_ctrl.py` for testing tomorrow.
    - Generate ini file
    - Start server and keep reading the busDB
    - (Haven't got a chance to test it yet due to power outage of the desk power supply.)
@@ -121,7 +121,7 @@ Thursday
 2. Install debian on the beast: it won't go into the GUI after installation :(
 3. Debug the script and fix bugs, now it's working as expected for one xt1111 unit. Got another one and a switch to test for tomorrow.
    - Fix displaying issues of `devices.adl` (use full channel names!)
-   - Fix typos and bugs of `lsc_vga_ctrl_ss.py`
+   - Fix typos and bugs of `lsc_vga_ctrl.py`
 
 Friday
 
