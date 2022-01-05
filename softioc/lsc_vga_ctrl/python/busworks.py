@@ -14,6 +14,7 @@ class BusWorksXT1111(object):
     """
     An object written to facilitate the control of an ACROMAG BusWorks XT1111-000 through a TCP connection.
     XT1111-000 has a default static address of 192.168.1.100 with 16 i/o channels.
+    To set up a different sttic ip, use the windows client software for now.
     Port 502 is the default port used for modbus communication.
     """
 
