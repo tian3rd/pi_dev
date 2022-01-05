@@ -5,8 +5,8 @@ file {
 }
 display {
 	object {
-		x=1319
-		y=262
+		x=1929
+		y=225
 		width=595
 		height=559
 	}
@@ -1048,5 +1048,69 @@ oval {
 		loprSrc="default"
 		hoprSrc="default"
 		hoprDefault=45
+	}
+}
+"text update" {
+	object {
+		x=0
+		y=100
+		width=300
+		height=30
+	}
+	monitor {
+		chan="N1:LSC-VGA_CHAN_0_GAINS_ERROR"
+		clr=23
+		bclr=4
+	}
+	format="string"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=0
+		y=220
+		width=300
+		height=30
+	}
+	monitor {
+		chan="N1:LSC-VGA_CHAN_1_GAINS_ERROR"
+		clr=23
+		bclr=4
+	}
+	format="string"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=295
+		y=220
+		width=300
+		height=30
+	}
+	monitor {
+		chan="N1:LSC-VGA_CHAN_0_FILTERS_ERROR"
+		clr=23
+		bclr=4
+	}
+	format="string"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=295
+		y=100
+		width=300
+		height=30
+	}
+	monitor {
+		chan="N1:LSC-VGA_CHAN_0_FILTERS_ERROR"
+		clr=23
+		bclr=4
+	}
+	format="string"
+	limits {
 	}
 }
