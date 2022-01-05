@@ -138,7 +138,9 @@ class MyDriver(Driver):
         for bus in self.buses:
             bus.start()
         self.gains_error = ''
+        self.gerror = False
         self.filters_error = ''
+        self.ferror = False
 
     def read(self, reason):
         if reason in ['CHAN_' + str(_) + '_GAINS' for _ in range(4)]:
@@ -183,11 +185,16 @@ class MyDriver(Driver):
             device_index = int(reason.split('_')[1])
             try:
                 self.buses[device_index].set_gains(value)
+                self.gerror = False
+                self.gains_error = ''
                 self.setParam(reason, value)
                 self.updatePVs()
             except Exception as e:
                 print('Error in setting GAINS: {}'.format(str(e)))
+                self.gerror = True
                 self.gains_error = str(e)
+            finally:
+                self.read(reason + '_ERROR')
         if reason in ['CHAN_' + str(i) + '_FILTER0' + str(j) for i in range(4) for j in range(4, 7)]:
             device_index = int(reason.split('_')[1])
             channel_index = int(reason[-1])
@@ -201,11 +208,16 @@ class MyDriver(Driver):
             filter_updated = int(filter_str[::-1], 2)
             try:
                 self.buses[device_index].set_filter_channels(filter_updated)
+                self.ferror = False
+                self.filters_error = ''
                 self.setParam(reason, value)
                 self.updatePVs()
             except Exception as e:
                 print('Error in setting FILTERS: {}'.format(str(e)))
+                self.ferror = True
                 self.filters_error = str(e)
+            finally:
+                self.read(reason + '_ERROR')
 
     def read_database(self):
         # for key in busDB.keys():
