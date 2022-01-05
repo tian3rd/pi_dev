@@ -29,11 +29,15 @@ busPrefix = IFO + ':' + SYSTEM + '-' + SUBSYS + '_'
 
 db_type_int = {'type': 'int'}
 db_type_enum = {'type': 'enum', 'enums': ['0', '1']}
+# log error messages longer than 40 chars
+db_type_str = {'type': 'char', 'count': 300}
 
 num_devices = 4
 devices = ['CHAN_' + str(_) + '_' for _ in range(num_devices)]
 gain_channel = 'GAINS'
+gain_error = 'GAINS_ERROR'
 filter_channel = 'FILTERS'
+filter_error = 'FILTERS_ERROR'
 filter_channels = ['FILTER0' + str(_) for _ in range(4, 7)]
 gain_readback = 'GAINS_RB'
 filter_readback = 'FILTERS_RB'
@@ -54,6 +58,8 @@ def generate_bus_db():
         busDB[device + filter_channel] = db_type_int
         busDB[device + gain_readback] = db_type_int
         busDB[device + filter_readback] = db_type_int
+        busDB[device + gain_error] = db_type_str
+        busDB[device + filter_error] = db_type_str
         for channel in filter_channels:
             busDB[device + channel] = db_type_enum
     return busDB
@@ -131,11 +137,17 @@ class MyDriver(Driver):
         # (self.buses[_].start() for _ in range(len(self.buses)))
         for bus in self.buses:
             bus.start()
+        self.gains_error = ''
+        self.filters_error = ''
 
     def read(self, reason):
         if reason in ['CHAN_' + str(_) + '_GAINS' for _ in range(4)]:
             device_index = int(reason.split('_')[1])
             value = self.buses[device_index].get_gains()
+            self.setParam(reason, value)
+            return value
+        if reason in ['CHAN_' + str(_) + '_GAINS_ERROR' for _ in range(4)]:
+            value = self.gains_error
             self.setParam(reason, value)
             return value
         if reason in ['CHAN_' + str(_) + '_GAINS_RB' for _ in range(4)]:
@@ -146,6 +158,10 @@ class MyDriver(Driver):
         if reason in ['CHAN_' + str(_) + '_FILTERS' for _ in range(4)]:
             device_index = int(reason.split('_')[1])
             value = self.buses[device_index].get_filters()
+            self.setParam(reason, value)
+            return value
+        if reason in ['CHAN_' + str(_) + '_FILTERS_ERROR' for _ in range(4)]:
+            value = self.filters_error
             self.setParam(reason, value)
             return value
         if reason in ['CHAN_' + str(_) + '_FILTERS_RB' for _ in range(4)]:
@@ -170,7 +186,8 @@ class MyDriver(Driver):
                 self.setParam(reason, value)
                 self.updatePVs()
             except Exception as e:
-                print(str(e))
+                print('Error in setting GAINS: {}'.format(str(e)))
+                self.gains_error = str(e)
         if reason in ['CHAN_' + str(i) + '_FILTER0' + str(j) for i in range(4) for j in range(4, 7)]:
             device_index = int(reason.split('_')[1])
             channel_index = int(reason[-1])
@@ -182,9 +199,13 @@ class MyDriver(Driver):
                 filter_str = filter_str[:(
                     channel_index - 4)] + str(value) + filter_str[(channel_index - 4) + 1:]
             filter_updated = int(filter_str[::-1], 2)
-            self.buses[device_index].set_filter_channels(filter_updated)
-            self.setParam(reason, value)
-            self.updatePVs()
+            try:
+                self.buses[device_index].set_filter_channels(filter_updated)
+                self.setParam(reason, value)
+                self.updatePVs()
+            except Exception as e:
+                print('Error in setting FILTERS: {}'.format(str(e)))
+                self.filters_error = str(e)
 
     def read_database(self):
         # for key in busDB.keys():
