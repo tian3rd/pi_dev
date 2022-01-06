@@ -5,6 +5,7 @@ from pcaspy import Driver, SimpleServer
 
 # local script
 import busworks
+# for changes in busworks.py to reload to take effect immediately (debugging purpose)
 import importlib
 importlib.reload(busworks)
 
@@ -39,6 +40,7 @@ gain_channel = 'GAINS'
 gain_error = 'GAINS_ERROR'
 filter_channel = 'FILTERS'
 filter_error = 'FILTERS_ERROR'
+# because filter1-3 corresponds to xt1111 i/o ports 04-06, so here use FILTER04-06 to refer to filter1-3
 filter_channels = ['FILTER0' + str(_) for _ in range(4, 7)]
 gain_readback = 'GAINS_RB'
 filter_readback = 'FILTERS_RB'
@@ -69,10 +71,42 @@ def generate_bus_db():
 busDB = generate_bus_db()
 
 # # uncomment this block if you want to explictly specify the channel and type for busDB
-# busDB_explicit = {'CHAN_0_GAINS': {'type': 'int'}, 'CHAN_0_FILTERS': {'type': 'int'}, 'CHAN_0_GAINS_RB': {'type': 'int'}, 'CHAN_0_FILTERS_RB': {'type': 'int'}, 'CHAN_0_FILTER04': {'type': 'enum'}, 'CHAN_0_FILTER05': {'type': 'enum'}, 'CHAN_0_FILTER06': {'type': 'enum'}, 'CHAN_0_FILTER07': {'type': 'enum'},
-#                   'CHAN_1_GAINS': {'type': 'int'}, 'CHAN_1_FILTERS': {'type': 'int'}, 'CHAN_1_GAINS_RB': {'type': 'int'}, 'CHAN_1_FILTERS_RB': {'type': 'int'}, 'CHAN_1_FILTER04': {'type': 'enum'}, 'CHAN_1_FILTER05': {'type': 'enum'}, 'CHAN_1_FILTER06': {'type': 'enum'}, 'CHAN_1_FILTER07': {'type': 'enum'},
-#                   'CHAN_2_GAINS': {'type': 'int'}, 'CHAN_2_FILTERS': {'type': 'int'}, 'CHAN_2_GAINS_RB': {'type': 'int'}, 'CHAN_2_FILTERS_RB': {'type': 'int'}, 'CHAN_2_FILTER04': {'type': 'enum'}, 'CHAN_2_FILTER05': {'type': 'enum'}, 'CHAN_2_FILTER06': {'type': 'enum'}, 'CHAN_2_FILTER07': {'type': 'enum'},
-#                   'CHAN_3_GAINS': {'type': 'int'}, 'CHAN_3_FILTERS': {'type': 'int'}, 'CHAN_3_GAINS_RB': {'type': 'int'}, 'CHAN_3_FILTERS_RB': {'type': 'int'}, 'CHAN_3_FILTER04': {'type': 'enum'}, 'CHAN_3_FILTER05': {'type': 'enum'}, 'CHAN_3_FILTER06': {'type': 'enum'}, 'CHAN_3_FILTER07': {'type': 'enum'}}
+# busDB_explicit = {'CHAN_0_GAINS': {'type': 'int'},
+#                 'CHAN_0_FILTERS': {'type': 'int'},
+#                 'CHAN_0_GAINS_RB': {'type': 'int'},
+#                 'CHAN_0_FILTERS_RB': {'type': 'int'},
+#                 'CHAN_0_GAINS_ERROR': {'type': 'char', 'count': 300},
+#                 'CHAN_0_FILTERS_ERROR': {'type': 'char', 'count': 300},
+#                 'CHAN_0_FILTER04': {'type': 'enum', 'enums': ['0', '1']},
+#                 'CHAN_0_FILTER05': {'type': 'enum', 'enums': ['0', '1']},
+#                 'CHAN_0_FILTER06': {'type': 'enum', 'enums': ['0', '1']},
+#                 'CHAN_1_GAINS': {'type': 'int'},
+#                 'CHAN_1_FILTERS': {'type': 'int'},
+#                 'CHAN_1_GAINS_RB': {'type': 'int'},
+#                 'CHAN_1_FILTERS_RB': {'type': 'int'},
+#                 'CHAN_1_GAINS_ERROR': {'type': 'char', 'count': 300},
+#                 'CHAN_1_FILTERS_ERROR': {'type': 'char', 'count': 300},
+#                 'CHAN_1_FILTER04': {'type': 'enum', 'enums': ['0', '1']},
+#                 'CHAN_1_FILTER05': {'type': 'enum', 'enums': ['0', '1']},
+#                 'CHAN_1_FILTER06': {'type': 'enum', 'enums': ['0', '1']},
+#                 'CHAN_2_GAINS': {'type': 'int'},
+#                 'CHAN_2_FILTERS': {'type': 'int'},
+#                 'CHAN_2_GAINS_RB': {'type': 'int'},
+#                 'CHAN_2_FILTERS_RB': {'type': 'int'},
+#                 'CHAN_2_GAINS_ERROR': {'type': 'char', 'count': 300},
+#                 'CHAN_2_FILTERS_ERROR': {'type': 'char', 'count': 300},
+#                 'CHAN_2_FILTER04': {'type': 'enum', 'enums': ['0', '1']},
+#                 'CHAN_2_FILTER05': {'type': 'enum', 'enums': ['0', '1']},
+#                 'CHAN_2_FILTER06': {'type': 'enum', 'enums': ['0', '1']},
+#                 'CHAN_3_GAINS': {'type': 'int'},
+#                 'CHAN_3_FILTERS': {'type': 'int'},
+#                 'CHAN_3_GAINS_RB': {'type': 'int'},
+#                 'CHAN_3_FILTERS_RB': {'type': 'int'},
+#                 'CHAN_3_GAINS_ERROR': {'type': 'char', 'count': 300},
+#                 'CHAN_3_FILTERS_ERROR': {'type': 'char', 'count': 300},
+#                 'CHAN_3_FILTER04': {'type': 'enum', 'enums': ['0', '1']},
+#                 'CHAN_3_FILTER05': {'type': 'enum', 'enums': ['0', '1']},
+#                 'CHAN_3_FILTER06': {'type': 'enum', 'enums': ['0', '1']}}
 
 # print('--- Generating EPICS database ---')
 # print(busDB)
@@ -123,8 +157,6 @@ def generate_ini_file(ini_file_dirpath, busDB):
 
 # print('--- Writing EPICS database to ' + ini_file_dirpath_local_write + ' ---')
 # print('--- Writing EPICS database to ' + ini_file_dirpath_rpi + ' ---')
-
-generate_ini_file(ini_file_dirpath_local_write, busDB)
 
 # print(busDB.keys())
 
@@ -241,7 +273,10 @@ class MyDriver(Driver):
 
 if __name__ == '__main__':
     print('--- generate .ini file content in ' + ini_file_name + ' ---')
+    # use _local_write for local testing and debugging
     generate_ini_file(ini_file_dirpath_local_write, busDB)
+    # use _rpi for service on rpi server (in /etc/systemd/system/lsc_vga_ctrl_service.service)
+    # generate_ini_file(ini_file_dirpath_rpi, busDB)
 
     print('--- now starting server ---')
 
