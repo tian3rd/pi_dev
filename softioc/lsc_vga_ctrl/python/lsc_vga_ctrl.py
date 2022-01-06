@@ -182,39 +182,27 @@ class MyDriver(Driver):
         if reason in ['CHAN_' + str(_) + '_GAINS' for _ in range(4)]:
             device_index = int(reason.split('_')[1])
             value = self.buses[device_index].get_gains()
-            self.setParam(reason, value)
-            return value
         if reason in ['CHAN_' + str(_) + '_GAINS_ERROR' for _ in range(4)]:
             value = self.gains_error
-            self.setParam(reason, value)
-            return value
         if reason in ['CHAN_' + str(_) + '_GAINS_RB' for _ in range(4)]:
             device_index = int(reason.split('_')[1])
             value = self.buses[device_index].get_readback_gains()
-            self.setParam(reason, value)
-            return value
         if reason in ['CHAN_' + str(_) + '_FILTERS' for _ in range(4)]:
             device_index = int(reason.split('_')[1])
             value = self.buses[device_index].get_filters()
-            self.setParam(reason, value)
-            return value
         if reason in ['CHAN_' + str(_) + '_FILTERS_ERROR' for _ in range(4)]:
             value = self.filters_error
-            self.setParam(reason, value)
-            return value
         if reason in ['CHAN_' + str(_) + '_FILTERS_RB' for _ in range(4)]:
             device_index = int(reason.split('_')[1])
             value = self.buses[device_index].get_readback_filters()
-            self.setParam(reason, value)
-            return value
         # FILTER04-07 are for choice buttons
         if reason in ['CHAN_' + str(i) + '_FILTER0' + str(j) for i in range(4) for j in range(4, 7)]:
             device_index = int(reason.split('_')[1])
             channel_index = int(reason[-1])
             value = self.buses[device_index].get_filters_in_binary(
                 channel_index)
-            self.setParam(reason, value)
-            return value
+        self.setParam(reason, value)
+        return value
 
     def write(self, reason, value):
         if reason in ['CHAN_' + str(_) + '_GAINS' for _ in range(4)]:
@@ -224,13 +212,15 @@ class MyDriver(Driver):
                 self.gerror = False
                 self.gains_error = ''
                 self.setParam(reason, value)
-                self.updatePVs()
             except Exception as e:
                 print('Error in setting GAINS: {}'.format(str(e)))
                 self.gerror = True
                 self.gains_error = str(e)
             finally:
                 self.read(reason + '_ERROR')
+                self.read(reason)
+                self.read(reason + '_RB')
+                self.updatePVs()
         if reason in ['CHAN_' + str(i) + '_FILTER0' + str(j) for i in range(4) for j in range(4, 7)]:
             device_index = int(reason.split('_')[1])
             channel_index = int(reason[-1])
@@ -247,31 +237,15 @@ class MyDriver(Driver):
                 self.ferror = False
                 self.filters_error = ''
                 self.setParam(reason, value)
-                self.updatePVs()
             except Exception as e:
                 print('Error in setting FILTERS: {}'.format(str(e)))
                 self.ferror = True
                 self.filters_error = str(e)
             finally:
-                self.read(reason + '_ERROR')
-
-    def read_database(self):
-        # for key in busDB.keys():
-        #     self.read(key)
-        # self.updatePVs()
-        # self.read('CHAN_0_GAINS')
-        # self.read('CHAN_0_GAINS_RB')
-        # self.read('CHAN_0_FILTERS')
-        # self.read('CHAN_0_FILTERS_RB')
-        # (self.read('CHAN_0_FILTER0' + str(_)) for _ in range(4, 7))
-        num_devices = len(self.buses)
-        for i in range(num_devices):
-            self.read('CHAN_' + str(i) + '_GAINS')
-            self.read('CHAN_' + str(i) + '_GAINS_RB')
-            self.read('CHAN_' + str(i) + '_FILTERS')
-            self.read('CHAN_' + str(i) + '_FILTERS_RB')
-            (self.read('CHAN_' + str(i) + '_FILTER0' + str(_))
-             for _ in range(4, 7))
+                self.read(reason[:-2] + 'S_ERROR')
+                self.read(reason[:-2] + 'S')
+                self.read(reason[:-2] + 'S_RB')
+                self.updatePVs()
 
 
 if __name__ == '__main__':
@@ -293,5 +267,3 @@ if __name__ == '__main__':
 
     while True:
         server.process(0.1)
-        driver.updatePVs()
-        driver.read_database()
