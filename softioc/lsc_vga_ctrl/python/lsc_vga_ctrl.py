@@ -15,6 +15,9 @@ minor = '1'
 patch = 'a'
 version = major + '.' + minor + '.' + patch
 
+# static ip addresses of acromag xt1111 units (it can be set up using Windows client software), can support 1 to 4 devices
+device_addresses = ['192.168.1.100', '192.168.1.101']
+
 script_name = os.path.basename(__file__)
 
 print('--- Running ' + script_name + ' ---')
@@ -283,11 +286,6 @@ if __name__ == '__main__':
     server = SimpleServer()
     server.createPV(busPrefix, busDB)
 
-    # # test 1 device for now
-    # device_addresses = ['192.168.1.100']
-
-    # test 2 devices for now
-    device_addresses = ['192.168.1.100', '192.168.1.101']
     driver = MyDriver(device_addresses)
 
     # Tell systemd that our service is ready
