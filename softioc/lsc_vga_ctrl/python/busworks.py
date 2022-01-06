@@ -25,8 +25,8 @@ class BusWorksXT1111(object):
         self.port = port
         # Number of channels of the device
         self.num_chns = num_chns
-        # Time between updating the registers of device, set default as 0.05s. E.g., set gains/filters
-        self.dt = 0.05
+        # Time between updating the registers of device, set default as 0.02s (minimum 0.02s). E.g., set gains/filters
+        self.dt = 0.02
 
         # self.port_status = [0 for _ in range(4)]
 
@@ -188,6 +188,7 @@ class BusWorksXT1111(object):
             raise BaseException(
                 'row 0 should have a value between 0 and 15 inclusive')
         self.XT1111.write_register(0, row0_value)
+        sleep(self.dt)
 
     def get_gains(self) -> int:
         '''
@@ -235,6 +236,7 @@ class BusWorksXT1111(object):
             raise BaseException(
                 'row 1 should have a value between 0 and 15 inclusive')
         self.XT1111.write_register(1, row1_value)
+        sleep(self.dt)
 
     def set_device_on(self):
         '''
