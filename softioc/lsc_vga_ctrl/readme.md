@@ -8,7 +8,7 @@ For local testing purposes, refer to this [readme file](../../readme.md) for mor
 
 ### Installation
 
-(Assume now you're in the directory of `softioc`)
+> Assume now you're in the directory of `softioc` for the following `bash` commands.
 
 There will be up to 4 directories, which are used as follows:
 
@@ -19,7 +19,7 @@ There will be up to 4 directories, which are used as follows:
   This holds the mdem interface file for the `lsc_vga_ctrl` service. Once the service starts, use `medm lsc_vga_ctrl/medm/devices.adl` to interact with the service via this interface.
 
 - **python** -
-  This hold the python implementations of the service. This can be based on the EPICS softIoc server or the python based pcaspy implementation. The remained of this installation instruction is based on the pcaspy SimpleServer implementation (ala `_ss`).
+  This hold the python implementations of the service. This can be based on the EPICS softIoc server or the python based pcaspy implementation. The remained of this installation instruction is based on the pcaspy SimpleServer implementation.
 
 - **systemd** -
   This hold the files for installation of the python script to run and managed by the OS systemd service. This will help keep the python implementation operational.
@@ -29,10 +29,16 @@ There will be up to 4 directories, which are used as follows:
 sudo cp lsc_vga_ctrl/systemd/lsc_vga_ctrl_service.service /etc/systemd/system/
 #
 # change the permission of the file to 644
-sudo chmod 664 /etc/systemd/system/torpedo_env_ctrl_service.service
+sudo chmod 664 /etc/systemd/system/lsc_vga_ctrl_service.service
 #
 sudo mkdir /usr/local/lib/lsc_vga_ctrl_service
 sudo cp lsc_vga_ctrl/python/lsc_vga_ctrl.py /usr/local/lib/lsc_vga_ctrl_service/lsc_vga_ctrl.py
+sudo cp lsc_vga_ctrl/python/busworks.py /usr/local/lib/lsc_vga_ctrl_service/busworks.py
+#
+# make dir for lsc_vga_ctrl to store ini files, etc
+mkdir -p /opt/rtcds/anu/n1/softioc/lsc_vga_ctrl/ini/
+# change ownership of folder lsc_vga_ctrl to controls:controls to avoid permission denied problem if you create folder using sudo (root)
+# sudo chown controls:controls /opt/rtcds/anu/n1/softioc/lsc_vga_ctrl/
 #
 # location of this file
 # /etc/systemd/system/lsc_vga_ctrl_service.service
@@ -80,6 +86,8 @@ units=undef
 [N1:LSC-VGA_CHAN_0_FILTERS]
 [N1:LSC-VGA_CHAN_0_GAINS_RB]
 [N1:LSC-VGA_CHAN_0_FILTERS_RB]
+[N1:LSC-VGA_CHAN_0_GAINS_ERROR]
+[N1:LSC-VGA_CHAN_0_FILTERS_ERROR]
 [N1:LSC-VGA_CHAN_0_FILTER04]
 [N1:LSC-VGA_CHAN_0_FILTER05]
 [N1:LSC-VGA_CHAN_0_FILTER06]
@@ -87,6 +95,8 @@ units=undef
 [N1:LSC-VGA_CHAN_1_FILTERS]
 [N1:LSC-VGA_CHAN_1_GAINS_RB]
 [N1:LSC-VGA_CHAN_1_FILTERS_RB]
+[N1:LSC-VGA_CHAN_1_GAINS_ERROR]
+[N1:LSC-VGA_CHAN_1_FILTERS_ERROR]
 [N1:LSC-VGA_CHAN_1_FILTER04]
 [N1:LSC-VGA_CHAN_1_FILTER05]
 [N1:LSC-VGA_CHAN_1_FILTER06]
@@ -94,6 +104,8 @@ units=undef
 [N1:LSC-VGA_CHAN_2_FILTERS]
 [N1:LSC-VGA_CHAN_2_GAINS_RB]
 [N1:LSC-VGA_CHAN_2_FILTERS_RB]
+[N1:LSC-VGA_CHAN_2_GAINS_ERROR]
+[N1:LSC-VGA_CHAN_2_FILTERS_ERROR]
 [N1:LSC-VGA_CHAN_2_FILTER04]
 [N1:LSC-VGA_CHAN_2_FILTER05]
 [N1:LSC-VGA_CHAN_2_FILTER06]
@@ -101,6 +113,8 @@ units=undef
 [N1:LSC-VGA_CHAN_3_FILTERS]
 [N1:LSC-VGA_CHAN_3_GAINS_RB]
 [N1:LSC-VGA_CHAN_3_FILTERS_RB]
+[N1:LSC-VGA_CHAN_3_GAINS_ERROR]
+[N1:LSC-VGA_CHAN_3_FILTERS_ERROR]
 [N1:LSC-VGA_CHAN_3_FILTER04]
 [N1:LSC-VGA_CHAN_3_FILTER05]
 [N1:LSC-VGA_CHAN_3_FILTER06]
