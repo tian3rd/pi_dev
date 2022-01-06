@@ -118,7 +118,7 @@ ini_file_name = 'lsc_vga_ctrl_ini_content.txt'
 # len(python/) == 7
 ini_file_dirpath_local_write = os.path.dirname(
     os.path.realpath(__file__))[:-7] + '/ini/'
-ini_file_dirpath_rpi = 'opt/rtcds/anu/n1/softioc/lsc_vga_ctrl/ini/'
+ini_file_dirpath_rpi = '/opt/rtcds/anu/n1/softioc/lsc_vga_ctrl/ini/'
 
 
 def generate_ini_file(ini_file_dirpath, busDB):
