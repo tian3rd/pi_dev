@@ -1,5 +1,6 @@
 import os.path
 import datetime
+import systemd.daemon
 from pcaspy import Driver, SimpleServer
 
 # local script
@@ -253,6 +254,9 @@ if __name__ == '__main__':
     # test 2 devices for now
     device_addresses = ['192.168.1.100', '192.168.1.101']
     driver = MyDriver(device_addresses)
+
+    # Tell systemd that our service is ready
+    systemd.daemon.notify('READY=1')
 
     while True:
         server.process(0.1)
