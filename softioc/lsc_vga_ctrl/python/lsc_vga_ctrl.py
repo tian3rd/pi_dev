@@ -2,6 +2,7 @@ import os.path
 import datetime
 import systemd.daemon
 from pcaspy import Driver, SimpleServer
+from time import sleep
 
 # local script
 import busworks
@@ -256,6 +257,9 @@ if __name__ == '__main__':
     # generate_ini_file(ini_file_dirpath_rpi, busDB)
 
     print('--- now starting server ---')
+
+    # when restarting rpi, give it time to load all packages, otherwise the service has errors
+    sleep(1)
 
     server = SimpleServer()
     server.createPV(busPrefix, busDB)
