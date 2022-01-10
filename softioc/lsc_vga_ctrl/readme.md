@@ -119,3 +119,56 @@ units=undef
 [N1:LSC-VGA_CHAN_3_FILTER05]
 [N1:LSC-VGA_CHAN_3_FILTER06]
 ```
+
+### Miscellaneous
+
+1. The graph for connections of gains and filters on the isc whitening board: [here](../../isc_whitening_filter_D1001530_v5.pdf)
+
+   - BI0 -> i0 -> D0 -> A1 (Gain: 24dB)
+   - BI1 -> i1 -> D1 -> A2 (Gain: 12dB)
+   - BI2 -> i2 -> D2 -> A3 (Gain: 6dB)
+   - BI3 -> i3 -> D3 -> A4 (Gain: 3dB)
+   - BI4 -> i4 -> D4 -> A5 (Filter: PZ1)
+   - BI5 -> i5 -> D5 -> A6 (Filter: PZ2)
+   - BI6 -> i6 -> D6 -> A7 (Filter: PZ3)
+   - BI7 -> LE
+   - BO0 -> R0
+   - BO1 -> R1
+   - BO2 -> R2
+   - BO3 -> R3
+   - BO4 -> R4
+   - BO5 -> R5
+   - BO6 -> R6
+   - BO7 -> R_LE
+
+   I/O ports on XT1111:
+
+   ```
+   ch00 | ch01 | ch02 | ch03 ==> gains: 24dB | 12dB | 6dB | 3dB
+   ch04 | ch05 | ch06 | ch07 ==> filters: f1 | f2 | f3 | LE (on/off)
+   ch08 | ch09 | ch10 | ch11 ==> readbacks for gains
+   ch12 | ch13 | ch14 | ch15 ==> readbacks for filters and LE
+   ```
+
+2. XT1111 input/output voltage.
+
+   - Power supply voltage: 12-32V
+   - Excitation voltage:
+   - Inverse mode by default.
+   -
+
+3. Connect to XT1111 via static ip address.
+
+   - To set a different ip address, use the windows client software.
+   - Right now there are two testing acromag units with addresses: `192.168.1.100` and `192.168.1.101`.
+
+4. About `busworks.py`.
+
+   - To get the acromag XT1111 to sucessfully write to the registers, it should wait at least 20ms for the next opearation, which is implemented in the code using `sleep(self.dt)`.
+   - The `busworks.py` module is used to read and write the acromag XT1111 registers via the modbus protocol.
+
+5. About `lsc_vga_ctrl.py`.
+   - In order for the system to load all required packages including `pcaspy`, set aside an extra second before initializing the server, which is implemented in the code using `sleep(1)`.
+   - The channel name for indivisual filters from filter 1 to 3 is represented by `FILTER04` to `FILTER06` which is because they are connected to XT1111 i/o ports 04 to 06. (Will be changed to `FILTER01` to `FILTER03` in the future)
+   - When the script is running, we need to frequently monitor any incoming changes and respond accordingly, which is implemented by `server.process(0.1)`.
+   - We don't need to do all the read operations in the while loop, but instead, whenever there's a change to write, we read the updated data after the write operations to reflect the newest changes.
