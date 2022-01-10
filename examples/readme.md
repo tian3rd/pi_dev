@@ -105,3 +105,13 @@ Raspberry Pi
 
    - https://raspberrypi.stackexchange.com/questions/108592/use-systemd-networkd-for-general-networking/108593#108593
    - https://raspberrypi.stackexchange.com/questions/118544/how-to-config-static-ip-on-eth0-but-keep-wlan0-dynamic
+
+3. Boot rpi to default user (other than pi).
+
+   - https://forums.raspberrypi.com/viewtopic.php?t=113617
+
+```bash
+sudo vim /etc/lightdm/lightdm.conf
+# change the line with #autologin-user= to autologin-user=another_user
+sudo reboot
+```
