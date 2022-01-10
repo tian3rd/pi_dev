@@ -14,7 +14,7 @@ class BusWorksXT1111(object):
     """
     An object written to facilitate the control of an ACROMAG BusWorks XT1111-000 through a TCP connection.
     XT1111-000 has a default static address of 192.168.1.100 with 16 i/o channels.
-    To set up a different sttic ip, use the windows client software for now.
+    To set up a different static ip, use the windows client software for now.
     Port 502 is the default port used for modbus communication.
     """
 
@@ -27,8 +27,6 @@ class BusWorksXT1111(object):
         self.num_chns = num_chns
         # Time between updating the registers of device, set default as 0.02s (minimum 0.02s). E.g., set gains/filters
         self.dt = 0.02
-
-        # self.port_status = [0 for _ in range(4)]
 
     @property
     def address(self):
@@ -86,10 +84,8 @@ class BusWorksXT1111(object):
         Stops the TCP connection between the computer and the device. If reset is True, the registers of all channels are set to 0.
         '''
         if reset:
-            self.XT1111.write_registers(0, 0)
-            self.XT1111.write_registers(1, 0)
-            self.XT1111.write_registers(2, 0)
-            self.XT1111.write_registers(3, 0)
+            for row in range(4):
+                self.XT1111.write_registers(row, 0)
         self.XT1111.close()
 
     def read_registers(self, start=0, num_channels=4):
@@ -106,11 +102,12 @@ class BusWorksXT1111(object):
                 "Start row should be within [0, 1, 2, 3], end: [1, 2, 3, 4]")
         # use read_input_registers intead of read_holding_registers to keep track of the i/o change
         out = self.XT1111.read_input_registers(start, num_channels)
-        # self.port_status = out.registers
         return out.registers
 
     def print_register_states(self):
         '''
+        Debugging function to print the current states of the registers.
+        -------
         print channel 00 to 15 in the same layout as in the windows client for XT1111:
         ch00 | ch01 | ch02 | ch03
         ch04 | ch05 | ch06 | ch07
@@ -118,7 +115,6 @@ class BusWorksXT1111(object):
         ch12 | ch13 | ch14 | ch15
         '''
         states = self.read_registers()
-        # states = self.XT1111.read_input_registers(0, 4).registers
         row = 0
         for state in states:
             state = bin(state)[2:]
@@ -126,15 +122,6 @@ class BusWorksXT1111(object):
             print('Row {0} (i/o {1: <2} - {2: <2}): {3} | {4} | {5} | {6}'.format(row+1,
                   row * 4, row * 4 + 3, signals[3], signals[2], signals[1], signals[0]))
             row += 1
-
-    def turnon_channels(self, channels: list):
-        '''
-        Turns on the channels specified in the list.
-        Inputs:
-        -------
-        channels - List of channels to turn on. E.g., [0, 1, 9] turns on i/o 00, 01, 09 on XT1111
-        '''
-        pass
 
     def set_gains_and_filters(self, gains=None, filters=None, le=None):
         '''
@@ -256,7 +243,6 @@ class BusWorksXT1111(object):
         self.filters = ('0' * (4 - len(filters_le_bin_value)) +
                         filters_le_bin_value)[::-1][:3]
         return self.filters
-        # return int(''.join(map(str, self.filters)), 2)
 
     def get_filters(self) -> int:
         '''
@@ -264,7 +250,7 @@ class BusWorksXT1111(object):
         e.g., "010" -> 2
         '''
         filter_row_value = self.read_registers()[1]
-        # assert filter_row_value >= 8, 'ENABLE should be on!'
+        assert filter_row_value >= 8, 'ENABLE should be on!'
         return filter_row_value - 8
 
     def get_filters_in_binary(self, channel) -> int:
