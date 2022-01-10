@@ -147,6 +147,34 @@ Wednesday
 2. Write `lsc_vga_ctrl_service.service` for systemd (use `torpedo_env_ctrl_service.service` as a template).
 3. Add a simple readme file for `lsc_vga_ctrl` services.
 
+### Week 5
+
+### Week 6
+
+Wednesday
+
+1. Include error channels in the database for future logging and error handling.
+2. Modify the interface to show error messages for gains and filters.
+
+Thursday
+
+1. Refactor code
+   - To only read when writing changes in gains/filters.
+   - To clean up the code and fix typos
+2. Update file and channel names
+
+Friday
+
+1. Debug `lsc_vga_ctrl_service.service` on startup.
+
+### Week 7
+
+Monday
+
+1. Set up devices at home office.
+2. Test XT1111 with LED on the breadboard.
+3. Clean up code and add bullet points to readme file.
+
 ## Q&A
 
 0. How do I set up the environment?
