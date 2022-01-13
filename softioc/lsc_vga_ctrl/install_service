@@ -11,28 +11,30 @@ CURRENT_DIR=$(pwd)
 SERVICE_FILE=$(ls systemd)
 PYTHON_FILES=$(ls -p python | grep -v /)
 LSC_VGA_CTRL_SERVICE_DIR="/usr/local/lib/lsc_vga_ctrl_service/"
+INSTALL_LOG="lsc_vga_ctrl_install-$(date).log"
 
-echo "Copying service file in $CURRENT_DIR to /etc/systemd/system/"
+echo "---$(date) install log---
+echo "Copying service file in $CURRENT_DIR to /etc/systemd/system/" >> INSTALL_LOG
 sudo cp "$CURRENT_DIR/systemd/$SERVICE_FILE" "$SYSTEM_DIR"
 
-echo "Making directory $LSC_VGA_CTRL_SERVICE_DIR"
+echo "Making directory $LSC_VGA_CTRL_SERVICE_DIR" >> INSTALL_LOG
 sudo mkdir "$LSC_VGA_CTRL_SERVICE_DIR"
 
-echo "Copying python scripts to $LSC_VGA_CTRL_SERVICE_DIR"
+echo "Copying python scripts to $LSC_VGA_CTRL_SERVICE_DIR" >> INSTALL_LOG
 for file in $PYTHON_FILES; do
     sudo cp "$CURRENT_DIR/python/$file" "$LSC_VGA_CTRL_SERVICE_DIR"
 done
 
-echo "Enabling service $SERVICE_FILE"
+echo "Enabling service $SERVICE_FILE" >> INSTALL_LOG
 sudo systemctl enable $SERVICE_FILE
 
-echo "Starting service $SERVICE_FILE"
+echo "Starting service $SERVICE_FILE" >> INSTALL_LOG
 sudo systemctl start $SERVICE_FILE
 
-echo "Checking status of service $SERVICE_FILE"
+echo "Checking status of service $SERVICE_FILE" >> INSTALL_LOG
 sudo systemctl status $SERVICE_FILE
 
-echo "Done at $(date)"
+echo "Done at $(date)" >> INSTALL_LOG
 
 
 
