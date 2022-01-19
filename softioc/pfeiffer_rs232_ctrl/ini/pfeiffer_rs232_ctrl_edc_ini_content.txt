@@ -1,5 +1,5 @@
-# Auto generated file by pfeiffer_rs232_service.py
-# at 2022-01-14 15:08:20
+# Auto generated file by pfeiffer_rs232_serial.py
+# at 2022-01-18 21:05:48
 #
 # Using the default parameters
 [default]
