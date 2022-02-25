@@ -19,3 +19,5 @@
     Use `ntpq -p` to check the status of ntp server.
     Or use `timedatectl status` to see if the system clock is synced.
     When modifying the `/etc/ntp.conf` file, use `sudo systemctl restart ntpd` to restart the ntp service.
+
+3.  `ifup@wlan0.service` is loaded but failed to start.
