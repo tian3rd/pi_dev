@@ -1,6 +1,9 @@
 # mac os
 .DS_Store
 
+# any test files
+*test*.*
+
 # vs code 
 .vscode/
 
