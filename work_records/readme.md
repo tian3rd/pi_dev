@@ -2,7 +2,34 @@
 
 ## Work Records
 
-### Week 0
+### Full Time @ CGA
+
+#### Week 0 (21/02/2022 - 27/02/2022)
+
+Friday 25/02/2022
+
+0. Assemble RBOOM
+1. LTC1151 x2 && VGA resistor bank x10 ordered from mouser
+2. Sanity check for RBOOM to record data (forward data to remote server)
+3. Inquirey about 20s mechanical filter from RShake
+
+#### Week 1 (28/02/2022 - 06/03/2022)
+
+Monday 28/02/2022 0. Understand the issue with `systemtcl` service failed issue (NTP service)
+
+1. Read the documentation about how udp data output works for RBOOM
+2. Set up data forwarding to local network devices
+3. PEM box restart with connection to the acromag temperature sensor
+   - Check the status of voltage every 15 - 30 minutes to see if it drops from 24V to 10.5V which is lower than the excitation voltage of the acromag units, thus shutting those units down.
+
+Tuesday 01/03/2022
+
+1. Check PEM box again, and it turns out if the temperature sensor (10.0.0.8) is connected, when trying to access one of the acromag units (BIO0-2 10.0.0.5-10.0.0.7, ADC0-2 10.0.0.2-10.0.0.4), the voltage will randomly drop to 10.5V and shuts down the acromag units.
+2.
+
+### Summer Project (Nov 2021 - Jan 2022)
+
+#### Week 0
 
 Date: 22/11/2021 - 28/11/2021
 
@@ -12,7 +39,7 @@ Prep work. Got a box of accessories, including:
 - Breadboard (2x)
 -
 
-### Week 1
+#### Week 1
 
 Date: 29/11/2021 - 04/12/2021
 
@@ -58,7 +85,7 @@ Friday
 2. Add slider bar for easier adjustment of gains.
    - Problem: it has a bug of not setting the value when the slider is exactly divisible by 3.
 
-### Week 2
+#### Week 2
 
 Monday
 
@@ -89,7 +116,7 @@ Wednesday
 3. Add indicators for readback channels; add choice buttons for filter channels
 4. Add start up instructions
 
-### Week 3
+#### Week 3
 
 Monday
 
@@ -128,7 +155,7 @@ Friday
 1. Install debian 11.1.0 on the new beast
 2. Draft a documentation for installing and setting up the debian.
 
-### Week 4
+#### Week 4
 
 Monday
 
@@ -147,9 +174,9 @@ Wednesday
 2. Write `lsc_vga_ctrl_service.service` for systemd (use `torpedo_env_ctrl_service.service` as a template).
 3. Add a simple readme file for `lsc_vga_ctrl` services.
 
-### Week 5
+#### Week 5
 
-### Week 6
+#### Week 6
 
 Wednesday
 
@@ -167,7 +194,7 @@ Friday
 
 1. Debug `lsc_vga_ctrl_service.service` on startup.
 
-### Week 7
+#### Week 7
 
 Monday
 
