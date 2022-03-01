@@ -50,22 +50,21 @@ class RShake(object):
         q_timestamps = Queue(maxsize=2*SIZE)
         while True:
             data, addr = self.sock.recvfrom(1024)
-            data_arr = data.decode('utf-8').split(',')
+            data_arr = data.decode('utf-8').strip('{}').split(',')
             self.channel = data_arr[0]
-            # self.timestamp = data_arr[1]
-            q_timestamps.put(self.timestamp)
+            timestamp_start = float(data_arr[1])
             for i in range(len(data_arr[2:])):
-                q_counts.put(data_arr[i+2])
-                q_timestamps.put(float(data_arr[1]) + i * 0.01)
-            while q_counts.qsize >= self.interval:
+                q_counts.put(int(data_arr[i+2]))
+                q_timestamps.put(timestamp_start + i * 0.01)
+            while q_counts.qsize() >= self.interval:
                 total_counts = q_counts.get()
                 self.timestamp = q_timestamps.get() + (self.interval / 2 - 1) * 0.01 - 1
                 for _ in range(self.interval - 1):
                     total_counts += q_counts.get()
                     q_timestamps.get()
                 self.count = total_counts / self.interval
-            print('Time: {}, Channel: {}, Count: {}'.format(
-                self.timestamp, self.channel, self.count))
+                print('Time: {:.2f}, Channel: {}, Count: {}'.format(
+                    self.timestamp, self.channel, self.count))
             sleep(0.25)
 
 
