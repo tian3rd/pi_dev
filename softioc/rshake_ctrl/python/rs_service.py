@@ -6,7 +6,8 @@ import rsconnect
 rsPrefix = "RS_"
 
 rsDB = {
-    'COUNT': {'type': 'int'},
+    # update count value frequently using 'scan'
+    'COUNT': {'type': 'int', 'scan': 0.1},
 }
 
 
