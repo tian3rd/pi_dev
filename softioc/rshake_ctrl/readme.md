@@ -66,6 +66,29 @@
 
     Refer to [RBOOM specifications](../../references/SpecificationsforBoom_SnB.pdf), it states that the calibration is not required over time but can be verified using the OSOP calibration table.
 
+10. What's the difference between `caget` and `caput`?
+
+    `caget` is used to read the value of a channel.
+    `caput` is used to write the value of a channel.
+
+11. Difference of Straight Through and Crossover Cable
+
+    Refer to https://www.cables-solutions.com/difference-between-straight-through-and-crossover-cable.html
+    Generally speaking, use straight through Ethernet cable for the following cabling:
+
+        Switch to router
+        Switch to PC or server
+        Hub to PC or server
+
+    Use crossover cables for the following cabling:
+
+        Switch to switch
+        Switch to hub
+        Hub to hub
+        Router to router
+        Router Ethernet port to PC NIC
+        PC to PC
+
 ### Reference
 
 1. [How to set up NTP service in Linux](https://timetoolsltd.com/ntp/how-to-install-and-configure-ntp-on-linux/)
