@@ -67,6 +67,24 @@ class RShake(object):
                     self.timestamp, self.channel, self.count))
             sleep(0.25)
 
+    def get_count(self):
+        '''
+        Return the count signal
+        '''
+        return self.count
+
+    def get_timestamp(self):
+        '''
+        Return the timestamp
+        '''
+        return self.timestamp
+
+    def get_channel(self):
+        '''
+        Return the channel
+        '''
+        return self.channel
+
     @property
     def interval(self):
         return self.interval
