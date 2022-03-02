@@ -2,6 +2,7 @@ import socket
 from subprocess import check_output
 from queue import Queue
 from time import sleep
+import threading
 
 # global variables
 # number of data points in {'HDF', 14203459.345, 1600, 2991, 3409, -781, -78, ...}
@@ -35,7 +36,8 @@ class RShake(object):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.bind((self.host, self.port))
         print("Waiting for connection from RShake on port {}".format(self.port))
-        self.start()
+        self.tid = threading.Thread(target=self.start)
+        self.tid.start()
 
     def get_ip_address(self):
         addrs = check_output(
@@ -63,8 +65,8 @@ class RShake(object):
                     total_counts += q_counts.get()
                     q_timestamps.get()
                 self.count = total_counts / self.interval
-                print('Time: {:.2f}, Channel: {}, Count: {}'.format(
-                    self.timestamp, self.channel, self.count))
+                # print('Time: {:.2f}, Channel: {}, Count: {}'.format(
+                #     self.timestamp, self.channel, self.count))
             sleep(0.25)
 
     def get_count(self):
@@ -85,13 +87,13 @@ class RShake(object):
         '''
         return self.channel
 
-    @property
-    def interval(self):
-        return self.interval
+    # @property
+    # def interval(self):
+    #     return self.interval
 
-    @interval.setter
-    def set_interval(self, interval):
-        self.interval = interval
+    # @interval.setter
+    # def set_interval(self, interval):
+    #     self.interval = interval
 
 
 if __name__ == "__main__":
