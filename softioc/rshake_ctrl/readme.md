@@ -33,6 +33,7 @@
 
 5.  How are the data packets transferred?
     Indivisual data packets are sent to port 8888 on the Shake Pi computer by default.
+
     ```python
     import socket as s
     with open('/opt/settings/sys/ip.txt', 'r') as file:
@@ -46,6 +47,25 @@
         print data
     ```
 
+6.  How to draw a plot using `medm`?
+
+    Refer to [EPICS Documentation here](https://epics.anl.gov/EpicsDocumentation/ExtensionsManuals/StripTool/StripTool.html#Graph1)
+
+7.  `caget` returns 'channel connection timed out' for RShake channels.
+
+    The `__init__` function in `rsconnect.py` contains a `while True` loop, which stops the following code (e.g., `server.process(0.1)`) from reading channels.
+
+    Solution: use a thread to run the `while True` loop.
+
+8.  How to convert counts to metrics unit?
+
+    Refer to [developer corner about converting to metrics](https://manual.raspberryshake.org/developersCorner.html#converting-to-metric), it seems that 56000 (unitless) in counts equals to 1Pa.
+    This is supported by [RBOOM specifications](../../references/SpecificationsforBoom_SnB.pdf), where it states that the estimated sensitivity is 56000 counts/ Pascal ± 10% precision.
+
+9.  Is calibration required for RBOOM?
+
+    Refer to [RBOOM specifications](../../references/SpecificationsforBoom_SnB.pdf), it states that the calibration is not required over time but can be verified using the OSOP calibration table.
+
 ### Reference
 
 1. [How to set up NTP service in Linux](https://timetoolsltd.com/ntp/how-to-install-and-configure-ntp-on-linux/)
@@ -56,3 +76,5 @@
    (RS&BOOM)](https://manual.raspberryshake.org/_downloads/SpecificationsforBoom_SnB.pdf)
 6. [Raspberry Shake station shake naming convention](https://manual.raspberryshake.org/stationNamingConvention.html)
 7. [Raspberry Shake Data Producer UDP Port Output](https://manual.raspberryshake.org/udp.html)
+8. [EPICS Documentation](https://epics.anl.gov/extensions/medm/index.php)
+9. [`pcaspy` documentation](https://pcaspy.readthedocs.io/en/latest/tutorial.html#example-3-a-simulated-oscilloscope)
