@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from pcaspy import Driver, SimpleServer
 import rsconnect
 
@@ -17,8 +19,8 @@ class MyDriver(Driver):
     def read(self, reason):
         if reason == 'COUNT':
             value = self.rs.get_count()
-            self.setParam('COUNT', value)
-            return value
+
+        return value
 
 
 if __name__ == '__main__':
