@@ -39,6 +39,7 @@ class RShake(object):
         self.tid = threading.Thread(target=self.start)
         self.tid.start()
 
+    # refer to https://stackoverflow.com/questions/24196932/how-can-i-get-the-ip-address-from-a-nic-network-interface-controller-in-python
     def get_ip_address(self):
         addrs = check_output(
             ["hostname", '--all-ip-addresses']).decode('utf-8').strip('\n ').split('\n')
