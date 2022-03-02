@@ -14,8 +14,7 @@ rsDB = {
 class MyDriver(Driver):
     def __init__(self):
         super().__init__()
-        self.rs = rsconnect.RSConnect(host="", port=9988, interval=0.125)
-        self.rs.start()
+        self.rs = rsconnect.RShake(host="", port=9988, interval=0.125)
 
     def read(self, reason):
         if reason == 'COUNT':
