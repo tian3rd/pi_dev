@@ -2,6 +2,11 @@
 
 > AM.R9FDD.00.HDF
 
+### Current progress
+
+03/03/2022
+![prototype-0](../../screenshots/2022-03-03-142025_872x372_scrot.png)
+
 ### Q & A
 
 1.  `ntp.service` is loaded but failed to start.
