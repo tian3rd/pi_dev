@@ -9,7 +9,7 @@ rsDB = {
     # update count value frequently using 'scan'
     'COUNT': {'type': 'int', 'scan': 0.1},
     'PRESSURE': {'prec': 2, 'unit': 'pa', 'scan': 0.1},
-    'FREQ': {'type': 'int'},
+    'FREQ': {'type': 'int', 'scan': 2},
 }
 
 
