@@ -8,6 +8,7 @@ rsPrefix = "RS_"
 rsDB = {
     # update count value frequently using 'scan'
     'COUNT': {'type': 'int', 'scan': 0.1},
+    'PRESSURE': {'prec': 2, 'unit': 'pa', 'scan': 0.1},
 }
 
 
@@ -18,7 +19,9 @@ class MyDriver(Driver):
 
     def read(self, reason):
         if reason == 'COUNT':
-            value = self.rs.get_count()
+            value = self.rs.count
+        if reason == 'PRESSURE':
+            value = self.rs.count/56000
 
         return value
 
