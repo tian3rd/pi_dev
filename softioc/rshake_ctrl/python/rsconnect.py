@@ -26,8 +26,8 @@ class RShake(object):
         '''
         self.host = host
         self.port = port
-        # how often to record a signal
-        self.interval = int(1/interval)
+        self._interval = interval
+        self._freq = int(1/interval)
         # to convert count signals to metric units, refer to: https://manual.raspberryshake.org/developersCorner.html#converting-to-metric
         self.count = 0
         # to convert epoch seconds to human readable time, refer to: https://stackoverflow.com/questions/12400256/converting-epoch-time-into-the-datetime
@@ -38,6 +38,20 @@ class RShake(object):
         print("Waiting for connection from RShake on port {}".format(self.port))
         self.tid = threading.Thread(target=self.start)
         self.tid.start()
+
+    @property
+    def interval(self):
+        return self._interval
+
+    @interval.setter
+    def interval(self, value):
+        if isinstance(value, float) and 0.01 <= value and value <= 0.5:
+            self._interval = value
+            # how often to record a signal
+            self._freq = int(1/value)
+        else:
+            raise BaseException(
+                "Please provide a float within range (0.01, 0.5) inclusive")
 
     # refer to https://stackoverflow.com/questions/24196932/how-can-i-get-the-ip-address-from-a-nic-network-interface-controller-in-python
     def get_ip_address(self):
@@ -59,13 +73,13 @@ class RShake(object):
             for i in range(len(data_arr[2:])):
                 q_counts.put(int(data_arr[i+2]))
                 q_timestamps.put(timestamp_start + i * 0.01)
-            while q_counts.qsize() >= self.interval:
+            while q_counts.qsize() >= self._freq:
                 total_counts = q_counts.get()
-                self.timestamp = q_timestamps.get() + (self.interval / 2 - 1) * 0.01 - 1
-                for _ in range(self.interval - 1):
+                self.timestamp = q_timestamps.get() + (self._freq / 2 - 1) * 0.01 - 1
+                for _ in range(self._freq - 1):
                     total_counts += q_counts.get()
                     q_timestamps.get()
-                self.count = total_counts / self.interval
+                self.count = total_counts / self._freq
                 # print('Time: {:.2f}, Channel: {}, Count: {}'.format(
                 #     self.timestamp, self.channel, self.count))
             sleep(0.25)
@@ -87,14 +101,6 @@ class RShake(object):
         Return the channel
         '''
         return self.channel
-
-    # @property
-    # def interval(self):
-    #     return self.interval
-
-    # @interval.setter
-    # def set_interval(self, interval):
-    #     self.interval = interval
 
 
 if __name__ == "__main__":
