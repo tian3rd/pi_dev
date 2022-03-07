@@ -87,43 +87,10 @@ display {
 		1a7309,
 	}
 }
-meter {
-	object {
-		x=50
-		y=56
-		width=182
-		height=155
-	}
-	monitor {
-		chan="RS_COUNT"
-		clr=14
-		bclr=4
-	}
-	limits {
-		loprSrc="default"
-		loprDefault=-20000
-		hoprSrc="default"
-		hoprDefault=20000
-	}
-}
-"text entry" {
-	object {
-		x=135
-		y=247
-		width=102
-		height=40
-	}
-	control {
-		clr=14
-		bclr=4
-	}
-	limits {
-	}
-}
 "text update" {
 	object {
-		x=60
-		y=300
+		x=168
+		y=42
 		width=123
 		height=58
 	}
@@ -137,8 +104,8 @@ meter {
 }
 "strip chart" {
 	object {
-		x=332
-		y=57
+		x=357
+		y=31
 		width=526
 		height=358
 	}
@@ -151,9 +118,88 @@ meter {
 		clr=20
 		limits {
 			loprSrc="default"
-			loprDefault=-10000
+			loprDefault=-20000
 			hoprSrc="default"
-			hoprDefault=10000
+			hoprDefault=20000
 		}
+	}
+	pen[1] {
+		chan="RS_PRESSURE"
+		clr=25
+		limits {
+			loprSrc="default"
+			loprDefault=-2
+			hoprSrc="default"
+			hoprDefault=2
+		}
+	}
+}
+"text update" {
+	object {
+		x=162
+		y=146
+		width=123
+		height=58
+	}
+	monitor {
+		chan="RS_PRESSURE"
+		clr=14
+		bclr=4
+	}
+	limits {
+		precSrc="default"
+		precDefault=2
+	}
+}
+text {
+	object {
+		x=10
+		y=33
+		width=116
+		height=50
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="COUNT"
+}
+text {
+	object {
+		x=6
+		y=139
+		width=116
+		height=50
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Pressure/Pa"
+}
+text {
+	object {
+		x=5
+		y=335
+		width=116
+		height=50
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Freq/Hz"
+}
+"text entry" {
+	object {
+		x=134
+		y=335
+		width=184
+		height=58
+	}
+	control {
+		chan="RS_FREQ"
+		clr=14
+		bclr=4
+	}
+	limits {
+		precSrc="default"
 	}
 }

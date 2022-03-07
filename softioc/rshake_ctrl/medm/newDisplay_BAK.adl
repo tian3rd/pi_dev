@@ -1,14 +1,14 @@
 
 file {
-	name="newDisplay.adl"
+	name="/home/controls/pythoncode/pitestcode/softioc/rshake_ctrl/medm/newDisplay.adl"
 	version=030111
 }
 display {
 	object {
-		x=0
-		y=0
-		width=400
-		height=400
+		x=503
+		y=103
+		width=915
+		height=859
 	}
 	clr=14
 	bclr=4
@@ -133,5 +133,27 @@ meter {
 		bclr=4
 	}
 	limits {
+	}
+}
+"strip chart" {
+	object {
+		x=332
+		y=57
+		width=526
+		height=358
+	}
+	plotcom {
+		clr=14
+		bclr=4
+	}
+	pen[0] {
+		chan="RS_COUNT"
+		clr=20
+		limits {
+			loprSrc="default"
+			loprDefault=-10000
+			hoprSrc="default"
+			hoprDefault=10000
+		}
 	}
 }
