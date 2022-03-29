@@ -27,6 +27,16 @@ Tuesday 01/03/2022
 1. Check PEM box again, and it turns out if the temperature sensor (10.0.0.8) is connected, when trying to access one of the acromag units (BIO0-2 10.0.0.5-10.0.0.7, ADC0-2 10.0.0.2-10.0.0.4), the voltage will randomly drop to 10.5V and shuts down the acromag units.
 2.
 
+Friday 04/03/2022
+
+1. Work with @Deon to check the temperature sensor and acromag units
+   - The temp sensor will cause the power supply voltage to decrease to 10.5V, and the acromag units will shut down, even if it's not connected to the switch or other acromag units (? to be double checked).
+2. Discuss with @Bram about the agenda
+
+#### Week 2 (07/03/2022 - 13/03/2022)
+
+Week 2 onward, I move the work records to my private repository.
+
 ### Summer Project (Nov 2021 - Jan 2022)
 
 #### Week 0
