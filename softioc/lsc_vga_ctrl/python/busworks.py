@@ -1,6 +1,10 @@
+# !/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from pymodbus.client.sync import ModbusTcpClient
 from time import sleep
 
+from typing import List, Set, Dict, Tuple, Optional
 
 class BaseException(Exception):
     def __init__(self, msg):
@@ -8,6 +12,41 @@ class BaseException(Exception):
 
     def __str__(self):
         return self.msg
+
+
+class BusWorksES2113(object):
+    def __init__(self, ip_address: str = '128.1.1.100', port: int =502, num_chns: int =96):
+        self.ip_address = ip_address
+        self.port = port
+        self.num_chns = num_chns
+        self.dt = 0.1
+
+    def start(self):
+        self.client = ModbusTcpClient(self.ip_address, self.port)
+        connected = self.client.connect()
+        if connected:
+            print('Connected to', self.ip_address)
+        else:
+            raise BaseException(f"Failed to connect to {self.ip_address}")
+        sleep(self.dt)
+
+    def get_port_states(self, port: int) -> List[bool]:
+        rtn = self.client.read_coils(16 * (port - 1), 16).bits
+        sleep(self.dt)
+        return rtn
+
+    def toggle_single_channel(self, port: int, chn: int) -> None:
+        current_states = self.get_port_states(port)
+        print(f"Orignal: {current_states}")
+        print(f"Toggling channel {chn} on port {port} from {current_states[chn]} to {not current_states[chn]}")
+        current_states[chn] = not current_states[chn]
+        print(f"Updated: {current_states}")
+        self.client.write_coil((port - 1) * 16 + chn, current_states[chn])
+        sleep(self.dt)
+
+    def toggle_multiple_channels(self, port: int, chns: List[int]) -> None:
+        for chn in chns:
+            self.toggle_single_channel(port, chn)
 
 
 class BusWorksXT1111(object):
