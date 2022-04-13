@@ -201,10 +201,14 @@ class TCM1601(object):
             The decoded response
         '''
         dataframe = dataframe.decode(encoding)
+        print('dataframe: {df}'.format(df=dataframe))
         cmd_number = int(dataframe[5:8])
+        print('cmd_no: {cn}'.format(cn=cmd_number))
         response_type = CMD_INFO[cmd_number]['no.']
+        print('response type: {rt}'.format(rt=response_type))
         data_length = CMD_INFO[cmd_number]['size']
         cmd_response = dataframe[-4 - data_length: -4]
+        print('cmd response: {cr}'.format(cr=cmd_response))
         if response_type == 0:
             return "OFF" if int(cmd_response) == 0 else "ON"
         elif response_type == 1:
