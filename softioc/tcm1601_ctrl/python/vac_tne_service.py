@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import re
 from pcaspy import Driver, SimpleServer
 import Tcm1601
 
@@ -6,14 +10,17 @@ import datetime
 import os.path
 import threading
 
-tnePrefix = 'N1:VAC-TNE_TCM1601_'
+controllerPrefix = 'N1:VAC-TNE_TCM1601_'
 
-tneDB = {
-    'ERROR': {'type': 'str', },
-    'MOTOR_CUR': {'type': 'str'},
-    'ACT_ROT_SPEED': {'type': 'str'},
+controllerDB = {
+    'MOTOR_TMP': {'type': 'enum', 'enums': ['0', '1']},
+    'ERROR_LAST': {'type': 'str'},
+    'ERROR_CODE': {'type': 'str', },
+    'ACT_ROT_SPD': {'type': 'str'},
+    'TMP_I_MOT': {'type': 'str'},
+    'TMP_OP_HRS': {'type': 'str'},
+    'PRESSURE': {'type': 'str'}, 
     'ADDRESS': {'type': 'int'},
-
 }
 
 class myDriver(Driver):
@@ -22,21 +29,42 @@ class myDriver(Driver):
         self.controller = Tcm1601.TCM1601('/dev/ttyUSB0')
 
     def read(self, reason):
-        if reason == 'MOTO_CUR':
-            value = self.controller.get_motor_current()
-        if reason == 'ACT_ROT_SPEED':
+        value = 'NULL'
+        if reason == 'MOTOR_TMP':
+            value = 1 if self.controller.get_turbopump_status() == 'ON' else 0
+        elif reason == 'ERROR_CODE':
+            value = self.controller.get_error()
+        elif reason == 'ERROR_LAST':
+            value = self.controller.get_last_error()
+        elif reason == 'ACT_ROT_SPD':
             value = self.controller.get_act_rotspd()
-        if reason == 'ADDRESS':
+        elif reason == 'TMP_I_MOT':
+            value = self.controller.get_motor_current()
+        elif reason == 'TMP_OP_HRS':
+            value = self.controller.get_operation_hours()
+        elif reason == 'PRESSURE':
+            value = self.controller.get_pressure()
+        elif reason == 'ADDRESS':
             value = self.controller.get_address()
         
         self.setParam(reason, value)
         return value
+    
+    def write(self, reason, value):
+        if reason == 'MOTOR_TMP':
+            self.controller.turn_on_turbopump() if value == 1 else self.controller.turn_off_turbopump()
+        elif reason == 'ADDRESS':
+            value = int(value)
+            self.controller.set_address(value)
+        self.setParam(reason, value)
+        self.read(reason)
+        self.updatePVs()
 
 if __name__ == '__main__':
     print('--- now starting server ---')
 
     server = SimpleServer()
-    server.createPV(tnePrefix, tneDB)
+    server.createPV(controllerPrefix, controllerDB)
 
     driver = myDriver()
 
