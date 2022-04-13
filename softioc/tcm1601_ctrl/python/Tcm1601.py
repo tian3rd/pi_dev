@@ -223,51 +223,51 @@ class TCM1601(object):
         read_size = len(req) + COMMAND[command]['datatype']['size'] - 2
         return self.ser.read(read_size * 8)
 
-    def get_act_rotspd(self):
+    def get_act_rotspd(self) -> str:
         '''
         Get the actual rotation speed in Hz.
         '''
         return "{spd} Hz".format(spd=self.decode_bytes(self.status_request('ActRotSpd')))
 
-    def get_motor_current(self):
+    def get_motor_current(self) -> str:
         '''
         Get the motor current TMP in A.
         '''
         return "{cur} A".format(cur=self.decode_bytes(self.status_request('TMPIMot')))
 
-    def get_operation_hours(self):
+    def get_operation_hours(self) -> str:
         '''
         Get the operation hours TMP in h.
         '''
         return "{hrs} h".format(hrs=self.decode_bytes(self.status_request('TMPOpHrs')))
 
-    def get_pressure(self):
+    def get_pressure(self) -> str:
         '''
         Get the pressure value in mbar.
         '''
         return "{mbar} mbar".format(mbar=self.decode_bytes(self.status_request('Pressure')))
 
-    def get_turbopump_status(self):
+    def get_turbopump_status(self) -> str:
         '''
         Get the turbopump status.
         '''
         return self.decode_bytes(self.status_request('MotorTMP'))
 
-    def get_address(self):
+    def get_address(self) -> int:
         '''
         Get the address of the controller.
         '''
         return self.decode_bytes(self.status_request('Address'))
         # or return self.addr
 
-    def turn_on_turbopump(self):
+    def turn_on_turbopump(self) -> bool:
         '''
         Turn on the turbopump.
         '''
         self.send_control_command(COMMAND['MotorTMP'], ON)
         return True if self.get_turbopump_status() == "ON" else False
 
-    def turn_off_turbopump(self):
+    def turn_off_turbopump(self) -> bool:
         '''
         Turn off the turbopump.
         '''
