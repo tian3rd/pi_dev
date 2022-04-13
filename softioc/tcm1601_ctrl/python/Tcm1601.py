@@ -60,6 +60,12 @@ COMMAND = {
         'description': 'Actual error code, no Err, Errxxx or Wrnxxx',
         'datatype': DATA_TYPE[4],
     },
+    'ErrorLast': {
+        'number': 360,
+        'display': 'Past Error',
+        'description': 'Error storage, Position 1',
+        'datatype': DATA_TYPE[4],
+    },
     'ActRotSpd': {
         'number': 309,
         'display': 'Act rotspd',
@@ -222,6 +228,20 @@ class TCM1601(object):
         req = self.send_data_request(COMMAND[command]['number'])
         read_size = len(req) + COMMAND[command]['datatype']['size'] - 2
         return self.ser.read(read_size * 8)
+
+    def get_error(self) -> str:
+        '''
+        Ge the error info from controller.
+        '''
+        err_msg = self.decode_bytes(self.status_request('ErrorCode'))
+        return err_msg
+
+    def get_last_error(self) -> str:
+        '''
+        Ge the last error info from controller.
+        '''
+        err_msg = self.decode_bytes(self.status_request('ErrorLast'))
+        return err_msg
 
     def get_act_rotspd(self) -> str:
         '''
