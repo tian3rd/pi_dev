@@ -135,16 +135,15 @@ class TCM1601(object):
 
     @property
     def addr(self):
-        return self.addr
+        return self._addr
 
     @addr.setter
-    def addr(self, address):
-        if not isinstance(address, int):
+    def addr(self, value):
+        if not isinstance(value, int):
             raise TCM1601Exception('Address must be an integer')
-        elif address < 0 or address > 255:
+        elif value < 0 or value > 255:
             raise TCM1601Exception('Address must be between 0 and 255')
-        self.send_control_command(
-            COMMAND['ADDRESS'], '{:06d}'.format(address))
+        self._addr = value
 
     def send_data_request(self, param_num: int, encoding: str = ENCODING):
         '''
@@ -278,7 +277,16 @@ class TCM1601(object):
         Get the address of the controller.
         '''
         return self.decode_bytes(self.status_request('Address'))
-        # or return self.addr
+        # return self.addr
+    
+    def set_address(self, new_addr) -> bool:
+        '''
+        Set a new address for the controller.
+        '''
+        self.send_control_command(
+            COMMAND['Address']['number'], '{:06d}'.format(new_addr))
+        self.addr = new_addr
+        return True if self.get_address() == new_addr else False
 
     def turn_on_turbopump(self) -> bool:
         '''
