@@ -90,7 +90,7 @@ COMMAND = {
         'description': 'Actual pressure value in mbar',
         'datatype': DATA_TYPE[3],
     },
-    'ADDRESS': {
+    'Address': {
         'number': 797,
         'display': 'Address',
         'description': 'Unit address',
@@ -207,14 +207,14 @@ class TCM1601(object):
         data_length = CMD_INFO[cmd_number]['size']
         cmd_response = dataframe[-4 - data_length: -4]
         if response_type == 0:
-            return "ON" if int(cmd_response) == 0 else "OFF"
-        elif cmd_number == 1:
+            return "OFF" if int(cmd_response) == 0 else "ON"
+        elif response_type == 1:
             return int(cmd_response)
-        elif cmd_number == 2:
+        elif response_type == 2:
             return int(cmd_response) / 100
-        elif cmd_number == 3:
+        elif response_type == 3:
             return float(cmd_response)
-        elif cmd_number == 4:
+        elif response_type == 4:
             return cmd_response
 
     def status_request(self, command):
@@ -284,12 +284,12 @@ class TCM1601(object):
         '''
         Turn on the turbopump.
         '''
-        self.send_control_command(COMMAND['MotorTMP'], ON)
+        self.send_control_command(COMMAND['MotorTMP']['number'], ON)
         return True if self.get_turbopump_status() == "ON" else False
 
     def turn_off_turbopump(self) -> bool:
         '''
         Turn off the turbopump.
         '''
-        self.send_control_command(COMMAND['MotorTMP'], OFF)
+        self.send_control_command(COMMAND['MotorTMP']['number'], OFF)
         return True if self.get_turbopump_status() == "OFF" else False
