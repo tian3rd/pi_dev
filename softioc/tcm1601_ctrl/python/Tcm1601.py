@@ -95,7 +95,13 @@ COMMAND = {
         'display': 'Address',
         'description': 'Unit address',
         'datatype': DATA_TYPE[1],
-    }
+    },
+    'TMSheatSet':{
+        'number': 704,
+        'display': 'TMSheatSet',
+        'descripton': 'TMS Heating Temperature set value in degree celcius',
+        'datatype': DATA_TYPE[1],
+    },
 }
 
 # command info such as {23: {'no': 0, 'type': 'boolean_old', ...}, 340: {}}
@@ -275,13 +281,17 @@ class TCM1601(object):
         Get the turbopump status.
         '''
         return self.decode_bytes(self.status_request('MotorTMP'))
-
+The decoded response
     def get_address(self) -> int:
         '''
         Get the address of the controller.
         '''
         return self.decode_bytes(self.status_request('Address'))
         # return self.addr
+
+    def get_temperature(self) -> str:
+        return "{tmp} degrees".format(tmp=self.decode_bytes(self.status_request('TMSheatSet')))
+
     
     def set_address(self, new_addr) -> bool:
         '''
