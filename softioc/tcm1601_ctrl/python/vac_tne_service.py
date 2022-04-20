@@ -56,6 +56,7 @@ class myDriver(Driver):
             value = self.controller.get_switch_point()
 
         self.setParam(reason, value)
+        self.updatePVs()
         return value
 
     def write(self, reason, value):

@@ -152,7 +152,7 @@ class TCM1601(object):
         self.addr = DEV_ADDR
         self.ser = serial.Serial(port=self.port, baudrate=self.baudrate,
                                  timeout=self.timeout)
-        self.dt = 500
+        self.dt = .500
 
     @property
     def addr(self):
