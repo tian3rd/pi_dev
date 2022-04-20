@@ -19,9 +19,11 @@ controllerDB = {
     'ACT_ROT_SPD': {'type': 'str'},
     'TMP_I_MOT': {'type': 'str'},
     'TMP_OP_HRS': {'type': 'str'},
-    'PRESSURE': {'type': 'str'}, 
+    'PRESSURE': {'type': 'str'},
     'ADDRESS': {'type': 'int'},
+    'SWTICH_PNT': {'type': 'str'},
 }
+
 
 class myDriver(Driver):
     def __init__(self):
@@ -46,19 +48,30 @@ class myDriver(Driver):
             value = self.controller.get_pressure()
         elif reason == 'ADDRESS':
             value = self.controller.get_address()
-        
+        elif reason == 'SWTICH_PNT':
+            value = self.controller.get_switch_point()
+
         self.setParam(reason, value)
         return value
-    
+
     def write(self, reason, value):
         if reason == 'MOTOR_TMP':
-            self.controller.turn_on_turbopump() if value == 1 else self.controller.turn_off_turbopump()
+            success = self.controller.turn_on_turbopump() if int(
+                value) == 1 else self.controller.turn_off_turbopump()
+            if not success:
+                print('Error turning on/off turbopump')
         elif reason == 'ADDRESS':
             value = int(value)
             self.controller.set_address(value)
+        elif reason == 'SWTICH_PNT':
+            value = int(value)
+            success = self.controller.set_switch_point(value)
+            if not success:
+                print('Failed to set switch point')
         self.setParam(reason, value)
         self.read(reason)
         self.updatePVs()
+
 
 if __name__ == '__main__':
     print('--- now starting server ---')
@@ -72,6 +85,3 @@ if __name__ == '__main__':
 
     while True:
         server.process(0.1)
-    
-
-    

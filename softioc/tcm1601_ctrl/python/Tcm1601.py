@@ -334,7 +334,7 @@ class TCM1601(object):
                 'Value percentage must be between 0 and 100')
         self.send_control_command(
             COMMAND['SwitchPnt']['number'], '{:06d}'.format(value))
-        return True if self.get_switch_point() == value else False
+        return True if self.get_switch_point() == "{v} %".format(v=value) else False
 
     def turn_on_turbopump(self) -> bool:
         '''
