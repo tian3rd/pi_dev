@@ -48,7 +48,7 @@ class myDriver(Driver):
             value = self.controller.get_pressure()
         elif reason == 'ADDRESS':
             value = self.controller.get_address()
-        elif reason == 'SWTICH_PNT':
+        elif reason == 'SWITCH_PNT':
             value = self.controller.get_switch_point()
 
         self.setParam(reason, value)
