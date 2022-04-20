@@ -323,6 +323,19 @@ class TCM1601(object):
         self.addr = new_addr
         return True if self.get_address() == new_addr else False
 
+    def set_switch_pnt(self, value) -> bool:
+        '''
+        Set a new switch point for the controller.
+        '''
+        if not isinstance(value, int):
+            raise TCM1601Exception('Value must be an integer')
+        elif value > 100 or value < 0:
+            raise TCM1601Exception(
+                'Value percentage must be between 0 and 100')
+        self.send_control_command(
+            COMMAND['SwitchPnt']['number'], '{:06d}'.format(value))
+        return True if self.get_switch_point() == value else False
+
     def turn_on_turbopump(self) -> bool:
         '''
         Turn on the turbopump.
