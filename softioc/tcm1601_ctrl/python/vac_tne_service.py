@@ -21,7 +21,7 @@ controllerDB = {
     'TMP_OP_HRS': {'type': 'str'},
     'PRESSURE': {'type': 'str'},
     'ADDRESS': {'type': 'int'},
-    'SWTICH_PNT': {'type': 'str'},
+    'SWITCH_PNT': {'type': 'str'},
 }
 
 
