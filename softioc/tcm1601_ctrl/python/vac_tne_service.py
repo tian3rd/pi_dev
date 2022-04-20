@@ -19,10 +19,10 @@ controllerDB = {
     'ERROR_CODE': {'type': 'str', },
     'ACT_ROT_SPD': {'type': 'str'},
     'TMP_I_MOT': {'type': 'str'},
-    'TMP_OP_HRS': {'type': 'str'},
-    'PRESSURE': {'type': 'str'},
-    'ADDRESS': {'type': 'int'},
-    'SWITCH_PNT': {'type': 'str'},
+    # 'TMP_OP_HRS': {'type': 'str'},
+    # # 'PRESSURE': {'type': 'str'},
+    # 'ADDRESS': {'type': 'int'},
+    # 'SWITCH_PNT': {'type': 'str'},
 }
 
 
