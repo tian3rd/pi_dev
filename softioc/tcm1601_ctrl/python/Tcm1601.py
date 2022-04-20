@@ -4,6 +4,8 @@
 from tarfile import ENCODING
 import serial
 import subprocess
+from time import sleep
+
 
 # Global variables for the commands to read from and write to the controller
 # Refer to Pfeiffer Vacuum Manual TCM1601 Page 14
@@ -150,6 +152,7 @@ class TCM1601(object):
         self.addr = DEV_ADDR
         self.ser = serial.Serial(port=self.port, baudrate=self.baudrate,
                                  timeout=self.timeout)
+        self.dt = 500
 
     @property
     def addr(self):
@@ -207,6 +210,7 @@ class TCM1601(object):
               'Encoded in ({enc}): {encd}'
               .format(df=dataframe, enc=encoding, encd=encoded))
         self.ser.write(encoded)
+        sleep(self.dt)
         return encoded
 
     def decode_bytes(self, dataframe, encoding=ENCODING):
