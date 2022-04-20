@@ -4,6 +4,7 @@
 import re
 from pcaspy import Driver, SimpleServer
 import Tcm1601
+from time import sleep
 
 import systemd.daemon
 import datetime
@@ -29,8 +30,11 @@ class myDriver(Driver):
     def __init__(self):
         super().__init__()
         self.controller = Tcm1601.TCM1601('/dev/ttyUSB0')
+        self.tid = threading.Thread(target=self.run)
+        self.tid.setDaemon(True)
+        self.tid.start()
 
-    def read(self, reason):
+    def read_channels(self, reason):
         value = 'NULL'
         if reason == 'MOTOR_TMP':
             value = 1 if self.controller.get_turbopump_status() == 'ON' else 0
@@ -71,6 +75,14 @@ class myDriver(Driver):
         self.setParam(reason, value)
         self.read(reason)
         self.updatePVs()
+
+    def run(self):
+        while True:
+            for reason in controllerDB.keys():
+                print("READING: ", reason)
+                self.read_channels(reason)
+                sleep(.5)
+            self.updatePVs()
 
 
 if __name__ == '__main__':
