@@ -102,6 +102,18 @@ COMMAND = {
         'descripton': 'TMS Heating Temperature set value in degree celcius',
         'datatype': DATA_TYPE[1],
     },
+    'SwitchPnt': {
+        'number': 701,
+        'display': 'SwitchPnt',
+        'description': 'Rotation speed switchpoint in %',
+        'datatype': DATA_TYPE[1],
+    },
+    'TMPRUTime': {
+        'number': 700,
+        'display': 'TMPRUTime',
+        'description': 'maximum run-up time in mins',
+        'datatype': DATA_TYPE[1],
+    },
 }
 
 # command info such as {23: {'no': 0, 'type': 'boolean_old', ...}, 340: {}}
@@ -291,6 +303,12 @@ class TCM1601(object):
 
     def get_temperature(self) -> str:
         return "{tmp} degrees".format(tmp=self.decode_bytes(self.status_request('TMSheatSet')))
+
+    def get_switch_point(self) -> str:
+        return "{sp} %".format(sp=self.decode_bytes(self.status_request('SwitchPnt')))
+
+    def get_tmp_rutimes(self) -> str:
+        return "{ru} mins".format(ru=self.decode_bytes(self.status_request('TMPRUTime')))
 
     def set_address(self, new_addr) -> bool:
         '''
