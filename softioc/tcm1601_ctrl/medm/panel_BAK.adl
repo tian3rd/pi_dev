@@ -5,8 +5,8 @@ file {
 }
 display {
 	object {
-		x=1048
-		y=61
+		x=582
+		y=209
 		width=400
 		height=400
 	}
@@ -307,4 +307,34 @@ text {
 		clr=14
 	}
 	textix="797ChangeAddress"
+}
+oval {
+	object {
+		x=252
+		y=10
+		width=20
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	"dynamic attribute" {
+		vis="if zero"
+		chan="N1:VAC-TNE_TCM1601_MOTOR_TMP"
+	}
+}
+oval {
+	object {
+		x=300
+		y=10
+		width=20
+		height=20
+	}
+	"basic attribute" {
+		clr=21
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="N1:VAC-TNE_TCM1601_MOTOR_TMP"
+	}
 }
