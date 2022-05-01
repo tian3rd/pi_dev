@@ -152,7 +152,7 @@ class TCM1601(object):
         self.addr = DEV_ADDR
         self.ser = serial.Serial(port=self.port, baudrate=self.baudrate,
                                  timeout=self.timeout)
-        self.dt = .500
+        self.dt = .100
 
     @property
     def addr(self):
@@ -252,7 +252,8 @@ class TCM1601(object):
         '''
         req = self.send_data_request(COMMAND[command]['number'])
         read_size = len(req) + COMMAND[command]['datatype']['size'] - 2
-        return self.ser.read(read_size * 8)
+        # specify the exact number of bytes to read, otherwise it's much slower using readline(), or read()
+        return self.ser.read(read_size)
 
     def get_error(self) -> str:
         '''
