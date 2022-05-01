@@ -82,7 +82,7 @@ class myDriver(Driver):
             for reason in controllerDB.keys():
                 print("READING: ", reason)
                 self.read_channels(reason)
-                sleep(.5)
+                # sleep(.5)
             self.updatePVs()
 
 
