@@ -13,6 +13,8 @@
 
 3. [Arduino](https://www.arduino.cc/)
 
+4. [MCP23008/MCP23S08](https://www.jaycar.com.au/medias/sys_master/images/images/9666170847262/ZK8869-dataSheetMain.pdf): 8-Bit I/O Expander with Serial Interface
+
 ## Reference
 
 https://www.instructables.com/Arduino-NANO-Tests-2-MCP23S17-IO-Xpanders/
