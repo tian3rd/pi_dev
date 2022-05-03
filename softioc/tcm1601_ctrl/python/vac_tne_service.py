@@ -23,6 +23,7 @@ controllerDB = {
     # # 'PRESSURE': {'type': 'str'},
     # 'ADDRESS': {'type': 'int'},
     # 'SWITCH_PNT': {'type': 'str'},
+    'TMS_ACT_TMP': {'type': 'str'},
 }
 
 
@@ -54,6 +55,8 @@ class myDriver(Driver):
             value = self.controller.get_address()
         elif reason == 'SWITCH_PNT':
             value = self.controller.get_switch_point()
+        elif reason == 'TMS_ACT_TMP':
+            value = self.controller.get_tms_act_tmp()
 
         self.setParam(reason, value)
         self.updatePVs()
