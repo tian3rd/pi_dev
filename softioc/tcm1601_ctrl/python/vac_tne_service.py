@@ -4,7 +4,7 @@
 import re
 from pcaspy import Driver, SimpleServer
 import Tcm1601
-from time import sleep
+from time import sleep, time
 
 import systemd.daemon
 import datetime
@@ -24,6 +24,7 @@ controllerDB = {
     # 'ADDRESS': {'type': 'int'},
     # 'SWITCH_PNT': {'type': 'str'},
     'TMS_ACT_TMP': {'type': 'str'},
+    'ELAPSED_TIME': {'type': 'str'},
 }
 
 
@@ -31,6 +32,8 @@ class myDriver(Driver):
     def __init__(self):
         super().__init__()
         self.controller = Tcm1601.TCM1601('/dev/ttyUSB0')
+        self.start_timing = -1
+        self.elapsed = -2
         self.tid = threading.Thread(target=self.run)
         self.tid.setDaemon(True)
         self.tid.start()
@@ -39,12 +42,19 @@ class myDriver(Driver):
         value = 'NULL'
         if reason == 'MOTOR_TMP':
             value = 1 if self.controller.get_turbopump_status() == 'ON' else 0
+        elif reason == 'ELAPSED_TIME':
+            value = '{t} s'.format(t=self.elapsed)
         elif reason == 'ERROR_CODE':
             value = self.controller.get_error()
         elif reason == 'ERROR_LAST':
             value = self.controller.get_last_error()
         elif reason == 'ACT_ROT_SPD':
             value = self.controller.get_act_rotspd()
+            spd = int(value.split()[0])
+            if spd > 1 and spd < 599:
+                self.elapsed = time() - self.start_timing
+            # self.setParam('ELAPSED_TIME', '{t} s'.format(t=self.elapsed))
+            # self.updatePVs()
         elif reason == 'TMP_I_MOT':
             value = self.controller.get_motor_current()
         elif reason == 'TMP_OP_HRS':
@@ -64,6 +74,7 @@ class myDriver(Driver):
 
     def write(self, reason, value):
         if reason == 'MOTOR_TMP':
+            self.start_timing = time()
             success = self.controller.turn_on_turbopump() if int(
                 value) == 1 else self.controller.turn_off_turbopump()
             if not success:
@@ -83,6 +94,7 @@ class myDriver(Driver):
     def run(self):
         while True:
             for reason in controllerDB.keys():
+                # if reason != 'ELAPSED_TIME':
                 print("READING: ", reason)
                 self.read_channels(reason)
                 sleep(.1)
