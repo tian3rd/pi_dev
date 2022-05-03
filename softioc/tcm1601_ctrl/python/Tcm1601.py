@@ -116,6 +116,12 @@ COMMAND = {
         'description': 'maximum run-up time in mins',
         'datatype': DATA_TYPE[1],
     },
+    'TMS_ActTmp': {
+        'number': 331,
+        'display': 'TMS ActTmp',
+        'description': 'Heating TMS, actual value in celcius',
+        'datatype': DATA_TYPE[1],
+    },
 }
 
 # command info such as {23: {'no': 0, 'type': 'boolean_old', ...}, 340: {}}
@@ -315,6 +321,9 @@ class TCM1601(object):
     def get_tmp_rutimes(self) -> str:
         return "{ru} mins".format(ru=self.decode_bytes(self.status_request('TMPRUTime')))
 
+    def get_tms_act_tmp(self) -> str:
+        return "{temp} degrees".format(temp=self.decode_bytes(self.status_request('TMS_ActTmp')))
+
     def set_address(self, new_addr) -> bool:
         '''
         Set a new address for the controller.
@@ -324,6 +333,12 @@ class TCM1601(object):
         self.addr = new_addr
         return True if self.get_address() == new_addr else False
 
+    def set_tmp_rutime(self, run_time=2):
+        self.send_control_command(
+            COMMAND['TMPRUTime']['number'], '{:06d}'.format(run_time))
+        return True if self.get_tmp_rutimes() == "{ru} mins".format(ru=run_time) else False
+        
+    
     def set_switch_pnt(self, value) -> bool:
         '''
         Set a new switch point for the controller.
