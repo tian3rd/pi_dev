@@ -231,3 +231,32 @@ oval {
 		chan="N1:VAC-TNE_TCM1601_MOTOR_TMP"
 	}
 }
+text {
+	object {
+		x=8
+		y=244
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="331TMSActTmp"
+	align="horiz. centered"
+}
+"text update" {
+	object {
+		x=119
+		y=237
+		width=200
+		height=30
+	}
+	monitor {
+		chan="N1:VAC-TNE_TCM1601_TMS_ACT_TMP"
+		clr=14
+		bclr=4
+	}
+	format="string"
+	limits {
+	}
+}
