@@ -16,7 +16,7 @@ controllerPrefix = 'N1:VAC-TNE_TCM1601_'
 controllerDB = {
     'MOTOR_TMP': {'type': 'enum', 'enums': ['0', '1']},
     'ERROR_LAST': {'type': 'str'},
-    'ERROR_CODE': {'type': 'str', },
+    # 'ERROR_CODE': {'type': 'str', },
     'ACT_ROT_SPD': {'type': 'str'},
     'TMP_I_MOT': {'type': 'str'},
     # 'TMP_OP_HRS': {'type': 'str'},
@@ -82,7 +82,7 @@ class myDriver(Driver):
             for reason in controllerDB.keys():
                 print("READING: ", reason)
                 self.read_channels(reason)
-                # sleep(.5)
+                sleep(.1)
             self.updatePVs()
 
 
