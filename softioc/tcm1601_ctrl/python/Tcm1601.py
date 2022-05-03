@@ -62,6 +62,14 @@ COMMAND = {
         'description': 'Actual error code, no Err, Errxxx or Wrnxxx',
         'datatype': DATA_TYPE[4],
     },
+    'Mag_Tmp': {
+        'number': 304,
+        'datatype': DATA_TYPE[0],
+    },
+    'Turbo_Tmp': {
+        'number': 305,
+        'datatype': DATA_TYPE[0]
+    },
     'ErrorLast': {
         'number': 360,
         'display': 'Past Error',
@@ -110,6 +118,10 @@ COMMAND = {
         'description': 'Rotation speed switchpoint in %',
         'datatype': DATA_TYPE[1],
     },
+    'TMPRot_Set':{
+        'number': 707,
+        'datatype': DATA_TYPE[2],
+    },
     'TMPRUTime': {
         'number': 700,
         'display': 'TMPRUTime',
@@ -121,6 +133,10 @@ COMMAND = {
         'display': 'TMS ActTmp',
         'description': 'Heating TMS, actual value in celcius',
         'datatype': DATA_TYPE[1],
+    },
+    'Heat_Type': {
+        'number': 335,
+        'datatype': DATA_TYPE[7],
     },
 }
 
@@ -299,11 +315,23 @@ class TCM1601(object):
         '''
         return "{mbar} mbar".format(mbar=self.decode_bytes(self.status_request('Pressure')))
 
+    def get_mag_tmp(self) -> str:
+        return f"{self.decode_bytes(self.status_request('Mag_Tmp'))}"
+
+    def get_turbo_tmp(self) -> str:
+        return f"{self.decode_bytes(self.status_request('Turbo_Tmp'))}"
+
     def get_turbopump_status(self) -> str:
         '''
         Get the turbopump status.
         '''
         return self.decode_bytes(self.status_request('MotorTMP'))
+    
+    def get_heat_type(self) -> str:
+        '''
+        Get the turbopump status.
+        '''
+        return self.decode_bytes(self.status_request('Heat_Type'))
 
     def get_address(self) -> int:
         '''
@@ -314,6 +342,9 @@ class TCM1601(object):
 
     def get_temperature(self) -> str:
         return "{tmp} degrees".format(tmp=self.decode_bytes(self.status_request('TMSheatSet')))
+
+    def get_tmprot_set(self) -> str:
+        return "{} ".format(self.decode_bytes(self.status_request('TMPRot_Set')))
 
     def get_switch_point(self) -> str:
         return "{sp} %".format(sp=self.decode_bytes(self.status_request('SwitchPnt')))
