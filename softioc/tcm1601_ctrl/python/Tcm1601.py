@@ -50,6 +50,10 @@ DATA_TYPE = {
 }
 
 COMMAND = {
+    'RUTimeCtr': {
+        'number': 4,
+        'datatype': DATA_TYPE[0],
+    },
     'MotorTMP': {
         'number': 23,
         'display': 'Motor TMP',
@@ -208,7 +212,7 @@ class TCM1601(object):
               .format(df=dataframe, enc=encoding, encd=encoded))
         self.ser.write(dataframe.encode(encoding))
         # ensure the data is written
-        self.ser.flush()
+        # self.ser.flush()
         return encoded
 
     def send_control_command(self, param_num, data_str, encoding=ENCODING):
@@ -232,7 +236,7 @@ class TCM1601(object):
               'Encoded in ({enc}): {encd}'
               .format(df=dataframe, enc=encoding, encd=encoded))
         self.ser.write(encoded)
-        sleep(self.dt)
+        # sleep(self.dt)
         return encoded
 
     def decode_bytes(self, dataframe, encoding=ENCODING):
