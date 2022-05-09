@@ -1,0 +1,48 @@
+# systemd unit file for the vacuum controller service
+#
+# Installation
+# sudo cp vac_tne_service.service /etc/systemd/system/
+#
+# sudo mkdir /usr/local/lib/vac_tne_service
+# sudo cp vac_tne_service.py /usr/local/lib/vac_tne_service/lsc_vga_ctrl.py
+#
+# location of this file
+# /etc/systemd/system/vac_tne_service.service
+#
+# enable with
+# $ sudo systemctl enable vac_tne_service.service
+#
+# start with
+# $ sudo systemctl start vac_tne_service.service
+#
+# check status with 
+# $ sudo systemctl status vac_tne_service.service
+
+[Unit]
+# Human readable name of the unit
+Description=Python Vacuum Controller TCM1601 Service
+
+
+[Service]
+# Command to execute when the service is started
+ExecStart=/usr/bin/python3 /usr/local/lib/vac_tne_service/vac_tne_service.py
+
+# Disable Python's buffering of STDOUT and STDERR, so that output from the
+# service shows up immediately in systemd's logs
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONPATH=/opt/rtapps/linux-arm/epics-3.15.5_long/pyext/pcaspy/lib/python3.7/site-packages:/opt/rtapps/linux-arm/epics-3.15.5_long/pyext/pyepics/lib/python3.7/site-packages
+
+# Automatically restart the service if it crashes
+Restart=on-failure
+
+# Our service will notify systemd once it is up and running
+Type=notify
+
+# Use a dedicated user to run our service
+User=controls
+
+
+[Install]
+# Tell systemd to automatically start this service when the system boots
+# (assuming the service is enabled)
+WantedBy=default.target
