@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from tarfile import ENCODING
 import serial
 import subprocess
 from time import sleep
@@ -122,7 +121,7 @@ COMMAND = {
         'description': 'Rotation speed switchpoint in %',
         'datatype': DATA_TYPE[1],
     },
-    'TMPRot_Set':{
+    'TMPRot_Set': {
         'number': 707,
         'datatype': DATA_TYPE[2],
     },
@@ -330,7 +329,7 @@ class TCM1601(object):
         Get the turbopump status.
         '''
         return self.decode_bytes(self.status_request('MotorTMP'))
-    
+
     def get_heat_type(self) -> str:
         '''
         Get the turbopump status.
@@ -372,8 +371,7 @@ class TCM1601(object):
         self.send_control_command(
             COMMAND['TMPRUTime']['number'], '{:06d}'.format(run_time))
         return True if self.get_tmp_rutimes() == "{ru} mins".format(ru=run_time) else False
-        
-    
+
     def set_switch_pnt(self, value) -> bool:
         '''
         Set a new switch point for the controller.
