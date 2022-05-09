@@ -1,20 +1,27 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from distutils.log import INFO
-import re
 from pcaspy import Driver, SimpleServer
-import Tcm1601
 from time import sleep, time
 import logging
 from datetime import datetime as dt
-
 import systemd.daemon
-import datetime
 import os.path
 import threading
 
-controllerPrefix = 'N1:VAC-TNE_TCM1601_'
+import Tcm1601
+
+script_name = os.path.basename(__file__)
+print('--- Running ' + script_name + ' ---')
+
+# EPICS channel for TCM1601 controller
+IFO = 'N1'
+SYSTEM = 'FLX'
+SUBSYS = 'TNE_TCM1601'
+
+# controllerPrefix = 'N1:VAC-TNE_TCM1601_'
+# rename the channel name prefix to 'N1:FLX-TNE_TCM1601_'
+controllerPrefix = IFO + ':' + SYSTEM + '-' + SUBSYS + '_'
 
 controllerDB = {
     'MOTOR_TMP': {'type': 'enum', 'enums': ['0', '1']},
@@ -30,13 +37,57 @@ controllerDB = {
     'ELAPSED_TIME': {'type': 'str'},
 }
 
-logging.basicConfig(filename=dt.today().strftime('%Y-%m-%d') + '_log', filemode='a', format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
+# local logging files for quick debugging
+logging.basicConfig(filename=dt.today().strftime('%Y-%m-%d') + '_log', filemode='a',
+                    format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
+
+ini_file_name = 'vac_tne_ini_content.txt'
+ini_file_dirpath_local_write = os.path.dirname(
+    os.path.realpath(__file__))[:-7] + '/ini/'
+ini_file_dirpath_controller = '/opt/rtcds/anu/n1/softioc/tcm1601_ctrl/ini/'
 
 
-class myDriver(Driver):
-    def __init__(self):
+def generate_ini_file(ini_file_dirpath, controllerDB):
+    '''
+    Generate the ini file for the controller.
+    Input:
+        ini_file_dirpath: the directory path to the ini file
+        controllerDB: the dictionary of the controller channels and types
+    '''
+    now = dt.now()
+    with open(ini_file_dirpath + ini_file_name, 'w') as ini_file:
+        ini_file.writelines(["# Auto generated file by " + script_name + "\n",
+                             "# at " +
+                             now.strftime("%Y-%m-%d %H:%M:%S") + "\n",
+                             "#\n"
+                             "# Using the default parameters\n",
+                             "[default]\n",
+                             "gain=1.00\n",
+                             "acquire=3\n",
+                             "dcuid=52\n",
+                             "ifoid=0\n",
+                             "datatype=4\n",
+                             "datarate=16\n",
+                             "offset=0\n",
+                             "slope=1.0\n",
+                             "units=undef\n",
+                             "#\n",
+                             "#\n",
+                             "# Following content lines to be manually added to the\n",
+                             "# edc.ini file, which points to /opt/rtcds/anu/n1/chans/daq/N1FE1_EDC.ini\n",
+                             "# Then the standalone_edc service (rts-edc.service on n1fe1) and the daqd\n",
+                             "# service (rts-daqd.service on the n1fb10) will need to be restarted to\n",
+                             "# the changes into effect.\n",
+                             "#\n"])
+        for channel in controllerDB:
+            ini_file.writelines("[" + controllerPrefix + channel + "]\n")
+    ini_file.close()
+
+
+class MyDriver(Driver):
+    def __init__(self, controller_address='/dev/ttyUSB0'):
         super().__init__()
-        self.controller = Tcm1601.TCM1601('/dev/ttyUSB0')
+        self.controller = Tcm1601.TCM1601(controller_address)
         self.script_start = time()
         self.start_timing = -1
         self.elapsed = -2
@@ -46,7 +97,7 @@ class myDriver(Driver):
 
     def read_channels(self, reason):
         value = 'NULL'
-        try: 
+        try:
             if reason == 'MOTOR_TMP':
                 value = 1 if self.controller.get_turbopump_status() == 'ON' else 0
             elif reason == 'ELAPSED_TIME':
@@ -60,8 +111,6 @@ class myDriver(Driver):
                 spd = int(value.split()[0])
                 if spd > 1 and spd < 599:
                     self.elapsed = time() - self.start_timing
-                # self.setParam('ELAPSED_TIME', '{t} s'.format(t=self.elapsed))
-                # self.updatePVs()
             elif reason == 'TMP_I_MOT':
                 value = self.controller.get_motor_current()
             elif reason == 'TMP_OP_HRS':
@@ -84,7 +133,7 @@ class myDriver(Driver):
         return value
 
     def write(self, reason, value):
-        try: 
+        try:
             if reason == 'MOTOR_TMP':
                 self.start_timing = time()
                 success = self.controller.turn_on_turbopump() if int(
@@ -114,26 +163,36 @@ class myDriver(Driver):
                 for reason in controllerDB.keys():
                     # if reason != 'ELAPSED_TIME':
                     print("READING: ", reason)
-                    current_status.append(reason + ": " + str(self.read_channels(reason)))
+                    current_status.append(
+                        reason + ": " + str(self.read_channels(reason)))
                     sleep(.1)
                 self.updatePVs()
                 if time() - self.script_start > 2:
                     logging.info(f'{" | ".join(current_status)}')
                     self.script_start = time()
             except Exception as e:
-                err_msg = "ERROR occurred while running the script: {}".format(str(e))
+                err_msg = "ERROR occurred while running the script: {}".format(
+                    str(e))
                 print(err_msg)
                 logging.error(err_msg)
                 continue
 
 
 if __name__ == '__main__':
+    print('--- generate .ini file content in ' + ini_file_name + ' ---')
+    # local_write for local testing
+    generate_ini_file(ini_file_dirpath_local_write, controllerDB)
+    # # if mounted, use cds file write instead
+    # generate_ini_file(ini_file_dirpath_controller, controllerDB)
+
     print('--- now starting server ---')
+
+    sleep(1)
 
     server = SimpleServer()
     server.createPV(controllerPrefix, controllerDB)
 
-    driver = myDriver()
+    driver = MyDriver()
 
     systemd.daemon.notify('READY=1')
 
