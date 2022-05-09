@@ -1,5 +1,5 @@
 from pcaspy import Driver, SimpleServer
-import Pfeiffer
+from pylablib.devices import Pfeiffer
 
 import systemd.daemon
 import datetime
@@ -62,7 +62,7 @@ class myDriver(Driver):
     def __init__(self):
         super().__init__()
         # https://pylablib.readthedocs.io/en/stable/.apidoc/pylablib.devices.Pfeiffer.html?highlight=get_gauge_kind
-        self.gauge = Pfeiffer.TPG261("/dev/ttyUSB0")
+        self.gauge = Pfeiffer.TPG260("/dev/ttyUSB0")
         self.status = 'ok'
         self.channels = ['ERROR', 'STATUS',
                          'UNITS', 'DISP_RES', 'TYPE', 'PRESSURE']
@@ -73,8 +73,7 @@ class myDriver(Driver):
     def read_channels(self, reason):
         # value = ''
         if reason == 'ERROR':
-            # if self.status == 'ok':
-            if 'ok' in self.status:
+            if self.status == 'ok':
                 value = 'No Error'
             else:
                 current_errors = self.gauge.get_current_errors()
@@ -90,8 +89,7 @@ class myDriver(Driver):
             value = self.gauge.get_gauge_kind()
         # only get pressure when status is ok?
         if reason == 'PRESSURE':
-            # if self.status == 'ok':
-            if 'ok' in self.status:
+            if self.status == 'ok':
                 # value = self.gauge.get_pressure(channel=1, display_units=True)
                 value = self.gauge.get_pressure(1, True)
             else:
@@ -102,7 +100,6 @@ class myDriver(Driver):
     def run(self):
         while True:
             for reason in self.channels:
-                print("READING: ", reason)
                 self.read_channels(reason)
             self.updatePVs()
 
