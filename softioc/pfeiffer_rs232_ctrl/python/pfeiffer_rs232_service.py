@@ -5,6 +5,7 @@ import systemd.daemon
 import datetime
 import os.path
 import threading
+from time import sleep
 
 
 gaugePrefix = 'N1:VAC-GAUGE_1_'
@@ -114,6 +115,7 @@ if __name__ == '__main__':
     generate_ini_file(ini_file_dirpath_local_write, gaugeDB)
 
     print('Starting server')
+    sleep(2)
     server = SimpleServer()
     server.createPV(gaugePrefix, gaugeDB)
     driver = myDriver()
