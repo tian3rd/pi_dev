@@ -30,6 +30,7 @@ ExecStart=/usr/bin/python3 /usr/local/lib/pfeiffer_rs232_service/pfeiffer_rs232_
 # Disable Python's buffering of STDOUT and STDERR, so that output from the
 # service shows up immediately in systemd's logs
 Environment=PYTHONUNBUFFERED=3
+Environment=PYTHONPATH=/opt/rtapps/linux-arm/epics-3.15.5_long/pyext/pcaspy/lib/python3.7/site-packages:/opt/rtapps/linux-arm/epics-3.15.5_long/pyext/pyepics/lib/python3.7/site-packages
 
 # Automatically restart the service if it crashes
 Restart=on-failure
