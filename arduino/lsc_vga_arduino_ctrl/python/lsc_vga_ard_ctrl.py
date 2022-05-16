@@ -6,6 +6,7 @@ from datetime import datetime as dt
 import systemd.daemon
 from time import sleep
 from pcaspy import Driver, SimpleServer
+import threading
 
 
 import arduino_mega
@@ -127,18 +128,25 @@ filter_rb_chs = ['CHAN_' + str(_) + '_FILTERS_RB' for _ in range(4)]
 filter_separate_chs = [
     'CHAN_' + str(i) + '_FILTER0' + str(j) for i in range(4) for j in range(4)]
 
+max_gain = (2 ** arduino_mega.NUM_GAINS_PER_CH - 1) * 3
+max_filter = (2 ** arduino_mega.NUM_FILTERS_PER_CH - 1)
+
 
 class MyDriver(Driver):
     def __init__(self):
         super().__init__()
         self.ard = arduino_mega.ArduinoMega(
             port=arduino_mega_ADDR, baudrate=9600)
+        self.read_times = 0
+        self.tid = threading.Thread(target=self.run)
+        self.tid.setDaemon(True)
+        self.tid.start()
 
-    def read(self, reason):
+    def read_channel(self, reason):
         ch = int(reason.split('_')[1])
         start_port = ch * arduino_mega.NUM_PORTS_PER_CH
         if reason in gain_chs:
-            value = int('0b' + self.ard.get_output_ports(
+            value = max_gain - int('0b' + self.ard.get_output_ports(
             )[start_port: start_port + arduino_mega.NUM_GAINS_PER_CH], 2) * 3
         elif reason in gain_rb_chs:
             value = int('0b' + self.ard.get_input_ports(
@@ -155,10 +163,11 @@ class MyDriver(Driver):
         elif reason in filter_separate_chs:
             filt = int(reason[-1])
             # note even if in arduino script the return type is int, when it returns to rpi via serial, the transmitted data type is always string, so cast it to int is necessay
-            value = int(self.ard.get_port(
+            value = 1 - int(self.ard.get_port(
                 ch * arduino_mega.NUM_GAINS_PER_CH + arduino_mega.NUM_GAINS_PER_CH + filt))
-            print(f"reason: {reason}, value: {value}")
+        print(f"reason: {reason}, value: {value}")
         self.setParam(reason, value)
+        self.updatePVs()
         return value
 
     def write(self, reason, value):
@@ -168,31 +177,47 @@ class MyDriver(Driver):
             try:
                 ports = [ch * arduino_mega.NUM_PORTS_PER_CH +
                          _ for _ in range(arduino_mega.NUM_GAINS_PER_CH)]
-                vals = bin(
-                    value // 3)[2:].zfill(arduino_mega.NUM_GAINS_PER_CH)
+                vals = bin((max_gain - value) //
+                           3)[2:].zfill(arduino_mega.NUM_GAINS_PER_CH)
                 for p in range(len(ports)):
                     if not self.ard.set_port(ports[p], int(vals[p])):
                         print('Error setting port ' + str(ports[p]))
             except Exception as e:
                 print(e)
-            finally:
-                self.read(reason)
-                self.read(reason + '_RB')
+            # finally:
+            #     self.read(reason)
+            #     self.read(reason + '_RB')
 
         elif reason in filter_separate_chs:
             try:
                 filt = int(reason[-1])
                 port = ch * arduino_mega.NUM_PORTS_PER_CH + arduino_mega.NUM_GAINS_PER_CH + filt
-                if not self.ard.set_port(port, value):
+                if not self.ard.set_port(port, 1 - value):
                     print('Error setting port ' + str(port))
             except Exception as e:
                 print(e)
-            finally:
-                self.read(reason[:-2] + 'S')
-                self.read(reason[:-2] + 'S_RB')
-                self.read(reason)
-
+            # finally:
+            #     self.read_channel(reason[:-2] + 'S')
+            #     self.read_channel(reason[:-2] + 'S_RB')
+            #     self.read_channel(reason)
+        # self.read(reason)
+        self.setParam(reason, value)
         self.updatePVs()
+
+    def run(self):
+        while True:
+            try:
+                for reason in arduino_megaDB:
+                    self.read_times += 1
+                    print(f"{self.read_times} times: READING {reason}")
+                    self.read_channel(reason)
+                    sleep(.1)
+                print(self.ard)
+                sleep(.1)
+            except Exception as e:
+                print(f"ERROR: {str(e)} in channel: {reason}")
+                sleep(5)
+                continue
 
 
 if __name__ == '__main__':

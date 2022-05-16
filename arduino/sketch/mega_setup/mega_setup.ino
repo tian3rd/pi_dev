@@ -153,7 +153,8 @@ void loop() {
       Serial.println(read_port(port));
     } else if (cmd.startsWith("WOUTS")) {  // 'WOUTS' to write all output pins
       String outputs_cmd = cmd.substring(5);
-      if (set_outputs(outputs_cmd)) {
+      bool isWriteSuccessful = set_outputs(outputs_cmd);
+      if (isWriteSuccessful) {
         Serial.println("OK");
       } else {
         Serial.println("ERROR");
@@ -161,7 +162,8 @@ void loop() {
     } else if (cmd.startsWith("W")) {  // 'W' to write a value to a certain pin/port
       int port = cmd.substring(1, 3).toInt();
       int value = cmd.substring(3).toInt();
-      if (set_port(port, value)) {
+      bool isWriteSuccessful = set_port(port, value);
+      if (isWriteSuccessful) {
         Serial.println("OK");
       } else {
         Serial.println("ERROR");

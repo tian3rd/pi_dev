@@ -12,7 +12,7 @@ NUM_PORTS_PER_CH = 8
 NUM_CHS = 4
 NUM_GAINS_PER_CH = 4
 NUM_FILTERS_PER_CH = 3
-DELAY_TIME = 50
+DELAY_TIME = 0
 
 
 class BaseException(Exception):
@@ -34,7 +34,10 @@ class ArduinoMega(object):
         command = command.strip().encode('utf-8') + END
         self.ser.write(command)
         self.ser.flush()
-        return self.ser.read_until(END).strip().decode(ENCODING)
+        # sleep(.05)
+        result = self.ser.read_until(END).strip().decode(ENCODING)
+        print(f"Command result: {result}")
+        return result
 
     def __str__(self) -> str:
         start_pin = 2
