@@ -1,0 +1,50 @@
+# Auto generated file by lsc_vga_ard_ctrl.py
+# at 2022-05-16 13:42:09
+#
+# Using the default parameters
+[default]
+gain=1.00
+acquire=3
+dcuid=52
+ifoid=0
+datatype=4
+datarate=16
+offset=0
+slope=1.0
+units=undef
+#
+#
+# Following content lines to be manually added to the
+# edc.ini file, which points to /opt/rtcds/anu/n1/chans/daq/N1FE1_EDC.ini
+# Then the standalone_edc service (rts-edc.service on n1fe1) and the daqd
+# service (rts-daqd.service on the n1fb10) will need to be restarted to
+# the changes into effect.
+#
+[N1:LSC-VGA_CHAN_0_GAINS]
+[N1:LSC-VGA_CHAN_0_FILTERS]
+[N1:LSC-VGA_CHAN_0_GAINS_RB]
+[N1:LSC-VGA_CHAN_0_FILTERS_RB]
+[N1:LSC-VGA_CHAN_0_FILTER00]
+[N1:LSC-VGA_CHAN_0_FILTER01]
+[N1:LSC-VGA_CHAN_0_FILTER02]
+[N1:LSC-VGA_CHAN_1_GAINS]
+[N1:LSC-VGA_CHAN_1_FILTERS]
+[N1:LSC-VGA_CHAN_1_GAINS_RB]
+[N1:LSC-VGA_CHAN_1_FILTERS_RB]
+[N1:LSC-VGA_CHAN_1_FILTER00]
+[N1:LSC-VGA_CHAN_1_FILTER01]
+[N1:LSC-VGA_CHAN_1_FILTER02]
+[N1:LSC-VGA_CHAN_2_GAINS]
+[N1:LSC-VGA_CHAN_2_FILTERS]
+[N1:LSC-VGA_CHAN_2_GAINS_RB]
+[N1:LSC-VGA_CHAN_2_FILTERS_RB]
+[N1:LSC-VGA_CHAN_2_FILTER00]
+[N1:LSC-VGA_CHAN_2_FILTER01]
+[N1:LSC-VGA_CHAN_2_FILTER02]
+[N1:LSC-VGA_CHAN_3_GAINS]
+[N1:LSC-VGA_CHAN_3_FILTERS]
+[N1:LSC-VGA_CHAN_3_GAINS_RB]
+[N1:LSC-VGA_CHAN_3_FILTERS_RB]
+[N1:LSC-VGA_CHAN_3_FILTER00]
+[N1:LSC-VGA_CHAN_3_FILTER01]
+[N1:LSC-VGA_CHAN_3_FILTER02]
