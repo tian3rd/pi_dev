@@ -5,10 +5,10 @@ file {
 }
 display {
 	object {
-		x=636
-		y=67
-		width=958
-		height=1014
+		x=641
+		y=121
+		width=863
+		height=732
 	}
 	clr=14
 	bclr=4
@@ -386,21 +386,6 @@ rectangle {
 	clrmod="discrete"
 	stacking="column"
 }
-"choice button" {
-	object {
-		x=558
-		y=230
-		width=82
-		height=27
-	}
-	control {
-		chan="N1:LSC-VGA_CHAN_1_FILTER01"
-		clr=14
-		bclr=4
-	}
-	clrmod="discrete"
-	stacking="column"
-}
 oval {
 	object {
 		x=462
@@ -487,78 +472,6 @@ rectangle {
 		calc="A != B"
 		chan="N1:LSC-VGA_CHAN_1_GAINS_RB"
 		chanB="N1:LSC-VGA_CHAN_1_GAINS"
-	}
-}
-"text update" {
-	object {
-		x=7
-		y=646
-		width=245
-		height=34
-	}
-	monitor {
-		chan="N1:LSC-VGA_CHAN_0_FILTERS_RB"
-		clr=14
-		bclr=4
-	}
-	limits {
-		loprSrc="default"
-		hoprSrc="default"
-		hoprDefault=45
-	}
-}
-"text update" {
-	object {
-		x=259
-		y=646
-		width=222
-		height=34
-	}
-	monitor {
-		chan="N1:LSC-VGA_CHAN_0_FILTERS"
-		clr=14
-		bclr=4
-	}
-	limits {
-		loprSrc="default"
-		hoprSrc="default"
-		hoprDefault=45
-	}
-}
-"text update" {
-	object {
-		x=5
-		y=671
-		width=245
-		height=34
-	}
-	monitor {
-		chan="N1:LSC-VGA_CHAN_1_FILTERS_RB"
-		clr=14
-		bclr=4
-	}
-	limits {
-		loprSrc="default"
-		hoprSrc="default"
-		hoprDefault=45
-	}
-}
-"text update" {
-	object {
-		x=259
-		y=671
-		width=221
-		height=34
-	}
-	monitor {
-		chan="N1:LSC-VGA_CHAN_1_FILTERS"
-		clr=14
-		bclr=4
-	}
-	limits {
-		loprSrc="default"
-		hoprSrc="default"
-		hoprDefault=45
 	}
 }
 valuator {
@@ -819,78 +732,6 @@ oval {
 		chan="N1:LSC-VGA_CHAN_3_FILTER01"
 	}
 }
-"text update" {
-	object {
-		x=2
-		y=694
-		width=245
-		height=34
-	}
-	monitor {
-		chan="N1:LSC-VGA_CHAN_2_FILTERS_RB"
-		clr=14
-		bclr=4
-	}
-	limits {
-		loprSrc="default"
-		hoprSrc="default"
-		hoprDefault=45
-	}
-}
-"text update" {
-	object {
-		x=253
-		y=694
-		width=222
-		height=34
-	}
-	monitor {
-		chan="N1:LSC-VGA_CHAN_2_FILTERS"
-		clr=14
-		bclr=4
-	}
-	limits {
-		loprSrc="default"
-		hoprSrc="default"
-		hoprDefault=45
-	}
-}
-"text update" {
-	object {
-		x=253
-		y=718
-		width=221
-		height=34
-	}
-	monitor {
-		chan="N1:LSC-VGA_CHAN_3_FILTERS"
-		clr=14
-		bclr=4
-	}
-	limits {
-		loprSrc="default"
-		hoprSrc="default"
-		hoprDefault=45
-	}
-}
-"text update" {
-	object {
-		x=0
-		y=718
-		width=245
-		height=34
-	}
-	monitor {
-		chan="N1:LSC-VGA_CHAN_3_FILTERS_RB"
-		clr=14
-		bclr=4
-	}
-	limits {
-		loprSrc="default"
-		hoprSrc="default"
-		hoprDefault=45
-	}
-}
 oval {
 	object {
 		x=479
@@ -1145,4 +986,19 @@ oval {
 		vis="if zero"
 		chan="N1:LSC-VGA_CHAN_1_FILTER00"
 	}
+}
+"choice button" {
+	object {
+		x=561
+		y=231
+		width=74
+		height=27
+	}
+	control {
+		chan="N1:LSC-VGA_CHAN_1_FILTER01"
+		clr=14
+		bclr=4
+	}
+	clrmod="discrete"
+	stacking="column"
 }

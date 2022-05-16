@@ -9,7 +9,7 @@ const int BAUD_RATE = 9600;
 const int NUM_GAIN_PORTS = 4;
 const int NUM_FILTER_PORTS = 4;
 const int NUM_CHS = NUM_PORTS / (NUM_GAIN_PORTS + NUM_FILTER_PORTS);
-const int DELAY_TIME = 20; // delay for 20ms for set operations
+// const int DELAY_TIME = 0; // delay for 20ms for set operations
 
 /*
  * Initialize pins as OUTPUTs and INPUTs
@@ -19,11 +19,13 @@ void init_pins() {
   for (int pin = START_OUTPUT_PIN; pin <= END_OUTPUT_PIN; pin++) {
     pinMode(pin, OUTPUT);
     digitalWrite(pin, HIGH);
+    delay(0);
   }
   // by default, the pinmode is INPUT
   for (int pin = START_INPUT_PIN; pin <= END_INPUT_PIN; pin++) {
     pinMode(pin, INPUT);
     digitalWrite(pin, LOW);
+    delay(0);
   }
 }
 
@@ -47,6 +49,7 @@ String read_pins(int start, int end) {
   String result = "";
   for (int pin = start; pin <= end; pin++) {
     int status = digitalRead(pin);
+    delay(0);
     result += status;
   }
   // Serial.println(result);
@@ -61,6 +64,7 @@ String read_pins(int start, int end) {
 int read_port(int port) {
   int pin = START_OUTPUT_PIN + port;
   int result = digitalRead(pin);
+  delay(0);
   // Serial.println(result);
   return result;
 }
@@ -74,7 +78,7 @@ int read_port(int port) {
 bool set_port(int port, int value) {
   int pin = START_OUTPUT_PIN + port;
   digitalWrite(pin, value);
-  delay(DELAY_TIME);
+  delay(0);
   if (read_port(port) == value) {
     // Serial.println("OK");
     return true;
@@ -117,7 +121,7 @@ bool set_outputs(String cmd) {
   for (int pin = START_OUTPUT_PIN; pin <= END_OUTPUT_PIN; pin++) {
     int status = cmd.charAt(pin - START_OUTPUT_PIN) - '0';
     digitalWrite(pin, status);
-    delay(DELAY_TIME);
+    delay(0);
     if (status != digitalRead(pin)) {
       // Serial.println("Failed to set pin");
       return false;
@@ -153,19 +157,29 @@ void loop() {
       Serial.println(read_port(port));
     } else if (cmd.startsWith("WOUTS")) {  // 'WOUTS' to write all output pins
       String outputs_cmd = cmd.substring(5);
-      if (set_outputs(outputs_cmd)) {
-        Serial.println("OK");
-      } else {
-        Serial.println("ERROR");
+      bool writeSuccess = false;
+      while (!writeSuccess) {
+        writeSuccess = set_outputs(outputs_cmd);
+        // delay(1);
       }
+      // if (set_outputs(outputs_cmd) == 0) {
+      //   // Serial.println("OK");
+      // } else {
+      //   // Serial.println("ERROR");
+      // }
     } else if (cmd.startsWith("W")) {  // 'W' to write a value to a certain pin/port
       int port = cmd.substring(1, 3).toInt();
       int value = cmd.substring(3).toInt();
-      if (set_port(port, value)) {
-        Serial.println("OK");
-      } else {
-        Serial.println("ERROR");
+      bool writeSuccess = false;
+      while (!writeSuccess) {
+        writeSuccess = set_port(port, value);
+        // delay(1);
       }
+      // if (set_port(port, value) == 0) {
+      //   // Serial.println("OK");
+      // } else {
+      //   // Serial.println("ERROR");
+      // }
     }
   }
 }

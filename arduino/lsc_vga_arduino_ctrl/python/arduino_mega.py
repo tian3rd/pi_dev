@@ -12,7 +12,7 @@ NUM_PORTS_PER_CH = 8
 NUM_CHS = 4
 NUM_GAINS_PER_CH = 4
 NUM_FILTERS_PER_CH = 3
-DELAY_TIME = 50
+DELAY_TIME = 0
 
 
 class BaseException(Exception):
@@ -29,6 +29,7 @@ class ArduinoMega(object):
         self.baudrate = baudrate
         self.ser = serial.Serial(port=self.port, baudrate=baudrate)
         print(self.__class__.__name__ + ' connected')
+        print(self.__str__())
 
     def send_command(self, command: str) -> str:
         command = command.strip().encode('utf-8') + END
@@ -83,6 +84,7 @@ class ArduinoMega(object):
         if int(self.get_port(port)) != value:
             print("Failed to set port {} to {}".format(port, value))
             return False
+        print(f"Successfully set port{port} to {value}")
         return True
 
     def get_output_ports(self) -> str:
