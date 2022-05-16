@@ -8,9 +8,9 @@ from time import sleep
 from pcaspy import Driver, SimpleServer
 
 
-from . import arduino
+import arduino_mega
 import importlib
-importlib.reload(arduino)
+importlib.reload(arduino_mega)
 
 # Version
 major = '0'
@@ -18,7 +18,11 @@ minor = '1'
 patch = 'a'
 version = major + '.' + minor + '.' + patch
 
-arduino_ADDR = "/dev/cu.usbmodem141101"
+# on mac os
+# arduino_mega_ADDR = "/dev/cu.usbmodem141101"
+# on raspberry pi (rpi)
+arduino_mega_ADDR = "/dev/ttyACM0"
+
 
 script_name = os.path.basename(__file__)
 
@@ -33,13 +37,13 @@ SUBSYS = 'VGA'
 # 'N1:LSC-VGA_'
 VGA_PREFIX = IFO + ':' + SYSTEM + '-' + SUBSYS + '_'
 
-arduinoDB = {
+arduino_megaDB = {
     'CHAN_0_GAINS': {'type': 'int'},
     'CHAN_0_FILTERS': {'type': 'int'},
     'CHAN_0_GAINS_RB': {'type': 'int'},
     'CHAN_0_FILTERS_RB': {'type': 'int'},
-    'CHAN_0_GAINS_ERROR': {'type': 'char', 'count': 300},
-    'CHAN_0_FILTERS_ERROR': {'type': 'char', 'count': 300},
+    # 'CHAN_0_GAINS_ERROR': {'type': 'char', 'count': 300},
+    # 'CHAN_0_FILTERS_ERROR': {'type': 'char', 'count': 300},
     'CHAN_0_FILTER00': {'type': 'enum', 'enums': ['0', '1']},
     'CHAN_0_FILTER01': {'type': 'enum', 'enums': ['0', '1']},
     'CHAN_0_FILTER02': {'type': 'enum', 'enums': ['0', '1']},
@@ -47,8 +51,8 @@ arduinoDB = {
     'CHAN_1_FILTERS': {'type': 'int'},
     'CHAN_1_GAINS_RB': {'type': 'int'},
     'CHAN_1_FILTERS_RB': {'type': 'int'},
-    'CHAN_1_GAINS_ERROR': {'type': 'char', 'count': 300},
-    'CHAN_1_FILTERS_ERROR': {'type': 'char', 'count': 300},
+    # 'CHAN_1_GAINS_ERROR': {'type': 'char', 'count': 300},
+    # 'CHAN_1_FILTERS_ERROR': {'type': 'char', 'count': 300},
     'CHAN_1_FILTER00': {'type': 'enum', 'enums': ['0', '1']},
     'CHAN_1_FILTER01': {'type': 'enum', 'enums': ['0', '1']},
     'CHAN_1_FILTER02': {'type': 'enum', 'enums': ['0', '1']},
@@ -56,8 +60,8 @@ arduinoDB = {
     'CHAN_2_FILTERS': {'type': 'int'},
     'CHAN_2_GAINS_RB': {'type': 'int'},
     'CHAN_2_FILTERS_RB': {'type': 'int'},
-    'CHAN_2_GAINS_ERROR': {'type': 'char', 'count': 300},
-    'CHAN_2_FILTERS_ERROR': {'type': 'char', 'count': 300},
+    # 'CHAN_2_GAINS_ERROR': {'type': 'char', 'count': 300},
+    # 'CHAN_2_FILTERS_ERROR': {'type': 'char', 'count': 300},
     'CHAN_2_FILTER00': {'type': 'enum', 'enums': ['0', '1']},
     'CHAN_2_FILTER01': {'type': 'enum', 'enums': ['0', '1']},
     'CHAN_2_FILTER02': {'type': 'enum', 'enums': ['0', '1']},
@@ -65,8 +69,8 @@ arduinoDB = {
     'CHAN_3_FILTERS': {'type': 'int'},
     'CHAN_3_GAINS_RB': {'type': 'int'},
     'CHAN_3_FILTERS_RB': {'type': 'int'},
-    'CHAN_3_GAINS_ERROR': {'type': 'char', 'count': 300},
-    'CHAN_3_FILTERS_ERROR': {'type': 'char', 'count': 300},
+    # 'CHAN_3_GAINS_ERROR': {'type': 'char', 'count': 300},
+    # 'CHAN_3_FILTERS_ERROR': {'type': 'char', 'count': 300},
     'CHAN_3_FILTER00': {'type': 'enum', 'enums': ['0', '1']},
     'CHAN_3_FILTER01': {'type': 'enum', 'enums': ['0', '1']},
     'CHAN_3_FILTER02': {'type': 'enum', 'enums': ['0', '1']},
@@ -127,30 +131,33 @@ filter_separate_chs = [
 class MyDriver(Driver):
     def __init__(self):
         super().__init__()
-        self.ard = arduino.ArduinoMega(port=arduino_ADDR, baudrate=9600)
+        self.ard = arduino_mega.ArduinoMega(
+            port=arduino_mega_ADDR, baudrate=9600)
 
     def read(self, reason):
         ch = int(reason.split('_')[1])
-        start_port = ch * arduino.NUM_PORTS_PER_CH
+        start_port = ch * arduino_mega.NUM_PORTS_PER_CH
         if reason in gain_chs:
             value = int('0b' + self.ard.get_output_ports(
-            )[start_port: start_port + arduino.NUM_GAINS_PER_CH], 2) * 3
+            )[start_port: start_port + arduino_mega.NUM_GAINS_PER_CH], 2) * 3
         elif reason in gain_rb_chs:
             value = int('0b' + self.ard.get_input_ports(
-            )[start_port: start_port + arduino.NUM_GAINS_PER_CH], 2) * 3
+            )[start_port: start_port + arduino_mega.NUM_GAINS_PER_CH], 2) * 3
         elif reason in filter_chs:
-            start_port += arduino.NUM_GAINS_PER_CH
+            start_port += arduino_mega.NUM_GAINS_PER_CH
             value = int('0b' + self.ard.get_output_ports()[
-                        start_port: start_port + arduino.NUM_FILTERS_PER_CH], 2)
+                        start_port: start_port + arduino_mega.NUM_FILTERS_PER_CH], 2)
         elif reason in filter_rb_chs:
-            start_port += arduino.NUM_GAINS_PER_CH
+            start_port += arduino_mega.NUM_GAINS_PER_CH
             value = int('0b' + self.ard.get_input_ports()[
-                        start_port: start_port + arduino.NUM_FILTERS_PER_CH], 2)
+                        start_port: start_port + arduino_mega.NUM_FILTERS_PER_CH], 2)
         # FILTER00-02 are for choice buttons
         elif reason in filter_separate_chs:
             filt = int(reason[-1])
-            value = self.ard.get_port(
-                ch * arduino.NUM_GAINS_PER_CH + arduino.NUM_GAINS_PER_CH + filt)
+            # note even if in arduino script the return type is int, when it returns to rpi via serial, the transmitted data type is always string, so cast it to int is necessay
+            value = int(self.ard.get_port(
+                ch * arduino_mega.NUM_GAINS_PER_CH + arduino_mega.NUM_GAINS_PER_CH + filt))
+            print(f"reason: {reason}, value: {value}")
         self.setParam(reason, value)
         return value
 
@@ -159,9 +166,10 @@ class MyDriver(Driver):
 
         if reason in gain_chs:
             try:
-                ports = [ch * arduino.NUM_PORTS_PER_CH +
-                         _ for _ in range(arduino.NUM_GAINS_PER_CH)]
-                vals = bin(value // 3)[2:].zfill(arduino.NUM_GAINS_PER_CH)
+                ports = [ch * arduino_mega.NUM_PORTS_PER_CH +
+                         _ for _ in range(arduino_mega.NUM_GAINS_PER_CH)]
+                vals = bin(
+                    value // 3)[2:].zfill(arduino_mega.NUM_GAINS_PER_CH)
                 for p in range(len(ports)):
                     if not self.ard.set_port(ports[p], int(vals[p])):
                         print('Error setting port ' + str(ports[p]))
@@ -174,7 +182,7 @@ class MyDriver(Driver):
         elif reason in filter_separate_chs:
             try:
                 filt = int(reason[-1])
-                port = ch * arduino.NUM_PORTS_PER_CH + arduino.NUM_GAINS_PER_CH + filt
+                port = ch * arduino_mega.NUM_PORTS_PER_CH + arduino_mega.NUM_GAINS_PER_CH + filt
                 if not self.ard.set_port(port, value):
                     print('Error setting port ' + str(port))
             except Exception as e:
@@ -182,6 +190,7 @@ class MyDriver(Driver):
             finally:
                 self.read(reason[:-2] + 'S')
                 self.read(reason[:-2] + 'S_RB')
+                self.read(reason)
 
         self.updatePVs()
 
@@ -189,7 +198,7 @@ class MyDriver(Driver):
 if __name__ == '__main__':
     print('--- generate .ini file content in ' + ini_file_name + ' ---')
     # use _local_write for local testing and debugging
-    generate_ini_file(ini_file_dirpath_local_write, arduinoDB)
+    generate_ini_file(ini_file_dirpath_local_write, arduino_megaDB)
     # use _rpi for service on rpi server (in /etc/systemd/system/lsc_vga_ctrl_service.service)
     # generate_ini_file(ini_file_dirpath_rpi, busDB)
 
@@ -199,7 +208,7 @@ if __name__ == '__main__':
     sleep(1)
 
     server = SimpleServer()
-    server.createPV(VGA_PREFIX, arduinoDB)
+    server.createPV(VGA_PREFIX, arduino_megaDB)
 
     driver = MyDriver()
 
