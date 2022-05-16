@@ -9,6 +9,7 @@ const int BAUD_RATE = 9600;
 const int NUM_GAIN_PORTS = 4;
 const int NUM_FILTER_PORTS = 4;
 const int NUM_CHS = NUM_PORTS / (NUM_GAIN_PORTS + NUM_FILTER_PORTS);
+const int DELAY_TIME = 20; // delay for 20ms for set operations
 
 /*
  * Initialize pins as OUTPUTs and INPUTs
@@ -73,6 +74,7 @@ int read_port(int port) {
 bool set_port(int port, int value) {
   int pin = START_OUTPUT_PIN + port;
   digitalWrite(pin, value);
+  delay(DELAY_TIME);
   if (read_port(port) == value) {
     // Serial.println("OK");
     return true;
@@ -115,6 +117,7 @@ bool set_outputs(String cmd) {
   for (int pin = START_OUTPUT_PIN; pin <= END_OUTPUT_PIN; pin++) {
     int status = cmd.charAt(pin - START_OUTPUT_PIN) - '0';
     digitalWrite(pin, status);
+    delay(DELAY_TIME);
     if (status != digitalRead(pin)) {
       // Serial.println("Failed to set pin");
       return false;
