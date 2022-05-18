@@ -149,9 +149,11 @@ class MyDriver(Driver):
         self.flag = 0  # 0: released 1: set/secured
 
     def read_channel(self, reason):
+        # e.g., 'CHAN_3_FILTERS_RB' ch is 3
         ch = int(reason.split('_')[1])
         start_port = ch * arduino_mega.NUM_PORTS_PER_CH
         if reason in gain_chs:
+            # the reversed logic is that when pin is high, the gain/filter is not activated
             value = max_gain - int('0b' + self.ard.get_output_ports(
             )[start_port: start_port + arduino_mega.NUM_GAINS_PER_CH], 2) * 3
         elif reason in gain_rb_chs:
