@@ -157,29 +157,13 @@ void loop() {
       Serial.println(read_port(port));
     } else if (cmd.startsWith("WOUTS")) {  // 'WOUTS' to write all output pins
       String outputs_cmd = cmd.substring(5);
-      bool writeSuccess = false;
-      while (!writeSuccess) {
-        writeSuccess = set_outputs(outputs_cmd);
-        // delay(1);
-      }
-      // if (set_outputs(outputs_cmd) == 0) {
-      //   // Serial.println("OK");
-      // } else {
-      //   // Serial.println("ERROR");
-      // }
+      bool writeSuccess = set_outputs(outputs_cmd);
+      Serial.println(writeSuccess);
     } else if (cmd.startsWith("W")) {  // 'W' to write a value to a certain pin/port
       int port = cmd.substring(1, 3).toInt();
       int value = cmd.substring(3).toInt();
-      bool writeSuccess = false;
-      while (!writeSuccess) {
-        writeSuccess = set_port(port, value);
-        // delay(1);
-      }
-      // if (set_port(port, value) == 0) {
-      //   // Serial.println("OK");
-      // } else {
-      //   // Serial.println("ERROR");
-      // }
+      bool writeSuccess = set_port(port, value);
+      Serial.println(writeSuccess);
     }
   }
 }
