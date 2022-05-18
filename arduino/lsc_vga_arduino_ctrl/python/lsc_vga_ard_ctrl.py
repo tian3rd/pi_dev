@@ -138,10 +138,15 @@ class MyDriver(Driver):
         super().__init__()
         self.ard = arduino_mega.ArduinoMega(
             port=arduino_mega_ADDR, baudrate=9600)
-        self.read_times = 0
+        # # debug purpose
+        # self.time_start = time()
+        # self.read_times = 0
+        # specific thread to replace default read() func
+        self.interval = 2  # if flag is set, come back later
         self.tid = threading.Thread(target=self.run)
         self.tid.setDaemon(True)
         self.tid.start()
+        self.flag = 0  # 0: released 1: set/secured
 
     def read_channel(self, reason):
         ch = int(reason.split('_')[1])
@@ -163,68 +168,87 @@ class MyDriver(Driver):
         # FILTER00-02 are for choice buttons
         elif reason in filter_separate_chs:
             filt = int(reason[-1])
-            # note even if in arduino script the return type is int, when it returns to rpi via serial, the transmitted data type is always string, so cast it to int is necessay
+            # reversed logic: high voltage is 0 on MEDM, low is 1
             value = 1 - int(self.ard.get_port(
-                ch * arduino_mega.NUM_GAINS_PER_CH + arduino_mega.NUM_GAINS_PER_CH + filt))
-        print(f"reason: {reason}, value: {value}")
-        self.read_times += 1
-        print(f"{self.read_times} times")
+                start_port + arduino_mega.NUM_GAINS_PER_CH + filt))
+        # # debug purpose
+        # print(f"reason: {reason}, value: {value}")
+        # self.read_times += 1
+        # print(f"{self.read_times} times")
         self.setParam(reason, value)
+        # self.updatePV(reason) # read single
         self.updatePVs()
-        # sleep(0.001)
         return value
 
     def write(self, reason, value):
         ch = int(reason.split('_')[1])
+        while True:
+            if self.flag != 0:
+                continue  # maybe can also use sleep here
+            else:
+                # set the flag and stop reading from interfering
+                self.flag = 1
+                if reason in gain_chs:
+                    try:
+                        ports = [ch * arduino_mega.NUM_PORTS_PER_CH +
+                                 _ for _ in range(arduino_mega.NUM_GAINS_PER_CH)]
+                        vals = bin(
+                            (max_gain - value) // 3)[2:].zfill(arduino_mega.NUM_GAINS_PER_CH)
+                        for p in range(len(ports)):
+                            v = int(vals[p])
+                            setSuccessful = self.ard.set_port(ports[p], v)
+                            if not setSuccessful:
+                                print('Error setting port ' + str(ports[p]))
+                    except Exception as e:
+                        print(e)
 
-        if reason in gain_chs:
-            try:
-                ports = [ch * arduino_mega.NUM_PORTS_PER_CH +
-                         _ for _ in range(arduino_mega.NUM_GAINS_PER_CH)]
-                vals = bin(
-                    (max_gain - value) // 3)[2:].zfill(arduino_mega.NUM_GAINS_PER_CH)
-                for p in range(len(ports)):
-                    # result = self.ard.set_port(ports[p], int(vals[p]))
-                    # print(f"Result type: {type(result)}, value: {result}")
-                    # if result != '0':
-                    v = int(vals[p])
-                    if not self.ard.set_port(ports[p], v):
-                        print('Error setting port ' + str(ports[p]))
-            except Exception as e:
-                print(e)
-            finally:
-                # self.read(reason)
-                # self.read(reason + '_RB')
-                pass
+                elif reason in filter_separate_chs:
+                    try:
+                        filt = int(reason[-1])
+                        port = ch * arduino_mega.NUM_PORTS_PER_CH + arduino_mega.NUM_GAINS_PER_CH + filt
+                        v = 1 - value
+                        setSuccessful = self.ard.set_port(port, v)
+                        if not setSuccessful:
+                            print('Error setting port ' + str(port))
+                    except Exception as e:
+                        print(e)
+                self.setParam(reason, value)
+                # self.updatePV(reason)
+                self.updatePVs()
+            self.flag = 0
+            break
 
-        elif reason in filter_separate_chs:
-            try:
-                filt = int(reason[-1])
-                port = ch * arduino_mega.NUM_PORTS_PER_CH + arduino_mega.NUM_GAINS_PER_CH + filt
-                if not self.ard.set_port(port, value):
-                    # if self.ard.set_port(port, 1 - value) != '0':
-                    print('Error setting port ' + str(port))
-            except Exception as e:
-                print(e)
-            finally:
-                pass
-                # self.read(reason)
-                # self.read(reason[: -2] + 'S')
-                # self.read(reason[: -2] + 'S_RB')
-        self.setParam(reason, value)
-        self.read(reason)
-        self.updatePVs()
+    # def run(self):
+    #     while True:
+    #         elapsed_time = time() - self.time_start
+    #         print(f"{elapsed_time} has passed...")
+    #         while elapsed_time > 5:
+    #             if self.flag != 0:
+    #                 continue
+    #             else:
+    #                 self.flag = 1
+    #             # if flag is set,
+    #             # if flag is not set, set the flag and
+    #                 for ch in all_chs:
+    #                     print(f"Reading: {ch}")
+    #                     self.read_channel(ch)
+    #                 self.time_start = time()
+    #                 elapsed_time = time() - self.time_start
+    #                 self.flag = 0
 
     def run(self):
         while True:
-            try:
-                for ch in all_chs:
-                    print(f"Reading: {ch}")
-                    self.read_channel(ch)
-                    sleep(.05)
-            except Exception as e:
-                print(f"ERROR: {str(e)}")
+            # read all channels every interval time, note sleep is for this single thread
+            sleep(self.interval)
+            if self.flag != 0:
                 continue
+            else:
+                self.flag = 1
+                for ch in all_chs:
+                    # print(f"Reading: {ch}")
+                    self.read_channel(ch)
+                print(self.ard)
+                self.flag = 0
 
 
 if __name__ == '__main__':
