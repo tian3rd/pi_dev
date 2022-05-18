@@ -28,7 +28,7 @@ class ArduinoMega(object):
         self.port = port
         self.baudrate = baudrate
         self.ser = serial.Serial(port=self.port, baudrate=baudrate)
-        print(self.__class__.__name__ + ' connected')
+        print(self.__repr__())
         print(self.__str__())
 
     def send_command(self, command: str) -> str:
@@ -46,17 +46,13 @@ class ArduinoMega(object):
         for ch in range(NUM_CHS):
             vga_info += "Channel {} -> ".format(chr(ch + ord('A')))
             for p in range(NUM_PORTS_PER_CH):
-                port = ch * NUM_CHS + p
+                port = ch * NUM_PORTS_PER_CH + p
                 arduino_info += "pin{:02d}: {} | ".format(
                     start_pin + port, outputs_status[port])
                 vga_info += "{} | ".format(outputs_status[port])
             arduino_info += "\n"
             vga_info += "\n"
-        return arduino_info + '\n' + vga_info
-
-        # first show Arduino pin status from pin 2 to pin 65
-
-        # then show the corresponding VGA board status
+        return '\n' + arduino_info + '\n' + vga_info + '\n' + '- ' * 30
 
     def __repr__(self) -> str:
         return self.__class__.__name__ + "(" + self.port + ") at " + str(self.baudrate)
@@ -71,6 +67,7 @@ class ArduinoMega(object):
         '''
         if port < 0 or port > 63:
             raise BaseException("Port must be between 0 and 63")
+        # note even if in arduino script the return type is int, when it returns to rpi via serial, the transmitted data type is always string, so cast it to int is necessay
         result = int(self.send_command("R{:02d}".format(port)))
         return result
 
@@ -80,11 +77,10 @@ class ArduinoMega(object):
         if port < 0 or port > 31:
             raise BaseException("Port must be between 0 and 31")
         self.send_command("W{:02d}{:01d}".format(port, value))
-        sleep(DELAY_TIME)
         if int(self.get_port(port)) != value:
             print("Failed to set port {} to {}".format(port, value))
             return False
-        print(f"Successfully set port{port} to {value}")
+        # print(f"Successfully set port{port} to {value}")
         return True
 
     def get_output_ports(self) -> str:
