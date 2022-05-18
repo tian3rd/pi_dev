@@ -5,7 +5,7 @@ import os.path
 from datetime import datetime as dt
 import systemd.daemon
 import threading
-from time import sleep
+from time import sleep, time
 from pcaspy import Driver, SimpleServer
 
 
