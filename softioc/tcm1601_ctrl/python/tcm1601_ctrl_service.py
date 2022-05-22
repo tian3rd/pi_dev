@@ -3,24 +3,24 @@
 
 from pcaspy import Driver, SimpleServer
 from time import sleep, time
-import logging
 from datetime import datetime as dt
 import systemd.daemon
 import os.path
 import threading
 
-import Tcm1601
+import TCM1601
+
+SPD_UPPER = 600 # upper limit for the pump is 600Hz
 
 script_name = os.path.basename(__file__)
 print('--- Running ' + script_name + ' ---')
 
 # EPICS channel for TCM1601 controller
 IFO = 'N1'
-SYSTEM = 'FLX'
-SUBSYS = 'TNE_TCM1601'
+SYSTEM = 'VAC'
+SUBSYS = 'FLX_TCM1601'
 
-# controllerPrefix = 'N1:VAC-TNE_TCM1601_'
-# rename the channel name prefix to 'N1:FLX-TNE_TCM1601_'
+# controllerPrefix = 'N1:VAC-FLX_TCM1601'
 controllerPrefix = IFO + ':' + SYSTEM + '-' + SUBSYS + '_'
 
 controllerDB = {
@@ -37,11 +37,7 @@ controllerDB = {
     'ELAPSED_TIME': {'type': 'str'},
 }
 
-# local logging files for quick debugging
-logging.basicConfig(filename=dt.today().strftime('%Y-%m-%d') + '_log', filemode='a',
-                    format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
-
-ini_file_name = 'vac_tne_ini_content.txt'
+ini_file_name = 'tcm1601_ctrl_ini_content.txt'
 ini_file_dirpath_local_write = os.path.dirname(
     os.path.realpath(__file__))[:-7] + '/ini/'
 ini_file_dirpath_controller = '/opt/rtcds/anu/n1/softioc/tcm1601_ctrl/ini/'
@@ -56,21 +52,23 @@ def generate_ini_file(ini_file_dirpath, controllerDB):
     '''
     now = dt.now()
     with open(ini_file_dirpath + ini_file_name, 'w') as ini_file:
-        ini_file.writelines(["# Auto generated file by " + script_name + "\n",
+        ini_file.writelines([" ##########################################\n",
+                             "# " + ini_file_name + "\n",
+                             "# Auto generated file by " + script_name + "\n",
                              "# at " +
                              now.strftime("%Y-%m-%d %H:%M:%S") + "\n",
                              "#\n"
                              "# Using the default parameters\n",
-                             "[default]\n",
-                             "gain=1.00\n",
-                             "acquire=3\n",
-                             "dcuid=52\n",
-                             "ifoid=0\n",
-                             "datatype=4\n",
-                             "datarate=16\n",
-                             "offset=0\n",
-                             "slope=1.0\n",
-                             "units=undef\n",
+                             "# [default]\n",
+                             "# gain=1.00\n",
+                             "# acquire=3\n",
+                             "# dcuid=52\n",
+                             "# ifoid=0\n",
+                             "# datatype=4\n",
+                             "# datarate=16\n",
+                             "# offset=0\n",
+                             "# slope=1.0\n",
+                             "# units=undef\n",
                              "#\n",
                              "#\n",
                              "# Following content lines to be manually added to the\n",
@@ -87,10 +85,8 @@ def generate_ini_file(ini_file_dirpath, controllerDB):
 class MyDriver(Driver):
     def __init__(self, controller_address='/dev/ttyUSB0'):
         super().__init__()
-        self.controller = Tcm1601.TCM1601(controller_address)
+        self.controller = TCM1601.TCM1601(controller_address)
         self.script_start = time()
-        self.start_timing = -1
-        self.elapsed = -2
         self.tid = threading.Thread(target=self.run)
         self.tid.setDaemon(True)
         self.tid.start()
@@ -109,7 +105,7 @@ class MyDriver(Driver):
             elif reason == 'ACT_ROT_SPD':
                 value = self.controller.get_act_rotspd()
                 spd = int(value.split()[0])
-                if spd > 1 and spd < 599:
+                if spd > 1 and spd < SPD_UPPER - 1:
                     self.elapsed = time() - self.start_timing
             elif reason == 'TMP_I_MOT':
                 value = self.controller.get_motor_current()
@@ -126,7 +122,6 @@ class MyDriver(Driver):
         except Exception as e:
             err_msg = "ERROR occurred while reading: {}".format(str(e))
             print(err_msg)
-            logging.error(err_msg)
 
         self.setParam(reason, value)
         self.updatePVs()
@@ -151,7 +146,6 @@ class MyDriver(Driver):
         except Exception as e:
             err_msg = "ERROR occurred while writing: {}".format(str(e))
             print(err_msg)
-            logging.error(err_msg)
         self.setParam(reason, value)
         self.read(reason)
         self.updatePVs()
@@ -167,26 +161,22 @@ class MyDriver(Driver):
                         reason + ": " + str(self.read_channels(reason)))
                     sleep(.1)
                 self.updatePVs()
-                if time() - self.script_start > 2:
-                    logging.info(f'{" | ".join(current_status)}')
-                    self.script_start = time()
             except Exception as e:
-                err_msg = "ERROR occurred while running the script: {}".format(
-                    str(e))
+                err_msg = "ERROR occurred while running the script: {}".format(str(e))
                 print(err_msg)
-                logging.error(err_msg)
                 continue
 
 
 if __name__ == '__main__':
     print('--- generate .ini file content in ' + ini_file_name + ' ---')
-    # local_write for local testing
-    generate_ini_file(ini_file_dirpath_local_write, controllerDB)
+    # # local_write for local testing
+    # generate_ini_file(ini_file_dirpath_local_write, controllerDB)
     # # if mounted, use cds file write instead
-    # generate_ini_file(ini_file_dirpath_controller, controllerDB)
+    generate_ini_file(ini_file_dirpath_controller, controllerDB)
 
     print('--- now starting server ---')
 
+    # wait for the system to be ready
     sleep(1)
 
     server = SimpleServer()
