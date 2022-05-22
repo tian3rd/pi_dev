@@ -1,31 +1,34 @@
 # systemd unit file for the vacuum controller service
 #
 # Installation
-# sudo cp vac_tne_service.service /etc/systemd/system/
+# sudo cp tcm1601_ctrl_service.service /etc/systemd/system/
 #
-# sudo mkdir /usr/local/lib/vac_tne_service
-# sudo cp vac_tne_service.py /usr/local/lib/vac_tne_service/lsc_vga_ctrl.py
+# sudo mkdir /usr/local/lib/tcm1601_ctrl_service
+# sudo cp tcm1601_ctrl_service.py /usr/local/lib/tcm1601_ctrl_service/tcm1601_ctrl_service.py
+# sudo cp TCM1601.py /usr/local/lib/tcm1601_ctrl_service/TCM1601.py
 #
 # location of this file
-# /etc/systemd/system/vac_tne_service.service
+# /etc/systemd/system/tcm1601_ctrl_service.service
 #
 # enable with
-# $ sudo systemctl enable vac_tne_service.service
+# $ sudo systemctl enable tcm1601_ctrl_service.service
 #
 # start with
-# $ sudo systemctl start vac_tne_service.service
+# $ sudo systemctl start tcm1601_ctrl_service.service
 #
 # check status with 
-# $ sudo systemctl status vac_tne_service.service
+# $ sudo systemctl status tcm1601_ctrl_service.service
 
 [Unit]
 # Human readable name of the unit
 Description=Python Vacuum Controller TCM1601 Service
+# Bring the service up only after connecting to CDS network
+After=network.target
 
 
 [Service]
 # Command to execute when the service is started
-ExecStart=/usr/bin/python3 /usr/local/lib/vac_tne_service/vac_tne_service.py
+ExecStart=/usr/bin/python3 /usr/local/lib/tcm1601_ctrl_service/tcm1601_ctrl_service.py
 
 # Disable Python's buffering of STDOUT and STDERR, so that output from the
 # service shows up immediately in systemd's logs
