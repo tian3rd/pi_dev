@@ -1,0 +1,30 @@
+ ##########################################
+# tcm1601_ctrl_ini_content.txt
+# Auto generated file by tcm1601_ctrl_service.py
+# at 2022-05-22 20:52:25
+#
+# Using the default parameters
+# [default]
+# gain=1.00
+# acquire=3
+# dcuid=52
+# ifoid=0
+# datatype=4
+# datarate=16
+# offset=0
+# slope=1.0
+# units=undef
+#
+#
+# Following content lines to be manually added to the
+# edc.ini file, which points to /opt/rtcds/anu/n1/chans/daq/N1FE1_EDC.ini
+# Then the standalone_edc service (rts-edc.service on n1fe1) and the daqd
+# service (rts-daqd.service on the n1fb10) will need to be restarted to
+# the changes into effect.
+#
+[N1:VAC-FLX_TCM1601_MOTOR_TMP]
+[N1:VAC-FLX_TCM1601_ERROR_LAST]
+[N1:VAC-FLX_TCM1601_ACT_ROT_SPD]
+[N1:VAC-FLX_TCM1601_TMP_I_MOT]
+[N1:VAC-FLX_TCM1601_TMS_ACT_TMP]
+[N1:VAC-FLX_TCM1601_ELAPSED_TIME]
